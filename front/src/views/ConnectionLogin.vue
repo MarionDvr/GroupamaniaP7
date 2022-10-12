@@ -16,19 +16,21 @@
 
 <template>
     <TheHeader/>
-    <section class="LoginSection">
-        <figure class="LoginSection__logo">
-                    <img src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
-                </figure>
-        <form class="LoginSection__form">
-            <h2>Connexion</h2>
-            <label for="emailLogin" class="LoginSection__form__label">E-mail</label>
-            <input name="emailLogin" type="email" v-model="dataLogin.email" class="LoginSection__form__input" required>
-            <label for="passwordLogin" class="LoginSection__form__label">Mot de passe</label>
-            <input name="passwordLogin" type="password" v-model="dataLogin.password" class="LoginSection__form__input" required>
-            <button type="submit">Se connecter</button>
-        </form>
-    </section>
+    <main>
+        <section class="LoginSection">
+            <figure class="LoginSection__logo">
+                        <img src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
+                    </figure>
+            <form class="LoginSection__form">
+                <h2>Connexion</h2>
+                <label for="emailLogin" class="LoginSection__form__label">E-mail</label>
+                <input name="emailLogin" type="email" v-model="dataLogin.email" class="LoginSection__form__input" required>
+                <label for="passwordLogin" class="LoginSection__form__label">Mot de passe</label>
+                <input name="passwordLogin" type="password" v-model="dataLogin.password" class="LoginSection__form__input" required>
+                <button type="submit">Se connecter</button>
+            </form>
+        </section>
+    </main>
 </template>
 <style lang="scss">
     $couleur-primaire: #FD2D01;
@@ -88,5 +90,23 @@
         width: 200px;
         box-shadow: 3px 2px 9px 1px #CAC3C3;
         cursor: pointer;
+    }
+
+    @media screen and (max-width: 768px) /* Smartphone */
+    {
+        .LoginSection {
+            padding:0;
+            &__logo {
+                display: none;
+            }
+            &__form {
+                width: 100%;
+                margin: 5%;
+                &__input{
+                    width: 90%;
+                }
+            }
+
+        }
     }
 </style>

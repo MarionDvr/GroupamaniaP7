@@ -16,7 +16,9 @@
         </router-link>
         <div class="header__nav">
             <router-link to="/ConnectionSignin" class="header__nav__link">S'inscrire</router-link>
+            <router-link to="/ConnectionSignin" class="pictoConnection"><i class="fa-solid fa-user-plus"></i></router-link>
             <router-link to="/ConnectionLogin" class="header__nav__link">Se connecter</router-link>
+            <router-link to="/ConnectionLogin" class="pictoConnection"><i class="fa-solid fa-circle-user"></i></router-link>
         </div>
     </header>
 </template>
@@ -37,8 +39,9 @@
         padding: 0;
         height: 100px;
             &__logo {
-                margin-left: 40%;
+                margin-left: auto;
                 margin-right: auto;
+                padding-left: 5%;
                 &__img {
                 width: 300px;
                 }
@@ -57,5 +60,46 @@
                 }
             }
             
+    }
+
+    .pictoConnection {
+        display: none;
+    }
+
+    @media screen and (max-width: 1000px) /* Petit écran - Tablette */
+    {
+        .header {
+            &__logo {
+                margin-left: 0;
+                padding-left: 0;
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) /* Smartphone */
+    {
+        .header {
+            &__logo {
+                margin-top: 10px;
+                    &__img {
+                        max-width: 100%;
+                        min-width: 270px;
+                    }
+                }
+            &__nav {
+                display: flex;
+                justify-content: space-between;
+                &__link {
+                    display: none;
+                }
+            }
+        }
+        .pictoConnection {
+            margin-bottom: 10px;
+            display: block;
+            margin-right:60px;
+            color: $couleur-tertiaire;
+            font-size: 175%;
+        }
     }
 </style>

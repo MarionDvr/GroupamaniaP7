@@ -1,5 +1,5 @@
 <script>
-    import TheHeader from "../components/TheHeader";
+    import TheHeader from "@/components/TheHeader";
     export default {
         name: "HomeConnexion",
         components: { TheHeader }
@@ -49,7 +49,6 @@
         margin: 0;
         &__logo {
             width: 35%;
-            display: flex;
         }
         &__title {
             margin-top: 10%;
@@ -77,4 +76,34 @@
         }
         
         }
+    @media screen and (max-width: 1000px) /* Petit écran - Tablette */
+    {
+        .connexionSection {
+            &__logo {
+                display:none;
+            }
+            &__title {
+                margin: auto;
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) /* Smartphone */
+    {
+        .connexionSection {
+            padding:0;
+            &__title {
+                h1 {
+                    width: 80%;
+                    margin-right: auto;
+                    margin-left: auto;
+                    font-size: 20pt;
+                    padding: 25px;
+                }
+                h2 {
+                    padding: 15px;
+                }
+            }
+        } 
+    }
 </style>

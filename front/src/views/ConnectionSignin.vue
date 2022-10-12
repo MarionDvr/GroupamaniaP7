@@ -20,21 +20,23 @@
 
 <template>
     <TheHeader/>
-    <section class="SigninSection">
-        <figure class="SigninSection__logo">
-                    <img src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
-                </figure>
-        <form class="SigninSection__form">
-            <h2>Connexion</h2>
-            <label for="emailSignin" class="SigninSection__form__label">E-mail</label>
-            <input name="emailSignin" type="email" v-model="dataSignin.email" class="SigninSection__form__input" required>
-            <p id="emailErrorMsg"></p>
-            <label for="passwordSignin" class="SigninSection__form__label">Mot de passe</label>
-            <input name="passwordSignin" type="password" v-model="dataSignin.password" class="SigninSection__form__input" required>
-            <p id="passwordErrorMsg"></p>
-            <button type="submit">S'inscrire</button>
-        </form>
-    </section>
+    <main>
+        <section class="SigninSection">
+            <figure class="SigninSection__logo">
+                        <img src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
+                    </figure>
+            <form class="SigninSection__form">
+                <h2>Inscription</h2>
+                <label for="emailSignin" class="SigninSection__form__label">E-mail</label>
+                <input name="emailSignin" type="email" v-model="dataSignin.email" class="SigninSection__form__input" required>
+                <p id="emailErrorMsg"></p>
+                <label for="passwordSignin" class="SigninSection__form__label">Mot de passe</label>
+                <input name="passwordSignin" type="password" v-model="dataSignin.password" class="SigninSection__form__input" required>
+                <p id="passwordErrorMsg"></p>
+                <button type="submit">S'inscrire</button>
+            </form>
+        </section>
+    </main>
 </template>
 
 <style lang="scss">
@@ -77,7 +79,7 @@
                 border: none;
                 width: 70%;
                 margin-top: 10px;
-                margin-bottom: 55px;
+                margin-bottom: 25px;
                 background: #FFFFFF;
                 box-shadow: 2px 2px 7px 1px #D8D3D3 inset;
             }
@@ -93,11 +95,28 @@
         color: $couleur-tertiaire;
         font-size: 14pt;
         border: none;
-        margin-top: 20px;
         padding: 10px;
         width: 200px;
         box-shadow: 3px 2px 9px 1px #CAC3C3;
         cursor: pointer;
     }
+
+    @media screen and (max-width: 768px) /* Smartphone */
+    {
+        .SigninSection {
+            padding:0;
+            &__logo {
+                display: none;
+            }
+            &__form {
+                width: 100%;
+                margin: 5%;
+                &__input{
+                    width: 90%;
+                }
+            }
+
+        }
+    } 
         
 </style>
