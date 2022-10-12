@@ -6,8 +6,8 @@
         data() {
             return {
                 dataSignin: {
-                    email: "",
-                    password: ""
+                    email: null,
+                    password: null
                 }
             }
         },

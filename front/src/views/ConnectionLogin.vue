@@ -6,8 +6,8 @@
         data() {
             return {
                 dataLogin: {
-                    email: "",
-                    password: ""
+                    email: null,
+                    password: null
                 }
             }
         }
