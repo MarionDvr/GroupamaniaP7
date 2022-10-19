@@ -1,12 +1,12 @@
 <script>
-    import TheHeader from "@/components/TheHeader";
+    import TheHeader from "@/components/TheHeader.vue";
     export default {
         name: "HomeConnexion",
         components: { TheHeader }
     }
 </script>   
 <template>
-    <TheHeader/>
+    <TheHeader isConnected="false"/>
     <main>
         <section class="connexionSection">
             <figure class="connexionSection__logo">

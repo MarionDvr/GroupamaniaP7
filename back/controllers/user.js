@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 //S'enregistrer
-exports.signup = (req, res, next) => {
+exports.signin = (req, res, next) => {
     //Hachage du mot de passe
     bcrypt.hash(req.body.password, 10)
         .then(hash => {

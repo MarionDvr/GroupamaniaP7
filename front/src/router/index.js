@@ -1,20 +1,28 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-
+import HomeConnection from "../views/HomeConnection.vue";
+import ConnectionSigin from "../views/ConnectionSignin.vue";
+import ConnectionLogin from "../views/ConnectionLogin.vue";
+import HomeConnected from "../views/HomeConnected.vue";
 const routes = [
   {
     path: '/',
     name: 'HomeConnection',
-    component: () => import(/* webpackChunkName: "HomeConnection" */'../views/HomeConnection.vue')
+    component: HomeConnection
   },
   {
     path: '/connectionSignin',
     name: 'ConnectionSignin',
-    component: () => import(/* webpackChunkName: "ConnectionSignin" */'../views/ConnectionSignin.vue')
+    component: ConnectionSigin
   },
   {
     path: '/connectionLogin',
     name: 'ConnectionLogin',
-    component: () => import(/* webpackChunkName: "ConnectionLogin" */'../views/ConnectionLogin.vue')
+    component: ConnectionLogin
+  },
+  {
+    path: '/homeConnected',
+    name: 'HomeConnected',
+    component: HomeConnected
   }
   
 ]
