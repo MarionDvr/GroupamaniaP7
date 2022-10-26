@@ -1,9 +1,9 @@
 <script>
     export default {
         name: "TheHeader",
-        methods: {
-            props:{
-                isConnected: Boolean
+        data() {
+            return {
+                props:["isConnected"]
             }
         }
     }
@@ -11,7 +11,7 @@
 
 <template>  
     <header class="header">
-       <!-- <section class="headerConnection">
+      <!-- <nav class="headerConnection">
             <router-link to="/" class="headerConnection__logo">
                 <figure>
                     <img class="headerConnection__img" src="../assets/logoGroupamania.svg" alt="logo Groupamania"/>
@@ -23,8 +23,8 @@
                 <router-link to="/ConnectionLogin" class="headerConnection__nav__link">Se connecter</router-link>
                 <router-link to="/ConnectionLogin" class="pictoConnection"><i class="fa-solid fa-circle-user"></i></router-link>
             </div>
-        </section> -->
-        <section class="headerConnected">
+        </nav> -->
+        <nav class="headerConnected">
             <router-link to="/homeConnected" class="headerConnected__picto"><i class="fa-sharp fa-solid fa-house"></i></router-link>
             <router-link to="/createPost" class="headerConnected__picto"><i class="fa-solid fa-plus"></i></router-link>
             <figure>
@@ -44,7 +44,7 @@
                     </li>
                 </ul>
             </div>
-        </section>
+        </nav>
     </header>
 </template>
 

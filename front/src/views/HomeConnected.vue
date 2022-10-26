@@ -7,7 +7,7 @@
     }
 </script>   
 <template>
-    <TheHeader isConnected="true" />
+    <TheHeader/>
     <main class="section">
         <UsersPost/>
     </main>

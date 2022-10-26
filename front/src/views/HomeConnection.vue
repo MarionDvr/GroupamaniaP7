@@ -6,7 +6,7 @@
     }
 </script>   
 <template>
-    <TheHeader isConnected="false"/>
+    <TheHeader/>
     <main>
         <section class="connexionSection">
             <figure class="connexionSection__logo">
