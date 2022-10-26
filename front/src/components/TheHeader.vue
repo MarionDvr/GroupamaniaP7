@@ -3,7 +3,10 @@
         name: "TheHeader",
         data() {
             return {
-                props:["isConnected"]
+                props: {
+                    NewUser: Boolean,
+                    isConnected: false   
+                }
             }
         }
     }
@@ -11,7 +14,7 @@
 
 <template>  
     <header class="header">
-      <!-- <nav class="headerConnection">
+      <nav v-if="!isConnected" class="headerConnection">
             <router-link to="/" class="headerConnection__logo">
                 <figure>
                     <img class="headerConnection__img" src="../assets/logoGroupamania.svg" alt="logo Groupamania"/>
@@ -23,8 +26,8 @@
                 <router-link to="/ConnectionLogin" class="headerConnection__nav__link">Se connecter</router-link>
                 <router-link to="/ConnectionLogin" class="pictoConnection"><i class="fa-solid fa-circle-user"></i></router-link>
             </div>
-        </nav> -->
-        <nav class="headerConnected">
+        </nav> 
+        <nav v-else class="headerConnected">
             <router-link to="/homeConnected" class="headerConnected__picto"><i class="fa-sharp fa-solid fa-house"></i></router-link>
             <router-link to="/createPost" class="headerConnected__picto"><i class="fa-solid fa-plus"></i></router-link>
             <figure>

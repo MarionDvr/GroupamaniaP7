@@ -1,4 +1,6 @@
 <script>
+    import axios from "axios"
+    import { response } from "express";
     export default {
         name: "FormSignin",
         data() {
@@ -7,11 +9,12 @@
                     email: "",
                     password: ""
                 },
-                errors: []
+                errors: [],
+
             }
         },
         methods: {
-            addUser() {
+            async addUser() {
                 this.errors = [];
                 if(!this.dataSignin.email) {
                     this.errors.push("Email requise");
@@ -26,22 +29,18 @@
                     "email": this.dataSignin.email,
                     "password": this.dataSignin.password
                 }
-                fetch("http://localhost:3000/api/user/signin", {
-                    method: "POST",
+                let NewUser = await axios.post("http://localhost:3000/user/signin",
+                {
                     headers: {
                         "Accept": "application/json",
                         "Content-Type" : "application/json",
+                        "Access-Control-Allow-Origin": "*"
                     },
+                    
                     body: JSON.stringify(inputData),
                 })
-                .then((res) => res.json())
-                .then(() => {
-                    document.location = '/HomeConnected';
-                })
-                .catch(function(erreur) {
-                    console.error('Une erreur est survenue' + erreur);
-                });
-
+                .then((response) )
+                console.log(NewUser)
             }
         }
     }
@@ -58,7 +57,7 @@
                 <input name="emailSignin" type="email" v-model="dataSignin.email" class="SigninSection__form__input" required>
                 <label for="passwordSignin" class="SigninSection__form__label">Mot de passe</label>
                 <input name="passwordSignin" type="password" v-model="dataSignin.password" class="SigninSection__form__input" required>
-                <p id="SigninErrorMsg" v-for="error in errors" v-if="errors.length">{{ error }}</p>
+                <!-- <p id="SigninErrorMsg" v-for="error in errors" v-if="errors.length">{{ error }}</p> -->
                 <button type="submit" @click="addUser()">S'inscrire</button>
             </form>
         </section>

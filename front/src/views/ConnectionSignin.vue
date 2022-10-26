@@ -8,7 +8,7 @@
 </script>
 
 <template>
-    <TheHeader isConnected="false"/>
+    <TheHeader/>
     <FormSignin/>
 </template>
 

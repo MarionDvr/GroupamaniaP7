@@ -12,29 +12,15 @@
                     title: "Nouvelle déco",
                     imageUrl: "../assets/test2.webp",
                     description: "Un nouveau tableau dans la salle de pose Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore"
-                }
+                },
+                isDeployed: false  
             }
         }
     }
 </script>
 <template>
     <section class="UsersPosts">
-        <article class="postClosed">
-            <div class="postClosed__user">
-                <figure class="postClosed__user__img">
-                    <img src="{{ user.imageUrl }}"/>
-                </figure>
-                <p class="postClosed__user__name">{{ user.firstName }}</p>
-                <p class="postClosed__user__name">{{ user.lastName }}</p>
-            </div>
-            <div class="postClosed__elements">
-                <h2> {{ post.title }}</h2>
-                <figure class="postClosed__elements__img">    
-                    <img src="{{ post.imageUrl }}"/>
-                </figure>
-                <a class="postClosed__elements__arrow"><i class="fa-solid fa-chevron-down"></i></a>
-            </div>
-        </article>
+        
         <article class="postOpened">
             <div class="postOpened__user">
                 <figure class="postOpened__user__img">
@@ -43,18 +29,26 @@
                 <p class="postOpened__user__name">{{ user.firstName }}</p>
                 <p class="postOpened__user__name">{{ user.lastName }}</p>
             </div>
-            <div class="postOpened__elements">
-                <h2> {{ post.title }}</h2>
-                <figure class="postOpened__elements__img">    
-                    <img src="{{ post.imageUrl }}"/>
-                </figure>
-                <p>{{ post.description }}</p>
-            </div>
+            <transition name="slide">
+                <div v-if="isDeployed" class="postOpened__elements">
+                    <h2> {{ post.title }}</h2>
+                    <figure class="postOpened__elements__img">    
+                        <img src="{{ post.imageUrl }}"/>
+                    </figure>
+                    <p>{{ post.description }}</p>
+                </div>
+            </transition>
             <div class="postOpened__picto">
                 <i class="fa-solid fa-heart"></i>
                 <router-link to="/modifyPost"><i class="fa-sharp fa-solid fa-pen"></i></router-link>
                 <i class="fa-solid fa-trash"></i>
+                
             </div>
+            <div @click="isDeployed = !isDeployed" class="postClosed__elements__arrow">
+                <i v-if="isDeployed" class="fa-solid fa-chevron-up"></i>
+                <i v-else class="fa-solid fa-chevron-down"></i>
+            </div>
+           
         </article>
     </section>
 </template>
@@ -65,15 +59,37 @@
     $couleur-header: white;
     $background-grey:#F2F1F0;
 
-@keyframes MaskPost {
-    0%{
-        opacity: 100%
-    }
-    100%{
-        opacity: 0%;
-        visibility: hidden;
-    }
 
+    .slide-enter-active {
+   -moz-transition-duration: 0.3s;
+   -webkit-transition-duration: 0.3s;
+   -o-transition-duration: 0.3s;
+   transition-duration: 0.3s;
+   -moz-transition-timing-function: ease-in;
+   -webkit-transition-timing-function: ease-in;
+   -o-transition-timing-function: ease-in;
+   transition-timing-function: ease-in;
+}
+
+.slide-leave-active {
+   -moz-transition-duration: 0.3s;
+   -webkit-transition-duration: 0.3s;
+   -o-transition-duration: 0.3s;
+   transition-duration: 0.3s;
+   -moz-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+   -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+   -o-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+   transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+.slide-enter-to, .slide-leave {
+   max-height: 100px;
+   overflow: hidden;
+}
+
+.slide-enter, .slide-leave-to {
+   overflow: hidden;
+   max-height: 0;
 }
 
     .UsersPosts {
@@ -89,9 +105,6 @@
             display: flex;
             flex-direction: column;
             z-index: 2;
-            &:active{
-                        animation: MaskPost 500ms ;
-                    }
             &__user{
                 background: white;
                 border-radius: 40px 40px 0px 0px;
@@ -141,8 +154,7 @@
             margin-top: 0px;
             display: flex;
             width: 60%;
-            height: 400px;
-            overflow: hidden;
+            min-height: 400px;
             margin: 60px auto 0 auto;
             background: $couleur-secondaire;
             border-radius: 40px;
@@ -151,9 +163,6 @@
             flex-direction: column;
             z-index: 1;
             padding-bottom: 20px;
-            &:hover{
-                        animation: MaskPost 500ms forwards ease-in reverse;
-                    }
             &__user{
                 background: white;
                 border-radius: 40px 40px 0px 0px;
