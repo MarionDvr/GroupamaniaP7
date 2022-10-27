@@ -39,8 +39,12 @@
                     
                     body: JSON.stringify(inputData),
                 })
-                .then((response) )
-                console.log(NewUser)
+                .then(() => {
+                    console.log(NewUser);
+                })
+                .catch(function(erreur) {
+                    console.error('Une erreur est survenue' + erreur);
+                });
             }
         }
     }
