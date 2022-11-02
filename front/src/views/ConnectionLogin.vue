@@ -3,11 +3,16 @@
     import FormLogin from "@/components/FormLogin.vue";
     export default {
         name: "ConnectionLogin",
-        components: { TheHeader, FormLogin }
+        components: { TheHeader, FormLogin },
+        data() {
+            return {
+                    isConnected: false   
+            }
+        }
     }
 </script>
 
 <template>
-    <TheHeader isConnected="false"/>
+    <TheHeader/>
     <FormLogin/>
 </template>

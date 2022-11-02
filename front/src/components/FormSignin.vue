@@ -1,6 +1,5 @@
 <script>
     import axios from "axios"
-    import { response } from "express";
     export default {
         name: "FormSignin",
         data() {

@@ -3,7 +3,12 @@
     import FormSignin from "@/components/FormSignin.vue";
     export default {
         name: "ConnectionLogin",
-        components: { TheHeader, FormSignin }
+        components: { TheHeader, FormSignin },
+        data() {
+            return {
+                    isConnected: false   
+            }
+        }
     }
 </script>
 

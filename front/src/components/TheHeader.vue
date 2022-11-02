@@ -1,14 +1,6 @@
 <script>
     export default {
         name: "TheHeader",
-        data() {
-            return {
-                props: {
-                    NewUser: Boolean,
-                    isConnected: false   
-                }
-            }
-        }
     }
 </script>
 
@@ -70,7 +62,6 @@
             &__logo {
                 margin-left: auto;
                 margin-right: auto;
-                padding-left: 5%;
                 &__img {
                 width: 300px;
                 }
