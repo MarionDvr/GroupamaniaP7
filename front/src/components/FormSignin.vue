@@ -24,22 +24,23 @@
                 if(this.errors.length) {
                     return false;
                 }
-                let inputData = {
+                /*let inputData = {
                     "email": this.dataSignin.email,
                     "password": this.dataSignin.password
-                }
-                let NewUser = await axios.post("http://localhost:3000/user/signin",
+                }*/
+                axios.post("http://localhost:3000/api/user/signin",
                 {
-                    headers: {
+                    /*headers: {
                         "Accept": "application/json",
                         "Content-Type" : "application/json",
                         "Access-Control-Allow-Origin": "*"
                     },
-                    
-                    body: JSON.stringify(inputData),
+                    */
+                    email: this.dataSignin.email,
+                    password: this.dataSignin.password
+                    //body: JSON.stringify(inputData),
                 })
                 .then(() => {
-                    console.log(NewUser);
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);
