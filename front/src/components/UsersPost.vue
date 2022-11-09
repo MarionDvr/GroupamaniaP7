@@ -40,12 +40,13 @@
                 <i class="fa-solid fa-heart picto"></i>
                 <router-link to="/modifyPost"><i class="fa-sharp fa-solid fa-pen picto"></i></router-link>
                 <i class="fa-solid fa-trash picto"></i>
-                
             </div>
-            <div @click="isDeployed = !isDeployed" class="post__elements__arrow">
-                <i v-if="isDeployed" class="fa-solid fa-chevron-up"></i>
-                <i v-else class="fa-solid fa-chevron-down"></i>
-            </div>
+            <transition duration="{enter: '1000ms', leave: '2s' }">
+                <div @click="isDeployed = !isDeployed" class="post__elements__arrow">
+                    <i v-if="isDeployed" class="fa-solid fa-chevron-up"></i>
+                    <i v-else class="fa-solid fa-chevron-down"></i>
+                </div>
+            </transition>
            
         </article>
     </section>
@@ -56,7 +57,21 @@
     $couleur-tertiaire: #4E5166;
     $couleur-header: white;
     $background-grey:#F2F1F0;
-
+    
+@keyframes post {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    50%{
+        opacity: 1;
+    }
+    
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
 
     .UsersPosts {
         display: flex;
@@ -71,6 +86,7 @@
             display: flex;
             flex-direction: column;
             z-index: 2;
+            animation: post 500ms ease-in-out forwards;
             &__user{
                 background: $background-grey;
                 border-radius: 40px 40px 0px 0px;

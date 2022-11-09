@@ -9,14 +9,16 @@
     <TheHeader/>
     <main>
         <section class="connexionSection">
-            <figure class="connexionSection__logo">
-                <img src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
-            </figure>
-            <div class="connexionSection__title">
-                <h1>Bienvenue sur l'intranet de Groupamania !</h1>
-                <h2>Partager avec vos collègues</h2>
+            <div class="connexionSectionBefor">
+                <img class="connexionSectionBefor__Forme1" src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
+                <img class="connexionSectionBefor__Forme2" src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
             </div>
-            
+            <div class="connexionSectionAfter">
+                <div class="connexionSectionAfter__title">
+                    <h1>Bienvenue sur l'intranet de Groupamania !</h1>
+                    <h2>Votre réseau social d'entreprise</h2>
+                </div>
+            </div>
         </section>
     </main>
 </template>
@@ -34,76 +36,127 @@
         color: $couleur-tertiaire;
         margin: 0;
         }
+@keyframes Forme1 {
+    0% {
+        opacity: 1;
+        transform: translateX(0%);
+	}
+    100%{
+        opacity: 1;
+        transform: rotateY(180deg);
+        transform-style: preserve-3d;
+    }
+}
+@keyframes Forme2 {
+    0% {
+        opacity: 1;
+        transform: translateX(0%);
+	}
+    100%{
+        opacity: 1;
+        transform: translateX(-70%);
+    }
+}
+@keyframes Textes {
+    0%{
+        opacity: 0;
+        transform: translateX(0%);
+    }
+    45%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(100%);
+    }
+}
 
         
 
         /* main */
-
+        
         .connexionSection {
-        display: flex;
-        flex-wrap: wrap;
-        padding: 5% 0% 10% 3%;
-        height: 100%;
-        width: 100%;
-        background: $background-grey;
-        margin: 0;
-        &__logo {
-            width: 35%;
-        }
-        &__title {
-            margin-top: 10%;
-            margin-bottom: auto;
-            h1 {
-                background: $couleur-primaire;
-                color: white;
-                padding: 30px 50px 30px 50px;
-                font-size: 160%;
-                margin-bottom: 0;
-                z-index: 1;
+            background-image: url("../assets/HalfLogo.svg");
+            background-repeat: no-repeat;
+            background-size: 100%;
+            position: relative;
+            z-index:90;
+            display: flex;
+            .connexionSectionBefor {
+                position:relative;
+                z-index: 99;
+                margin-left: 30%;
+                &__Forme1 {
+                    opacity: 0;
+                    width: 500px;
+                    perspective: 1000px;
+                    transform-origin: 50%;
+                    animation: Forme1 1000ms infinite ease-in-out alternate;
+                    animation-iteration-count: 4;
+                }
+                &__Forme2 {
+                    width: 500px;
+                    opacity:0;
+                    margin-left: -500px;
+                    animation: Forme2 1000ms ease-in-out forwards;
+                    animation-delay: 4s;
+                }
             }
-            h2 {
-                background: white;
-                margin: -15px 25% 0 25%;
-                font-size: 120%;
-                padding: 20px;
-                text-align: center;
-                width: 40%;
+        
+            .connexionSectionAfter {
+                position:relative;
+                z-index: 2;
                 display: flex;
-                position: relative;
-                z-index: 3;
-                box-shadow: 3px 2px 9px 1px #847F7F;
+                flex-wrap: wrap;
+                padding: 5% 0% 10% 3%;
+                margin: 0;
+                &__title {
+                    margin-top: 100px;
+                    margin-bottom: auto;
+                    margin-left: -800px;
+                    h1 {
+                        opacity: 0;
+                        color: $couleur-primaire;
+                        font-size: 160%;
+                        z-index: 1;
+                        animation: Textes 500ms ease-in-out forwards;
+                        animation-delay: 5000ms;
+                    }
+                    h2 {
+                        opacity: 0;
+                        font-size: 120%;
+                        animation: Textes 500ms ease-in-out forwards;
+                        animation-delay: 5500ms;
+                    }
+                }
+                
             }
+
         }
         
-        }
     @media screen and (max-width: 1000px) /* Petit écran - Tablette */
     {
-        .connexionSection {
-            &__logo {
-                display:none;
+        .connexionSectionBefor {
+            &__Forme1 {
+                width: 200px;
             }
-            &__title {
-                margin: auto;
+            &__Forme2 {
+                width: 200px;
             }
         }
+        .connexionSectionAfter{
+                &__title {
+                    margin-left: -520px;
+                }
+            }
     }
 
     @media screen and (max-width: 768px) /* Smartphone */
     {
-        .connexionSection {
-            padding:0;
-            &__title {
-                h1 {
-                    width: 80%;
-                    margin-right: auto;
-                    margin-left: auto;
-                    font-size: 20pt;
-                    padding: 25px;
-                }
-                h2 {
-                    padding: 15px;
+            .connexionSectionAfter{
+                &__title {
+                    margin-left: -520px;
                 }
             }
-        } 
     }
 </style>

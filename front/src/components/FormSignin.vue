@@ -24,10 +24,6 @@
                 if(this.errors.length) {
                     return false;
                 }
-                /*let inputData = {
-                    "email": this.dataSignin.email,
-                    "password": this.dataSignin.password
-                }*/
                 axios.post("http://localhost:3000/api/user/signin",
                 {
                     /*headers: {
@@ -38,7 +34,6 @@
                     */
                     email: this.dataSignin.email,
                     password: this.dataSignin.password
-                    //body: JSON.stringify(inputData),
                 })
                 .then(() => {
                 })
@@ -127,6 +122,10 @@
         width: 200px;
         box-shadow: 3px 2px 9px 1px #CAC3C3;
         cursor: pointer;
+    }
+    button:hover {
+        background: $couleur-primaire;
+        color: white;
     }
 
     @media screen and (max-width: 768px) /* Smartphone */
