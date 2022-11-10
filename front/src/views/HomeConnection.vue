@@ -7,7 +7,7 @@
 </script>   
 <template>
     <TheHeader/>
-    <main>
+    <main id="main">
         <section class="connexionSection">
             <div class="connexionSectionBefor">
                 <img class="connexionSectionBefor__Forme1" src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
@@ -74,9 +74,11 @@
         
 
         /* main */
-        
+        #main {
+            background: none;
+        }
         .connexionSection {
-            background-image: url("../assets/HalfLogo.svg");
+            background-image: url('../assets/HalfLogo.svg');
             background-repeat: no-repeat;
             background-size: 100%;
             position: relative;

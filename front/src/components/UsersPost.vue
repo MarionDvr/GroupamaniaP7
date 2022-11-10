@@ -23,6 +23,9 @@ import axios from 'axios';
             AllPosts() {
                 axios.get("http://localhost:3000/api/posts/",
                 {})
+            },
+            deletePost() {
+                
             }
         }
     }
@@ -47,7 +50,7 @@ import axios from 'axios';
             <div class="post__picto" v-if="isDeployed">
                 <i class="fa-solid fa-heart picto"></i>
                 <router-link to="/modifyPost"><i class="fa-sharp fa-solid fa-pen picto"></i></router-link>
-                <i class="fa-solid fa-trash picto"></i>
+                <i class="fa-solid fa-trash picto" @click="deletePost()"></i>
             </div>
             <!--<transition duration="{enter: '1000ms', leave: '2s' }">-->
                 <div @click="isDeployed = !isDeployed" class="post__elements__arrow">
