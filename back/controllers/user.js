@@ -53,3 +53,29 @@ exports.login = (req, res, next) => {
         })
         .catch(error => res.status(500).json({ error }));
 };
+
+//Modifier le user
+exports.ModifyUser = (req, res, next) => {
+    //userObject regarde si req.file existe ou non
+  const userObject = req.file ? {
+    //Obtenir un objet utilisable grâce à JSON.parse
+    ...JSON.parse(req.body.sauce),
+    //Ajout de la nouvelle image
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+    //Sinon on traite req.body
+  } : { ...req.body };
+  User.findOne({ _id: req.params.id })
+    .then(user => {
+      //Si l'utilisateur n'est pas celui qui a créé la sauce, renvoie d'une erreur
+      if(user.userId != req.auth.userId) {
+        res.status(401).json({ message: "non autorisé" });
+      } else {
+        //Sinon mise à jour de la base de donnée
+        User.updateOne({ _id: req.params.id }, { ...userObject, _id: req.params.id })
+          .then(() => { res.status(200).json({ message: 'Utilisateur modifiée!' }); })
+          .catch( error => { res.status(401).json({ error })});
+      }
+    })
+    .catch( error => { res.status(400).json({ error })}); 
+
+};
