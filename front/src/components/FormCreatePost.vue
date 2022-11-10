@@ -1,9 +1,37 @@
 <script>
+    import axios from "axios"
     export default {
         name: "FormCreatePost",
         data() {
             return {
-                CreatePost: true
+                CreatePost: true,
+                dataPost: {
+                    title: "",
+                    text: "",
+                    imageUrl:""
+                }
+            }
+        },
+        methods: {
+            AddPost() {
+                axios.post("http://localhost:3000/api/posts/",
+                {
+                    title: this.dataPost.title,
+                    text: this.dataPost.text,
+                    imageUrl: this.dataPost.imageUrl
+                })
+                .then()
+                .catch()
+            },
+            ModifyPost() {
+                axios.put("http://localhost:3000/api/posts/:id",
+                {
+                    title: this.dataPost.title,
+                    text: this.dataPost.text,
+                    imageUrl: this.dataPost.imageUrl
+                })
+                .then()
+                .catch()
             }
         }
     }
@@ -14,12 +42,13 @@
             <h2 v-if="CreatePost">Ajouter votre post</h2>
             <h2 v-else>Modifier votre post</h2>
             <label for="Titre" class="form__label">Titre</label>
-            <input name="Titre" class="form__inputTitre"/>
+            <input name="Titre" class="form__inputTitre" v-model="dataPost.title"/>
             <label for="Image" class="form__label">Image</label>
             <input type="file" name="Image" class="form__inputImg"/>
             <label for="Texte" class="form__label">Texte</label>
-            <input name="Texte" class="form__inputText"/>
-            <button type="submit">Poster !</button>
+            <input name="Texte" class="form__inputText" v-model="dataPost.text"/>
+            <button type="submit" v-if="CreatePost" @click="AddPost()">Poster !</button>
+            <button type="submit" v-else @click="ModifyPost()">Modifier !</button>
         </form>
     </section>
 </template>

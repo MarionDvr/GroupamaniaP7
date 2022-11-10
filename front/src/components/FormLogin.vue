@@ -1,4 +1,5 @@
 <script>
+    import axios from "axios"
     export default {
         name: "FormLogin",
         data() {
@@ -8,7 +9,20 @@
                     password: ""
                 }
             }
-        
+        },
+        methods: {
+            async UserConnect() {
+                axios.post("http://localhost:3000/api/user/login",
+                {
+                    email: this.dataLogin.email,
+                    password: this.dataLogin.password
+                })
+                .then(() => {
+                })
+                .catch(function(erreur) {
+                    console.error('Une erreur est survenue' + erreur);
+                });
+            }
         }
     }
 </script>
@@ -24,7 +38,7 @@
                 <input name="emailLogin" type="email" v-model="dataLogin.email" class="LoginSection__form__input" required>
                 <label for="passwordLogin" class="LoginSection__form__label">Mot de passe</label>
                 <input name="passwordLogin" type="password" v-model="dataLogin.password" class="LoginSection__form__input" required>
-                <button type="submit">Se connecter</button>
+                <button type="submit" @click="UserConnect()">Se connecter</button>
             </form>
         </section>
     </main>

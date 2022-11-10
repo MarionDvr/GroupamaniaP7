@@ -13,7 +13,7 @@
             }
         },
         methods: {
-            async addUser() {
+            addUser() {
                 this.errors = [];
                 if(!this.dataSignin.email) {
                     this.errors.push("Email requise");
@@ -24,21 +24,15 @@
                 if(this.errors.length) {
                     return false;
                 }
-                axios.post("http://localhost:3000/api/user/signin",
+                axios.post("http://localhost:3000/api/auth/signin",
                 {
-                    /*headers: {
-                        "Accept": "application/json",
-                        "Content-Type" : "application/json",
-                        "Access-Control-Allow-Origin": "*"
-                    },
-                    */
                     email: this.dataSignin.email,
                     password: this.dataSignin.password
                 })
                 .then(() => {
+                    console.log('requete réussie')
                 })
-                .catch(function(erreur) {
-                    console.error('Une erreur est survenue' + erreur);
+                .catch(function() {
                 });
             }
         }
@@ -102,7 +96,7 @@
                 border: none;
                 width: 70%;
                 margin-top: 10px;
-                margin-bottom: 25px;
+                margin-bottom: 55px;
                 background: #FFFFFF;
                 box-shadow: 2px 2px 7px 1px #D8D3D3 inset;
             }

@@ -92,14 +92,14 @@
                     perspective: 1000px;
                     transform-origin: 50%;
                     animation: Forme1 1000ms infinite ease-in-out alternate;
-                    animation-iteration-count: 4;
+                    animation-iteration-count: 2;
                 }
                 &__Forme2 {
                     width: 500px;
                     opacity:0;
                     margin-left: -500px;
                     animation: Forme2 1000ms ease-in-out forwards;
-                    animation-delay: 4s;
+                    animation-delay: 2s;
                 }
             }
         
@@ -120,13 +120,13 @@
                         font-size: 160%;
                         z-index: 1;
                         animation: Textes 500ms ease-in-out forwards;
-                        animation-delay: 5000ms;
+                        animation-delay: 2700ms;
                     }
                     h2 {
                         opacity: 0;
                         font-size: 120%;
                         animation: Textes 500ms ease-in-out forwards;
-                        animation-delay: 5500ms;
+                        animation-delay: 3000ms;
                     }
                 }
                 

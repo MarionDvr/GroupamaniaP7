@@ -1,4 +1,5 @@
 <script>
+    import axios from "axios"
     import TheHeader from "@/components/TheHeader.vue";
     export default {
         name: "UsersProfil",
@@ -12,6 +13,33 @@
                     Job:"",
                     Description:""
                 }
+            }
+        },
+        methods: {
+            async userProfil() {
+                axios.post("http://localhost:3000/api/users/:id",
+                {
+                    FirstName: this.User.FirstName,
+                    LastName: this.User.LastName,
+                    Job: this.User.Job,
+                    Description: this.User.Description
+                })
+                .then(() => {
+                })
+                .catch(function(erreur) {
+                    console.error('Une erreur est survenue' + erreur);
+                });
+            },
+            async modifyUser() {
+                axios.put("http://localhost:3000/api/users/modify",
+                { 
+                    FirstName: this.User.FirstName,
+                    LastName: this.User.LastName,
+                    Job: this.User.Job,
+                    Description: this.User.Description
+                })
+                .then()
+                .catch();
             }
         }
     }
@@ -41,7 +69,7 @@
                 <input type="text" name="Description" v-model="User.Description"/>
                 <label for="Photo">Photo</label>
                 <input type="file" name="Photo"/>
-                <button type="submit">Modifier le profil</button>
+                <button @click="userProfil()" type="submit">Modifier le profil</button>
             </form>
         </article>
     </main>

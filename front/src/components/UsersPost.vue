@@ -1,4 +1,6 @@
 <script>
+import axios from 'axios';
+
     export default {
         name: "UsersPost",
         data(){
@@ -15,12 +17,18 @@
                 },
                 isDeployed: false  
             }
+        },
+        methods: {
+            //Fonction de distribution des posts de l'api
+            AllPosts() {
+                axios.get("http://localhost:3000/api/posts/",
+                {})
+            }
         }
     }
 </script>
 <template>
     <section class="UsersPosts">
-        
         <article class="post">
             <div class="post__user">
                 <figure class="post__user__img">
@@ -41,12 +49,12 @@
                 <router-link to="/modifyPost"><i class="fa-sharp fa-solid fa-pen picto"></i></router-link>
                 <i class="fa-solid fa-trash picto"></i>
             </div>
-            <transition duration="{enter: '1000ms', leave: '2s' }">
+            <!--<transition duration="{enter: '1000ms', leave: '2s' }">-->
                 <div @click="isDeployed = !isDeployed" class="post__elements__arrow">
                     <i v-if="isDeployed" class="fa-solid fa-chevron-up"></i>
                     <i v-else class="fa-solid fa-chevron-down"></i>
                 </div>
-            </transition>
+            <!--</transition>-->
            
         </article>
     </section>
@@ -76,6 +84,10 @@
     .UsersPosts {
         display: flex;
         flex-direction: column;
+        margin: 0;
+        padding: 0;
+        background: $background-grey;
+        height: 700px;
         .post{
             position: absolute;
             width: 60%;
@@ -88,7 +100,7 @@
             z-index: 2;
             animation: post 500ms ease-in-out forwards;
             &__user{
-                background: $background-grey;
+                background: white;
                 border-radius: 40px 40px 0px 0px;
                 box-shadow: 0px 6px 10px -7px rgb(151, 150, 150);
                 height: 100px;

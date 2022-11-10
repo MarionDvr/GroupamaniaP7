@@ -8,7 +8,7 @@
 </script>   
 <template>
     <TheHeader/>
-    <main class="section">
+    <main>
         <UsersPost/>
     </main>
 </template>
@@ -19,8 +19,9 @@
     $couleur-header: white;
     $background-grey:#F2F1F0;
 
-    .section {
+    main {
         background: $background-grey;
+
     }
 
 </style>
