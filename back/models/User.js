@@ -4,7 +4,12 @@ const uniqueValidator = require('mongoose-unique-validator');
 //Création du schéma de données pour les utilisateurs
 const userSchema = mongoose.Schema({
     email: {type: String, required: true, unique: true},
-    password: {type: String, require:true}
+    password: {type: String, require:true},
+    FirstName: {type: String, require:true},
+    LastName: {type: String, require:true},
+    Descrition: {type: String},
+    Photo: {type: String}
+    
 });
 //Plugin pour qu'un utilisateur ne soit créé qu'une seule fois (pas possible de créer deux utilisateurs avec la même adresse mail)
 userSchema.plugin(uniqueValidator);
