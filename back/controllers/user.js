@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 //S'enregistrer
-exports.signin = (req, res, next) => {
+exports.signin = (req, res) => {
     //Hachage du mot de passe
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
@@ -21,7 +21,7 @@ exports.signin = (req, res, next) => {
 };
 
 //Se connecter
-exports.login = (req, res, next) => {
+exports.login = (req, res) => {
     //Rechercher l'email dans la base de données
     User.findOne({ email: req.body.email})
         .then(user => {
@@ -29,7 +29,7 @@ exports.login = (req, res, next) => {
             if(!user) {
                 return res.status(401).json({ message: 'Paire identifiant/mot de passe incorrecte' });
             } 
-            else {
+            /*else {
                 //comparer le mot de passe entré avec le hash enregistré dans la base de données
                 bcrypt.compare(req.body.password, user.password)
                     .then(valid => {
@@ -49,9 +49,9 @@ exports.login = (req, res, next) => {
                         }
                     })
                     .catch(error => res.status(500).json({ error }));
-            }
+            }*/
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch(error => res.status(500).json({ message:'login ne fonctionne pas' }));
 };
 
 //Modifier le user
@@ -59,7 +59,7 @@ exports.ModifyUser = (req, res, next) => {
     //userObject regarde si req.file existe ou non
   const userObject = req.file ? {
     //Obtenir un objet utilisable grâce à JSON.parse
-    ...JSON.parse(req.body.sauce),
+    ...JSON.parse(req.body.user),
     //Ajout de la nouvelle image
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
     //Sinon on traite req.body
