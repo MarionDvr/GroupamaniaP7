@@ -90,7 +90,7 @@ import axios from 'axios';
         margin: 0;
         padding: 0;
         background: $background-grey;
-        height: 700px;
+        height: 100%;
         .post{
             position: absolute;
             width: 60%;

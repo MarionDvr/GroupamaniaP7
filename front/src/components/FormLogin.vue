@@ -1,3 +1,20 @@
+<template>
+    <main>
+        <section class="LoginSection">
+            <figure class="LoginSection__logo">
+                        <img src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
+                    </figure>
+            <form class="LoginSection__form" @submit.prevent="UserConnect()" method="post">
+                <h2>Connexion</h2>
+                <label for="emailLogin" class="LoginSection__form__label">E-mail</label>
+                <input name="emailLogin" type="email" v-model="dataLogin.email" class="LoginSection__form__input" required>
+                <label for="passwordLogin" class="LoginSection__form__label">Mot de passe</label>
+                <input name="passwordLogin" type="password" v-model="dataLogin.password" class="LoginSection__form__input" required>
+                <button type="submit" @click.prevent="UserConnect">Se connecter</button>
+            </form>
+        </section>
+    </main>
+</template>
 <script>
     import axios from "axios"
     export default {
@@ -11,13 +28,15 @@
             }
         },
         methods: {
-            async UserConnect() {
-                axios.post("http://localhost:3000/api/user/login",
+            UserConnect() {
+                axios.post("http://localhost:3000/api/auth/login",
                 {
                     email: this.dataLogin.email,
                     password: this.dataLogin.password
                 })
-                .then(() => {
+                .then((response) => {
+                    console.log(response)
+                    this.$router.push("/HomeConnected");
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);
@@ -26,23 +45,6 @@
         }
     }
 </script>
-<template>
-    <main>
-        <section class="LoginSection">
-            <figure class="LoginSection__logo">
-                        <img src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
-                    </figure>
-            <form class="LoginSection__form" method="post">
-                <h2>Connexion</h2>
-                <label for="emailLogin" class="LoginSection__form__label">E-mail</label>
-                <input name="emailLogin" type="email" v-model="dataLogin.email" class="LoginSection__form__input" required>
-                <label for="passwordLogin" class="LoginSection__form__label">Mot de passe</label>
-                <input name="passwordLogin" type="password" v-model="dataLogin.password" class="LoginSection__form__input" required>
-                <button type="submit" @click="UserConnect()">Se connecter</button>
-            </form>
-        </section>
-    </main>
-</template>
 <style lang="scss">
     $couleur-primaire: #FD2D01;
     $couleur-secondaire: #FFD7D7;

@@ -1,3 +1,21 @@
+<template>
+    <main>
+        <section class="SigninSection">
+            <figure class="SigninSection__logo">
+                        <img src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
+                    </figure>
+            <form class="SigninSection__form" method="get">
+                <h2>Inscription</h2>
+                <label for="emailSignin" class="SigninSection__form__label">E-mail</label>
+                <input name="emailSignin" type="email" v-model="dataSignin.email" class="SigninSection__form__input" required>
+                <label for="passwordSignin" class="SigninSection__form__label">Mot de passe</label>
+                <input name="passwordSignin" type="password" v-model="dataSignin.password" class="SigninSection__form__input" required>
+                <!-- <p id="SigninErrorMsg" v-for="error in errors" v-if="errors.length">{{ error }}</p> -->
+                <button type="submit" @click="addUser()">S'inscrire</button>
+            </form>
+        </section>
+    </main>
+</template>
 <script>
     import axios from "axios"
     export default {
@@ -30,7 +48,7 @@
                     password: this.dataSignin.password
                 })
                 .then(() => {
-                    console.log('requete réussie')
+                    console.log('Inscription réussie')
                 })
                 .catch(function() {
                 });
@@ -38,24 +56,6 @@
         }
     }
 </script>
-<template>
-    <main>
-        <section class="SigninSection">
-            <figure class="SigninSection__logo">
-                        <img src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
-                    </figure>
-            <form class="SigninSection__form" method="get">
-                <h2>Inscription</h2>
-                <label for="emailSignin" class="SigninSection__form__label">E-mail</label>
-                <input name="emailSignin" type="email" v-model="dataSignin.email" class="SigninSection__form__input" required>
-                <label for="passwordSignin" class="SigninSection__form__label">Mot de passe</label>
-                <input name="passwordSignin" type="password" v-model="dataSignin.password" class="SigninSection__form__input" required>
-                <!-- <p id="SigninErrorMsg" v-for="error in errors" v-if="errors.length">{{ error }}</p> -->
-                <button type="submit" @click="addUser()">S'inscrire</button>
-            </form>
-        </section>
-    </main>
-</template>
 <style lang="scss">
     $couleur-primaire: #FD2D01;
     $couleur-secondaire: #FFD7D7;
