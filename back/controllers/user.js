@@ -27,16 +27,16 @@ exports.login = (req, res) => {
         .then(user => {
             //Si l'email n'est trouvé, renvoyer un message d'erreur
             if(!user) {
-                return res.status(401).json({ message: 'Paire identifiant/mot de passe incorrecte' });
+                return res.status(400).json({ message: 'Paire identifiant/mot de passe incorrecte' });
             } 
-            /*else {
-                //comparer le mot de passe entré avec le hash enregistré dans la base de données
+            //else {
+               //comparer le mot de passe entré avec le hash enregistré dans la base de données
                 bcrypt.compare(req.body.password, user.password)
                     .then(valid => {
                         if(!valid) {
                             return res.status(401).json({ message: 'Paire identifiant/mot de passe incorrecte' });
                         } 
-                        else {
+                        //else {
                             //Si le mot de passe est valide, renvoie de la réponse avec l'id utilisateur et le token
                             res.status(200).json({
                                 userId: user._id,
@@ -46,10 +46,10 @@ exports.login = (req, res) => {
                                     'GROUPAMANIA_TOKEN_SECRET'
                                 )
                             })
-                        }
+                        //}
                     })
                     .catch(error => res.status(500).json({ error }));
-            }*/
+            //}
         })
         .catch(error => res.status(500).json({ message:'login ne fonctionne pas' }));
 };
