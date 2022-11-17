@@ -44,6 +44,7 @@
             <label for="Titre" class="form__label">Titre</label>
             <input name="Titre" class="form__inputTitre" v-model="dataPost.title"/>
             <label for="Image" class="form__label">Image</label>
+            <!-- V-model ? -->
             <input type="file" name="Image" class="form__inputImg"/>
             <label for="Texte" class="form__label">Texte</label>
             <textarea name="Texte" class="form__inputText" v-model="dataPost.text"></textarea>

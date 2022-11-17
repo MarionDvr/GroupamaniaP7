@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeConnection from "../views/HomeConnection.vue";
-import ConnectionSigin from "../views/ConnectionSignin.vue";
+import ConnectionSignin from "../views/ConnectionSignin.vue";
 import ConnectionLogin from "../views/ConnectionLogin.vue";
 import HomeConnected from "../views/HomeConnected.vue";
 import CreatePost from "../views/CreatePost.vue";
@@ -15,7 +15,7 @@ const routes = [
   {
     path: '/connectionSignin',
     name: 'ConnectionSignin',
-    component: ConnectionSigin
+    component: ConnectionSignin
   },
   {
     path: '/connectionLogin',

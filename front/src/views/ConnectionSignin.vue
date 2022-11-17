@@ -2,7 +2,7 @@
     import TheHeader from "@/components/TheHeader.vue";
     import FormSignin from "@/components/FormSignin.vue";
     export default {
-        name: "ConnectionLogin",
+        name: "ConnectionSignin",
         components: { TheHeader, FormSignin },
         data() {
             return {

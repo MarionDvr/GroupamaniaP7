@@ -11,6 +11,7 @@ import PhotoPost from "../assets/test2.webp";
                     firstName: "Anna",
                     lastName: "Gallet",
                     imageUrl: PhotoUser,
+                    //imageUrl: "../assets/testPhoto.jpeg",
                     job: "Secrétaire"
                 },
                 //Mettre les info d'un post dans un objet

@@ -140,15 +140,16 @@
     {
         .connexionSectionBefor {
             &__Forme1 {
-                width: 200px;
+                width: 100px;
             }
             &__Forme2 {
-                width: 200px;
+                width: 100px;
             }
         }
         .connexionSectionAfter{
                 &__title {
                     margin-left: -520px;
+                    width: 350px;
                 }
             }
     }

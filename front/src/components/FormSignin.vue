@@ -32,7 +32,7 @@
         },
         methods: {
             addUser() {
-                this.errors = [];
+                /*this.errors = [];
                 if(!this.dataSignin.email) {
                     this.errors.push("Email requise");
                 }
@@ -41,14 +41,15 @@
                 }
                 if(this.errors.length) {
                     return false;
-                }
+                }*/
                 axios.post("http://localhost:3000/api/auth/signin",
                 {
                     email: this.dataSignin.email,
                     password: this.dataSignin.password
                 })
                 .then(() => {
-                    console.log('Inscription réussie')
+                    console.log('Inscription réussie');
+                    //this.$router.push('/');
                 })
                 .catch(function() {
                 });
