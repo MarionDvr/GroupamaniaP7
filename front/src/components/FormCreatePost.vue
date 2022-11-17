@@ -39,14 +39,14 @@
 <template>
     <section>   
         <form class="form">
-            <h2 v-if="CreatePost">Ajouter votre post</h2>
-            <h2 v-else>Modifier votre post</h2>
+            <h2 v-if="!CreatePost">Modifier votre post</h2>
+            <h2 v-else>Ajouter votre post</h2>
             <label for="Titre" class="form__label">Titre</label>
             <input name="Titre" class="form__inputTitre" v-model="dataPost.title"/>
             <label for="Image" class="form__label">Image</label>
             <input type="file" name="Image" class="form__inputImg"/>
             <label for="Texte" class="form__label">Texte</label>
-            <input name="Texte" class="form__inputText" v-model="dataPost.text"/>
+            <textarea name="Texte" class="form__inputText" v-model="dataPost.text"></textarea>
             <button type="submit" v-if="CreatePost" @click="AddPost()">Poster !</button>
             <button type="submit" v-else @click="ModifyPost()">Modifier !</button>
         </form>
@@ -83,27 +83,45 @@
         h2 {
             padding: 0;
             margin: 0;
+            margin-left: 10px;
         }
         &__label {
             margin-top: 30px;
+            margin-left: 10px;
         }
         &__inputTitre{
-            border: solid lightgray;
+            height: 35px;
+            border: none;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            background: #FFFFFF;
+            box-shadow: 2px 2px 7px 1px #D8D3D3 inset;
         }
         &__inputText{
             min-height: 100px;
-            border: solid lightgray;
+            border: none;
+            width: 90%;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            background: #FFFFFF;
+            box-shadow: 2px 2px 7px 1px #D8D3D3 inset;
+            overflow: scroll;
+            resize: none;
         }
 
         
-    input {
-        max-width: 60%;
+    input, textarea {
+        max-width: 90%;
         height: 30px;
         margin-top: 10px;
-        &:focus { 
-            background-color: #FEF2F2;
+        margin-left: 10px;
+        &:focus-visible { 
+            outline-color: $couleur-primaire;
         }
     }
+    }
+    button {
+        margin-left: 10px;
     }
 
 </style>

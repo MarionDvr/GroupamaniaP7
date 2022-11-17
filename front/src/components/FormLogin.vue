@@ -10,7 +10,7 @@
                 <input name="emailLogin" type="email" v-model="dataLogin.email" class="LoginSection__form__input" required>
                 <label for="passwordLogin" class="LoginSection__form__label">Mot de passe</label>
                 <input name="passwordLogin" type="password" v-model="dataLogin.password" class="LoginSection__form__input" required>
-                <button type="submit" @click.prevent="UserConnect">Se connecter</button>
+                <button type="submit">Se connecter</button>
             </form>
         </section>
     </main>

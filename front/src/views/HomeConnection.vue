@@ -101,7 +101,7 @@
                     opacity:0;
                     margin-left: -500px;
                     animation: Forme2 1000ms ease-in-out forwards;
-                    animation-delay: 2s;
+                    animation-delay: 1.95s;
                 }
             }
         

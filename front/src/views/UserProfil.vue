@@ -10,19 +10,17 @@
                 User: {
                     FirstName:"",
                     LastName:"",
-                    Job:"",
-                    Description:""
+                    Job:""
                 }
             }
         },
         methods: {
             async userProfil() {
-                axios.post("http://localhost:3000/api/users/:id",
+                axios.post("http://localhost:3000/api/users/${id}",
                 {
                     FirstName: this.User.FirstName,
                     LastName: this.User.LastName,
-                    Job: this.User.Job,
-                    Description: this.User.Description
+                    Job: this.User.Job
                 })
                 .then(() => {
                 })
@@ -35,8 +33,7 @@
                 { 
                     FirstName: this.User.FirstName,
                     LastName: this.User.LastName,
-                    Job: this.User.Job,
-                    Description: this.User.Description
+                    Job: this.User.Job
                 })
                 .then()
                 .catch();
@@ -53,7 +50,6 @@
             </figure>
             <h3>{{ User.FirstName }} {{ User.LastName }}</h3>
             <p> {{ User.Job }}</p>
-            <p> {{ User.Description }}</p>
             <router-link><i class="fa-sharp fa-solid fa-pen picto"></i></router-link>
         </article>
         <article v-else class="UserModify">
@@ -65,8 +61,6 @@
                 <input type="text" name="LastName" v-model="User.LastName"/>
                 <label for="Job">Poste actuel</label>
                 <input type="text" name="Job" v-model="User.Job"/>
-                <label for="Description">Description</label>
-                <input type="text" name="Description" v-model="User.Description"/>
                 <label for="Photo">Photo</label>
                 <input type="file" name="Photo"/>
                 <button @click="userProfil()" type="submit">Modifier le profil</button>
@@ -84,6 +78,7 @@
     .sectionUser {
         background: $background-grey;
         padding-top: 50px;
+        padding-bottom: 100px;
         .form {
         display: block;
         margin-left: auto;
@@ -96,13 +91,12 @@
         padding: 50px;
         width: 50%;
         box-shadow: 5px 11px 10px 1px #CAC3C3;
-        position:relative;
-        z-index: 2;
         h2 {
             margin-bottom: 30px;
         }
         label {
             margin-top: 10px;
+            margin-left: 10px;
         }
         input {
             margin-bottom: 10px;
