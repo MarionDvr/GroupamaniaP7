@@ -1,10 +1,10 @@
 <script>
-  import HomeConnection from "@/views/HomeConnection.vue";
-  import HomeConnected from "@/views/HomeConnected.vue";
+ // import HomeConnection from "@/views/HomeConnection.vue";
+  //import HomeConnected from "@/views/HomeConnected.vue";
 
   export default {
     name: "App",
-    components: { HomeConnection, HomeConnected }
+  //  components: { HomeConnection, HomeConnected }
   };
 </script>
 

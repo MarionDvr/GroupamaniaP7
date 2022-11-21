@@ -10,6 +10,10 @@
                 <input name="emailSignin" type="email" v-model="dataSignin.email" class="SigninSection__form__input" required>
                 <label for="passwordSignin" class="SigninSection__form__label">Mot de passe</label>
                 <input name="passwordSignin" type="password" v-model="dataSignin.password" class="SigninSection__form__input" required>
+                <label for="lastNameSignin" class="SigninSection__form__label">Nom de famille</label>
+                <input name="lastNameSignin" type="text" v-model="dataSignin.lastName" class="SigninSection__form__input" required>
+                <label for="firstNameSignin" class="SigninSection__form__label">Prénom</label>
+                <input name="firstNameSignin" type="text" v-model="dataSignin.firstName" class="SigninSection__form__input" required>
                 <!-- <p id="SigninErrorMsg" v-for="error in errors" v-if="errors.length">{{ error }}</p> -->
                 <button type="submit" @click="addUser()">S'inscrire</button>
             </form>
@@ -24,7 +28,9 @@
             return {
                 dataSignin: {
                     email: "",
-                    password: ""
+                    password: "",
+                    lastName: "",
+                    firstName: ""
                 },
                 errors: [],
 
@@ -45,7 +51,9 @@
                 axios.post("http://localhost:3000/api/auth/signin",
                 {
                     email: this.dataSignin.email,
-                    password: this.dataSignin.password
+                    password: this.dataSignin.password,
+                    lastName: this.dataSignin.lastName,
+                    firstName: this.dataSignin.firstName
                 })
                 .then(() => {
                     console.log('Inscription réussie');
