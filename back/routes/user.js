@@ -4,6 +4,6 @@ const userCtrl = require('../controllers/user');
 
 router.post('/signin', userCtrl.signin);
 router.post('/login', userCtrl.login);
-router.put('/modify', userCtrl.ModifyUser);
+//router.put('/modify', userCtrl.modifyUser);
 
 module.exports = router;

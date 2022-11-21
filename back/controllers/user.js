@@ -10,7 +10,9 @@ exports.signin = (req, res) => {
             //Création du nouvel utilisateur (email entrée et le mot de passe haché)
             const user = new User({
                 email: req.body.email,
-                password: hash
+                password: hash,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName
             });
             //Sauvegarde du nouvel utilisateur
             user.save()
@@ -43,7 +45,8 @@ exports.login = (req, res) => {
                                 //sign() pour chiffrer un nouveau token (qui contient L'id utilisateur, la clef secrète pour crypter le token et la durée de validité du token)
                                 token: jwt.sign(
                                     { userId: user._id },
-                                    'GROUPAMANIA_TOKEN_SECRET'
+                                    'GROUPAMANIA_TOKEN_SECRET',
+                                    { expiresIn: '24h' }
                                 )
                             })
                         //}
@@ -55,7 +58,7 @@ exports.login = (req, res) => {
 };
 
 //Modifier le user
-exports.ModifyUser = (req, res, next) => {
+exports.modifyUser = (req, res) => {
     //userObject regarde si req.file existe ou non
   const userObject = req.file ? {
     //Obtenir un objet utilisable grâce à JSON.parse

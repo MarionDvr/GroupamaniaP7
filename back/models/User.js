@@ -5,9 +5,9 @@ const uniqueValidator = require('mongoose-unique-validator');
 const userSchema = mongoose.Schema({
     email: {type: String, required: true, unique: true},
     password: {type: String, require:true},
-    FirstName: {type: String, require:true},
-    LastName: {type: String, require:true},
-    Photo: {type: String}
+    firstName: {type: String, require:true},
+    lastName: {type: String, require:true},
+    photo: {type: String}
     
 });
 //Plugin pour qu'un utilisateur ne soit créé qu'une seule fois (pas possible de créer deux utilisateurs avec la même adresse mail)
