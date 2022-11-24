@@ -51,6 +51,9 @@
     $background-grey:#F2F1F0;
 
     /* Header déconnecté */
+    figure {
+        margin: 0;
+    }
     .headerConnection {
         box-shadow: 0px 6px 10px -7px rgb(151, 150, 150);
         display: flex;
@@ -60,10 +63,12 @@
         padding: 0;
         height: 100px;
             &__logo {
-                margin-left: auto;
+                margin-left: 35%;
                 margin-right: auto;
-                &__img {
                 width: 300px;
+                padding-top: 15px;
+                &__img {
+                width: 100%;
                 }
             }
             &__nav {
@@ -181,9 +186,9 @@
     
     @media screen and (max-width: 1000px) /* Petit écran - Tablette */
     {
-        .header {
+        .headerConnection {
             &__logo {
-                margin-left: 0;
+                margin-left: 5%;
                 padding-left: 0;
             }
         }
@@ -192,9 +197,9 @@
 
     @media screen and (max-width: 768px) /* Smartphone */
     {
-        .header {
+        .headerConnection {
             &__logo {
-                margin-top: 10px;
+                margin-top: 5px;
                     &__img {
                         max-width: 100%;
                         min-width: 270px;

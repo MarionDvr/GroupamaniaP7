@@ -54,6 +54,26 @@
 	}
     100%{
         opacity: 1;
+        transform: translateX(-45%);
+    }
+}
+@keyframes Forme2_Tablette {
+    0% {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(-40%);
+    }
+}
+@keyframes Forme2_Phone {
+    0% {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+    100%{
+        opacity: 1;
         transform: translateX(-70%);
     }
 }
@@ -67,7 +87,33 @@
     }
     100%{
         opacity: 1;
-        transform: translateX(100%);
+        transform: translateX(120%);
+    }
+}
+@keyframes Textes_Tablette {
+    0%{
+        opacity: 0;
+        transform: translateX(0%);
+    }
+    45%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(170%);
+    }
+}
+@keyframes Textes_Phone {
+    0%{
+        opacity: 0;
+        transform: translateX(0%);
+    }
+    45%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(200%);
     }
 }
 
@@ -123,12 +169,14 @@
                         z-index: 1;
                         animation: Textes 500ms ease-in-out forwards;
                         animation-delay: 2700ms;
+                        padding-right: 3%;
                     }
                     h2 {
                         opacity: 0;
                         font-size: 120%;
                         animation: Textes 500ms ease-in-out forwards;
                         animation-delay: 3000ms;
+                        padding-right: 3%;
                     }
                 }
                 
@@ -138,28 +186,70 @@
         
     @media screen and (max-width: 1000px) /* Petit écran - Tablette */
     {
-        .connexionSectionBefor {
-            &__Forme1 {
-                width: 100px;
-            }
-            &__Forme2 {
-                width: 100px;
-            }
-        }
-        .connexionSectionAfter{
-                &__title {
-                    margin-left: -520px;
-                    width: 350px;
+        .connexionSection {
+            .connexionSectionBefor {
+                &__Forme1 {
+                    width: 450px;
+                    animation: Forme1 1000ms infinite ease-in-out alternate;
+                    animation-iteration-count: 2;
+                }
+                &__Forme2 {
+                    width: 450px;
+                    animation: Forme2_Tablette 1000ms ease-in-out forwards;
+                    animation-delay: 2s;
                 }
             }
+        .connexionSectionAfter{
+                &__title {
+                    max-width: 350px;
+                    h1{
+                        animation: Textes_Tablette 500ms ease-in-out forwards;
+                        animation-delay: 2.5s;
+                    }
+                    h2{
+                        animation: Textes_Tablette 500ms ease-in-out forwards;
+                        animation-delay: 3s;
+                    }
+                    
+                }
+            }
+        }
+
     }
+        
 
     @media screen and (max-width: 768px) /* Smartphone */
     {
-            .connexionSectionAfter{
-                &__title {
-                    margin-left: -520px;
+        .connexionSection {
+            .connexionSectionBefor {
+                &__Forme1 {
+                    width: 250px;
+                    animation: Forme1 1000ms infinite ease-in-out alternate;
+                    animation-iteration-count: 2;
+                }
+                &__Forme2 {
+                    width: 250px;
+                    animation: Forme2_Phone 1000ms ease-in-out forwards;
+                    animation-delay: 2s;
+                    margin-left: -250px;
                 }
             }
+        .connexionSectionAfter{
+                &__title {
+                    max-width: 300px;
+                    font-size: 15px;
+                    margin-top: 30px;
+                    h1{
+                        animation: Textes_Phone 500ms ease-in-out forwards;
+                        animation-delay: 2.5s;
+                    }
+                    h2{
+                        animation: Textes_Phone 500ms ease-in-out forwards;
+                        animation-delay: 3s;
+                    }
+                    
+                }
+            }
+        }
     }
 </style>
