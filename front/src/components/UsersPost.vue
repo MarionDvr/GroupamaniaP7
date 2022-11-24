@@ -150,7 +150,6 @@ import PhotoPost from "../assets/test2.webp";
                 &__figure{
                     width: 70px;
                     height: 70px;
-                    background: yellow;
                     border-radius: 100px;
                     margin: 15px;
                     display: flex;
@@ -187,7 +186,6 @@ import PhotoPost from "../assets/test2.webp";
                 &__figure {
                     width: 100%;
                     height: 250px;
-                    background: yellow;
                     margin: 0;
                     overflow: hidden;
                     &__img{

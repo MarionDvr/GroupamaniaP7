@@ -6,7 +6,7 @@
 
 <template>  
     <header class="header">
-      <nav v-if="!isConnected" class="headerConnection">
+        <nav v-if="!isConnected" class="headerConnection">
             <router-link to="/" class="headerConnection__logo">
                 <figure>
                     <img class="headerConnection__img" src="../assets/logoGroupamania.svg" alt="logo Groupamania"/>
@@ -18,12 +18,13 @@
                 <router-link to="/ConnectionLogin" class="headerConnection__nav__link">Se connecter</router-link>
                 <router-link to="/ConnectionLogin" class="pictoConnection"><i class="fa-solid fa-circle-user"></i></router-link>
             </div>
-        </nav> 
-        <nav v-else class="headerConnected">
+        </nav>
+        <nav v-else  class="headerConnected">
             <router-link to="/homeConnected" class="headerConnected__picto"><i class="fa-sharp fa-solid fa-house"></i></router-link>
             <router-link to="/createPost" class="headerConnected__picto"><i class="fa-solid fa-plus"></i></router-link>
             <figure>
                 <img class="headerConnected__img" src="../assets/logoGroupamania.svg" alt="Logo Groupamania"/>
+                <img class="headerConnected__imgPhone" src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
             </figure>
             <div id="menuCompte">
                 <ul class="navbar">
@@ -90,8 +91,9 @@
     .pictoConnection {
         display: none;
     }
+
     /* Header connecté */
-    /*________________________________________________*/
+    
     .headerConnected {
         box-shadow: 0px 6px 10px -7px rgb(151, 150, 150);
         display: flex;
@@ -110,6 +112,9 @@
         }
         &__img{
             width: 300px;
+        }
+        &__imgPhone {
+            display: none;
         }
     }
 
@@ -180,23 +185,32 @@
         color: $couleur-tertiaire;
     }
 
-
-
-    /*__________________________________________________*/
     
     @media screen and (max-width: 1000px) /* Petit écran - Tablette */
     {
+    //Menu utilisateur non connecté -- Tablette
         .headerConnection {
             &__logo {
                 margin-left: 5%;
                 padding-left: 0;
             }
         }
+    //Menu utilisateur connecté -- Tablette
+        .headerConnected {
+                &__img {
+                    display: block;
+                }
+                &__imgPhone {
+                    display: none;
+                }
+        }
+        
 
     }
 
     @media screen and (max-width: 768px) /* Smartphone */
     {
+    //Menu utilisateur non connecté -- Smartphone
         .headerConnection {
             &__logo {
                 margin-top: 5px;
@@ -219,6 +233,25 @@
             margin-right:60px;
             color: $couleur-tertiaire;
             font-size: 175%;
+        }
+    }
+    //Menu utilisateur connecté -- Smartphone
+    .headerConnected {
+        padding-left: 3%;
+        padding-right: 3%;
+        justify-content: space-evenly;
+        &__img {
+            display: none;
+        }
+        &__imgPhone {
+            display: block;
+            width: 50px;
+        }
+    }
+    #title {
+        align-items: center;
+        p {
+            margin-right: 0;
         }
     }
 </style>
