@@ -36,7 +36,7 @@
                 })
                 .then((response) => {
                     console.log(response)
-                    this.$router.push("/HomeConnected");
+                    this.$router.push("/homeConnected");
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);

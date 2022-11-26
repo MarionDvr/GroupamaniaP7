@@ -57,7 +57,7 @@
                 })
                 .then(() => {
                     console.log('Inscription réussie');
-                    //this.$router.push('/');
+                    //this.$router.push('/homeConnected');
                 })
                 .catch(function() {
                 });
