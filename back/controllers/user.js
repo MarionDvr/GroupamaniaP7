@@ -82,3 +82,17 @@ exports.modifyUser = (req, res) => {
     .catch( error => { res.status(400).json({ error })}); 
 
 };
+
+//Récupérer le user
+exports.getUser = (req, res) => {
+    User.findOne({_id: req.params.id})
+    .then(user => res.status(200).json(user))
+    .catch( error => { res.status(500).json({ error })});
+};
+
+//Récupérer les users
+exports.getAllUsers = (req, res) => {
+    User.find()
+    .then((users) => res.status(200).json(users))
+    .catch(error => res.status(400).json({ error }));
+}
