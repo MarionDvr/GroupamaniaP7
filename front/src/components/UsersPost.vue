@@ -35,7 +35,7 @@ import axios from 'axios';
                 })
                 .catch((error) => { console.log(error)});
             },
-            //Récupérer les posts depuis la base de données
+            //Récupérer les posts
             GetAllPosts() {
                 axios.get("http://localhost:3000/api/posts/",
                 {
@@ -50,7 +50,7 @@ import axios from 'axios';
                 })
                 .catch((error) => { console.log(error)});
             },
-            //Momentanement en commentaire avant de règler le proflème de login
+            
             /*deletePost() {
                 let confirmDeletePost = confirm(
                     "Êtes-vous sûr de vouloir supprimer ce post ?"
@@ -75,8 +75,7 @@ import axios from 'axios';
     }
 </script>
 <template>
-    <!--<button type="subbmit" @click="GetAllPosts()"> click here </button>-->
-    <section class="UsersPosts" GetAllPosts()>
+    <section class="UsersPosts">
         <article v-for="post in posts" :key="post.id" class="post">
             <div class="post__user">
                 <figure class="post__user__figure">
@@ -103,12 +102,10 @@ import axios from 'axios';
                 <router-link to="/modifyPost"><i class="fa-sharp fa-solid fa-pen picto"></i></router-link>
                 <i class="fa-solid fa-trash picto" @click="deletePost()"></i>
             </div>
-            <!--<transition duration="{enter: '1000ms', leave: '2s' }">-->
                 <div @click="isDeployed = !isDeployed" class="post__elements__arrow">
                     <i v-if="isDeployed" class="fa-solid fa-chevron-up"></i>
                     <i v-else class="fa-solid fa-chevron-down"></i>
                 </div>
-            <!--</transition>-->
            
         </article>
     </section>
