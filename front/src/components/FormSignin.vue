@@ -55,11 +55,14 @@
                     lastName: this.dataSignin.lastName,
                     firstName: this.dataSignin.firstName
                 })
-                .then(() => {
-                    console.log('Inscription réussie');
-                    //this.$router.push('/homeConnected');
+                .then((response) => {
+                    localStorage.setItem("token", response.data.token);
+                    localStorage.setItem("userId", response.data.userId);
+                    console.log("Utilisateur créé")
+                    this.$router.push("/homeConnected");
                 })
-                .catch(function() {
+                .catch(function(erreur) {
+                    console.error('Une erreur est survenue' + erreur);
                 });
             }
         }

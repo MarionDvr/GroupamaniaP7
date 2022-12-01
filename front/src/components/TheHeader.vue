@@ -1,6 +1,14 @@
 <script>
     export default {
         name: "TheHeader",
+        data() {
+            return {
+                props:['isConnected']
+            }
+        },
+        mounted() {
+            this.isConnected = this.$store.getters.getIsConnected
+        }
     }
 </script>
 

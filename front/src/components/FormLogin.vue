@@ -35,7 +35,9 @@
                     password: this.dataLogin.password
                 })
                 .then((response) => {
-                    console.log(response)
+                    localStorage.setItem("token", response.data.token);
+                    localStorage.setItem("userId", response.data.userId);
+                    console.log("Utilisateur connecté")
                     this.$router.push("/homeConnected");
                 })
                 .catch(function(erreur) {

@@ -1,33 +1,42 @@
 <script>
 import axios from 'axios';
-import PhotoUser from "../assets/testPhoto.jpeg";
-import PhotoPost from "../assets/test2.webp";
 
     export default {
         name: "UsersPost",
         data(){
             return{
+                userId: localStorage.getItem("userId"),
+                token: localStorage.getItem("token"),
+                //Mettre les utilisateurs dans un tableau
+                users: [],
                 user: {
-                    firstName: "Anna",
-                    lastName: "Gallet",
-                    imageUrl: PhotoUser,
-                    //imageUrl: "../assets/testPhoto.jpeg",
-                    job: "Secrétaire"
+                    id: localStorage.getItem("userId")
                 },
                 //Mettre les info d'un post dans un objet
-                post: {
-                    title: "Nouvelle déco",
-                    imageUrl: PhotoPost,
-                    description: "Un nouveau tableau dans la salle de pause Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore"
-                },
+                post: {},
                 //Mettre les posts récupérer dans un tableau
                 posts: [],
+                //Pour que la flèche d'ouverture du post soit fermé
                 isDeployed: false  
             }
         },
         methods: {
-            //Fonction de distribution des posts de l'api
-            AllPosts() {
+            //Récupérer les utilisateurs
+            User() {
+                axios.get("http://localhost:3000/api/auth/users", {
+                    headers: {
+                            Authorization: "Bearer " + this.token,
+                            "Content-Type": "application/json",
+                        },
+                })
+                .then((response) => {
+                    this.users = response.data.users;
+                    console.log(this.users);
+                })
+                .catch((error) => { console.log(error)});
+            },
+            //Récupérer les posts depuis la base de données
+            GetAllPosts() {
                 axios.get("http://localhost:3000/api/posts/",
                 {
                     headers: {
@@ -66,11 +75,13 @@ import PhotoPost from "../assets/test2.webp";
     }
 </script>
 <template>
-    <section class="UsersPosts">
-        <article class="post">
+    <!--<button type="subbmit" @click="GetAllPosts()"> click here </button>-->
+    <section class="UsersPosts" GetAllPosts()>
+        <article v-for="post in posts" :key="post.id" class="post">
             <div class="post__user">
                 <figure class="post__user__figure">
-                    <img :src="user.imageUrl" class="post__user__figure__img" alt="Photo de l'utilisateur"/>
+                    <img v-if="user.imageUrl === null" src="../assets/PhotoUserDefault.jpeg" class="post__user__figure__img" alt="Photo de l'utilisateur"/>
+                    <img v-else :src="user.imageUrl" class="post__user__figure__img" alt="Photo de l'utilisateur"/>
                 </figure>
                 <div class="post__user__profil">
                     <div class="post__user__profil__name">
@@ -85,7 +96,7 @@ import PhotoPost from "../assets/test2.webp";
                 <figure class="post__elements__figure">    
                     <img :src="post.imageUrl" class="post__elements__figure__img" alt="Photo du post"/>
                 </figure>
-                <p v-if="isDeployed" >{{ post.description }}</p>
+                <p v-if="isDeployed" >{{ post.text }}</p>
                 </div>
             <div class="post__picto" v-if="isDeployed">
                 <i class="fa-solid fa-heart picto"></i>
