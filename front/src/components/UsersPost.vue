@@ -6,7 +6,7 @@ import axios from 'axios';
         data(){
             return{
                 userId: localStorage.getItem("userId"),
-                token: localStorage.getItem("token"),
+                //token: localStorage.getItem("token"),
                 //Mettre les utilisateurs dans un tableau
                 users: [],
                 user: {
@@ -22,7 +22,7 @@ import axios from 'axios';
         },
         methods: {
             //Récupérer les utilisateurs
-            User() {
+            /*User() {
                 axios.get("http://localhost:3000/api/auth/users", {
                     headers: {
                             Authorization: "Bearer " + this.token,
@@ -34,18 +34,18 @@ import axios from 'axios';
                     console.log(this.users);
                 })
                 .catch((error) => { console.log(error)});
-            },
+            },*/
             //Récupérer les posts
             GetAllPosts() {
-                axios.get("http://localhost:3000/api/posts/",
+                axios.get("http://localhost:3000/api/posts",
                 {
                     headers: {
-                            Authorization: "Bearer " + this.token,
+                            "Authorization": "Bearer ${localStorage.getItem('token')}",
                             "Content-Type": "application/json",
                         },
                 })
                 .then((response) => {
-                    this.posts = response.data.posts;
+                    this.posts = response.data;
                     console.log(this.posts);
                 })
                 .catch((error) => { console.log(error)});
@@ -71,7 +71,11 @@ import axios from 'axios';
                 }
             }*/
             
+        },
+        test() {
+            this.GetAllPosts()
         }
+        
     }
 </script>
 <template>
