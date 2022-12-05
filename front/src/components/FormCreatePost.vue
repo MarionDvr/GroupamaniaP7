@@ -8,22 +8,29 @@
                 dataPost: {
                     title: "",
                     text: "",
-                    imageUrl:""
-                }
+                    //imageUrl:""
+                },
+                token: localStorage.getItem('token')
             }
         },
         methods: {
             AddPost() {
-                axios.post("http://localhost:3000/api/posts/",
+                axios.post("http://localhost:3000/api/posts",
                 {
-                    title: this.dataPost.title,
-                    text: this.dataPost.text,
-                    //imageUrl: this.dataPost.imageUrl
+                   headers: {
+                        "Authorization": "Bearer" + this.token,
+                        "Content-Type": "application/json",
+                    },
+                    post: {
+                        title: this.dataPost.title,
+                        text: this.dataPost.text,
+                        //imageUrl: this.dataPost.imageUrl
+                    }
                 })
                 .then((response) => {
                     console.log(response)
                     console.log('Post ajouté')
-                    //this.$router.push("/homeConnected");
+                    this.$router.push("/homeConnected");
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);
@@ -32,9 +39,11 @@
             ModifyPost() {
                 axios.put("http://localhost:3000/api/posts/:id",
                 {
-                    title: this.dataPost.title,
-                    text: this.dataPost.text,
-                    imageUrl: this.dataPost.imageUrl
+                    post: {
+                        title: this.dataPost.title,
+                        text: this.dataPost.text,
+                        //imageUrl: this.dataPost.imageUrl
+                    }
                 })
                 .then((response) => {
                     console.log(response)
@@ -44,12 +53,12 @@
                     console.error('Une erreur est survenue' + erreur);
                 });
             },
-            onFileChange(e) {
+            /*onFileChange(e) {
                 let files = e.dataTransfer.files;
                 if (!files.length)
                     return;
                 this.createImage(files[0]);
-            }
+            }*/
         }
     }
 </script>

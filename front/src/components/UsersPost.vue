@@ -40,7 +40,7 @@ import axios from 'axios';
                 axios.get("http://localhost:3000/api/posts",
                 {
                     headers: {
-                            "Authorization": "Bearer ${localStorage.getItem('token')}",
+                            "Authorization": "Bearer" + this.token,
                             "Content-Type": "application/json",
                         },
                 })
@@ -48,18 +48,19 @@ import axios from 'axios';
                     for(let post of response.data) {
                         this.post.push(post);
                         console.log(this.posts);
+                        console.log("Récupération des posts");
                     }
                     
                 })
                 .catch((error) => { console.log(error)});
             },
             
-            /*deletePost() {
+            deletePost() {
                 let confirmDeletePost = confirm(
                     "Êtes-vous sûr de vouloir supprimer ce post ?"
                 );
                 if (confirmDeletePost == true) {
-                    axios.delete(`http://localhost:3000/api/posts/${id}`, {
+                    axios.delete(`http://localhost:3000/api/posts/:id`, {
                         headers: {
                             Authorization: "Bearer " + this.token,
                         }
@@ -72,17 +73,27 @@ import axios from 'axios';
                     console.log("Annuler la suppression");
                     return;
                 }
-            }*/
+            },
+            likePost() {
+                axios.post(`http://localhost:3000/api/posts/:id/like` , {
+                    headers: {
+                            Authorization: "Bearer " + this.token,
+                        }
+                })
+                .then(() => {
+                    window.location.reload();
+                })
+                .catch( error => { console.log(error)});
+            }
+
             
-        },
-        test() {
-            this.GetAllPosts()
         }
         
     }
 </script>
 <template>
     <section class="UsersPosts">
+        <button type="submit" @click="GetAllPosts()"> ici </button>
         <article v-for="post in posts" :key="post.id" class="post">
             <div class="post__user">
                 <figure class="post__user__figure">
@@ -105,7 +116,8 @@ import axios from 'axios';
                 <p v-if="isDeployed" >{{ post.text }}</p>
                 </div>
             <div class="post__picto" v-if="isDeployed">
-                <i class="fa-solid fa-heart picto"></i>
+                <i class="fa-solid fa-heart picto" @click="likePost()"></i>
+                <p class="post_picto_likes">{{ post.likes }}</p>
                 <router-link to="/modifyPost"><i class="fa-sharp fa-solid fa-pen picto"></i></router-link>
                 <i class="fa-solid fa-trash picto" @click="deletePost()"></i>
             </div>
