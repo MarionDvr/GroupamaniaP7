@@ -3,12 +3,7 @@
     import FormCreatePost from "@/components/FormCreatePost.vue";
     export default {
         name: "ConnectionLogin",
-        components: { TheHeader, FormCreatePost },
-        data() {
-            return {
-                    isConnected: true   
-            }
-        }
+        components: { TheHeader, FormCreatePost }
     }
 </script>
 

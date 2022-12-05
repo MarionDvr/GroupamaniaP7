@@ -3,15 +3,10 @@
     import UsersPost from "@/components/UsersPost.vue";
     export default {
         name: "HomeConnected",
-        components: { TheHeader, UsersPost },
-        data() {
-            return {
-                isConnected: Boolean
-            }
-        }
+        components: { TheHeader, UsersPost }
     }
 </script>   
 <template>
-    <TheHeader :isConnected="true"/>
-    <UsersPost AllPosts()/>
+    <TheHeader/>
+    <UsersPost/>
 </template>

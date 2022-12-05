@@ -45,8 +45,11 @@ import axios from 'axios';
                         },
                 })
                 .then((response) => {
-                    this.posts = response.data;
-                    console.log(this.posts);
+                    for(let post of response.data) {
+                        this.post.push(post);
+                        console.log(this.posts);
+                    }
+                    
                 })
                 .catch((error) => { console.log(error)});
             },

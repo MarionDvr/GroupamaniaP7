@@ -8,6 +8,6 @@
 </script>
 
 <template>
-    <TheHeader isConnected="false"/>
+    <TheHeader/>
     <FormLogin/>
 </template>
