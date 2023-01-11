@@ -30,7 +30,7 @@
                 .then((response) => {
                     console.log(response)
                     console.log('Post ajouté')
-                    this.$router.push("/homeConnected");
+                    //this.$router.push("/homeConnected");
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);
@@ -71,7 +71,7 @@
             <input name="Titre" class="form__inputTitre" v-model="dataPost.title"/>
             <label for="Image" class="form__label">Image</label>
             <!-- V-model ? -->
-            <!--<input type="file" name="Image" class="form__inputImg" v-on:change="onFileChange()"/> -->
+            <input type="file" name="Image" class="form__inputImg" v-on:change="onFileChange()"/>
             <label for="Texte" class="form__label">Texte</label>
             <textarea name="Texte" class="form__inputText" v-model="dataPost.text"></textarea>
             <button type="submit" v-if="CreatePost" @click="AddPost()">Poster !</button>
