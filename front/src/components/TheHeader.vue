@@ -3,7 +3,8 @@
         name: "TheHeader",
         methods: {
             deconnected() {
-                console.log("déconnecté")
+                this.$router.push("/");
+                console.log("Utilisateur déconnecté")
             },
         },
         props: ['IsConnected']
