@@ -1,12 +1,21 @@
 <script>
     export default {
-        name: "TheHeader"
+        name: "TheHeader",
+        methods: {
+            deconnected() {
+                console.log("déconnecté")
+            },
+        },
+        props: ['IsConnected']
+            
+        
+        
     }
 </script>
 
 <template>  
     <header class="header">
-        <nav class="headerConnection">
+        <nav class="headerConnection" v-if="!IsConnected">
             <router-link to="/" class="headerConnection__logo">
                 <figure>
                     <img class="headerConnection__img" src="../assets/logoGroupamania.svg" alt="logo Groupamania"/>
@@ -19,7 +28,7 @@
                 <router-link to="/ConnectionLogin" class="pictoConnection"><i class="fa-solid fa-circle-user"></i></router-link>
             </div>
         </nav>
-     <!--   <nav  class="headerConnected">
+        <nav  class="headerConnected" v-if="IsConnected">
             <router-link to="/homeConnected" class="headerConnected__picto"><i class="fa-sharp fa-solid fa-house"></i></router-link>
             <router-link to="/createPost" class="headerConnected__picto"><i class="fa-solid fa-plus"></i></router-link>
             <figure>
@@ -35,12 +44,12 @@
                         </a>
                         <ul>
                             <li><router-link to="/userProfil">Modifier mon compte</router-link></li>
-                            <li><router-link to="/">Me déconnecter</router-link></li>
+                            <li @click="deconnected()"><router-link to="/">Me déconnecter</router-link></li>
                         </ul>
                     </li>
                 </ul>
             </div>
-        </nav> -->
+        </nav>
     </header>
 </template>
 

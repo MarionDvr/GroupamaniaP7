@@ -7,6 +7,6 @@
     }
 </script>   
 <template>
-    <TheHeader/>
+    <TheHeader :IsConnected="!IsConnected"/>
     <UsersPost/>
 </template>

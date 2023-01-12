@@ -6,7 +6,7 @@
     }
 </script>   
 <template>
-    <TheHeader/>
+    <TheHeader  :IsConnected="IsConnected"/>
     <main id="main">
         <section class="connexionSection">
             <div class="connexionSectionBefor">

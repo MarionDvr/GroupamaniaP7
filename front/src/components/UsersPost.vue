@@ -5,6 +5,8 @@ import axios from 'axios';
         name: "UsersPost",
         data(){
             return{
+                IsConnected: true,
+                content: "",
                 userId: localStorage.getItem("userId"),
                 //token: localStorage.getItem("token"),
                 //Mettre les utilisateurs dans un tableau
@@ -37,6 +39,7 @@ import axios from 'axios';
             },*/
             //Récupérer les posts
             GetAllPosts() {
+                //erreur 403 l'utilisateur n'est pas autorisé 
                 axios.get("http://localhost:3000/api/posts",
                 {
                     headers: {
