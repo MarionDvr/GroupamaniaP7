@@ -1,16 +1,18 @@
 <script>
     import TheHeader from "@/components/TheHeader.vue";
     import FormCreatePost from "@/components/FormCreatePost.vue";
+    import TheFooter from "@/components/TheFooter.vue";
     export default {
         name: "HomeConnected",
-        components: { TheHeader, FormCreatePost }
+        components: { TheHeader, FormCreatePost, TheFooter }
     }
 </script>   
 <template>
-    <TheHeader/>
+    <TheHeader :IsConnected="!IsConnected"/>
     <main class="section">
         <FormCreatePost/>
     </main>
+    <TheFooter/>
 </template>
 <style lang="scss">
     $couleur-primaire: #FD2D01;

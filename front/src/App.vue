@@ -1,15 +1,18 @@
 <script>
-  //import HomeConnection from "@/views/HomeConnection.vue";
-  //import HomeConnected from "@/views/HomeConnected.vue";
-
   export default {
-    name: "App",
-    //components: { HomeConnection, HomeConnected }
+    name: "App"
   };
 </script>
 
 <template>
-  <div id="app" class="app">
+  <div id="app" class="app wrap">
     <router-view/>
   </div>
 </template>
+<style lang="scss">
+  .wrap {
+            max-width: 1500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+</style>

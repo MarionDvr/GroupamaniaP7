@@ -58,7 +58,7 @@
                 .then((response) => {
                     localStorage.setItem("token", response.data.token);
                     localStorage.setItem("userId", response.data.userId);
-                    console.log("Utilisateur créé")
+                    console.log("Utilisateur créé");
                     this.$router.push("/homeConnected");
                 })
                 .catch(function(erreur) {

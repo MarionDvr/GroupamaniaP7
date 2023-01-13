@@ -8,12 +8,8 @@
             },
         },
         props: ['IsConnected']
-            
-        
-        
     }
 </script>
-
 <template>  
     <header class="header">
         <nav class="headerConnection" v-if="!IsConnected">
@@ -30,8 +26,14 @@
             </div>
         </nav>
         <nav  class="headerConnected" v-if="IsConnected">
-            <router-link to="/homeConnected" class="headerConnected__picto"><i class="fa-sharp fa-solid fa-house"></i></router-link>
-            <router-link to="/createPost" class="headerConnected__picto"><i class="fa-solid fa-plus"></i></router-link>
+            <router-link to="/homeConnected" class="headerConnected__picto">
+                <i class="fa-sharp fa-solid fa-house"></i>
+                <p class="navToolTip">Accueil</p>
+            </router-link>
+            <router-link to="/createPost" class="headerConnected__picto">
+                <i class="fa-solid fa-plus"></i>
+                <p class="navToolTip">Ajouter un post</p>
+            </router-link>
             <figure>
                 <img class="headerConnected__img" src="../assets/logoGroupamania.svg" alt="Logo Groupamania"/>
                 <img class="headerConnected__imgPhone" src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
@@ -116,6 +118,7 @@
         height: 100px;
         &__picto{
             color: $couleur-tertiaire;
+            position: relative;
             &:hover{
                 color: $couleur-primaire;
             }
@@ -126,6 +129,18 @@
         &__imgPhone {
             display: none;
         }
+    }
+    //info-bulle menu
+    .navToolTip{
+        visibility: hidden;
+        position: absolute;
+        background-color: $couleur-secondaire;
+        color: $couleur-tertiaire;
+        z-index: 55;
+        padding: 10px;
+    }
+    .headerConnected__picto:hover .navToolTip {
+        visibility: visible;
     }
 
     #menuCompte {
@@ -222,16 +237,20 @@
     {
     //Menu utilisateur non connecté -- Smartphone
         .headerConnection {
+            display: flex;
+            align-items: center;
             &__logo {
-                margin-top: 5px;
-                    &__img {
-                        max-width: 100%;
-                        min-width: 270px;
-                    }
-                }
+                padding: 0;
+            }
+            &__img {
+                max-width: 100%;
+                min-width: 150px;
+                margin-right: 30px;
+            }
             &__nav {
                 display: flex;
                 justify-content: space-between;
+                margin: 0;
                 &__link {
                     display: none;
                 }
@@ -242,7 +261,7 @@
             display: block;
             margin-right:60px;
             color: $couleur-tertiaire;
-            font-size: 175%;
+            font-size: 100%;
         }
     }
     //Menu utilisateur connecté -- Smartphone

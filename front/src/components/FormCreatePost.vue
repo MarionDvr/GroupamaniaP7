@@ -4,6 +4,7 @@
         name: "FormCreatePost",
         data() {
             return {
+                IsConnected: true,
                 CreatePost: true,
                 dataPost: {
                     title: "",

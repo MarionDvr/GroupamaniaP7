@@ -1,8 +1,9 @@
 <script>
     import TheHeader from "@/components/TheHeader.vue";
+    import TheFooter from "@/components/TheFooter.vue";
     export default {
         name: "HomeConnexion",
-        components: { TheHeader }
+        components: { TheHeader, TheFooter }
     }
 </script>   
 <template>
@@ -21,6 +22,7 @@
             </div>
         </section>
     </main>
+    <TheFooter/>
 </template>
 
 <style lang="scss">
@@ -32,10 +34,11 @@
         $background-grey:#F2F1F0;
 
         body {
-        font-family: Lato;
-        color: $couleur-tertiaire;
-        margin: 0;
+            font-family: Lato;
+            color: $couleur-tertiaire;
+            margin: 0;
         }
+
 @keyframes Forme1 {
     0% {
         opacity: 1;
@@ -74,7 +77,7 @@
     }
     100%{
         opacity: 1;
-        transform: translateX(-70%);
+        transform: translateX(-55%);
     }
 }
 @keyframes Textes {
@@ -113,7 +116,7 @@
     }
     100%{
         opacity: 1;
-        transform: translateX(200%);
+        transform: translateX(280%);
     }
 }
 
@@ -126,10 +129,15 @@
         .connexionSection {
             background-image: url('../assets/HalfLogo.svg');
             background-repeat: no-repeat;
-            background-size: 100%;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
             position: relative;
             z-index:90;
             display: flex;
+            margin: 0;
+            padding: 0;
             .connexionSectionBefor {
                 position:relative;
                 z-index: 99;
@@ -202,6 +210,7 @@
         .connexionSectionAfter{
                 &__title {
                     max-width: 350px;
+                    margin-left: -812px;
                     h1{
                         animation: Textes_Tablette 500ms ease-in-out forwards;
                         animation-delay: 2.5s;
@@ -221,24 +230,26 @@
     @media screen and (max-width: 768px) /* Smartphone */
     {
         .connexionSection {
+            padding: 50px 50px 50px 0 ;
             .connexionSectionBefor {
                 &__Forme1 {
-                    width: 250px;
+                    width: 150px;
                     animation: Forme1 1000ms infinite ease-in-out alternate;
                     animation-iteration-count: 2;
                 }
                 &__Forme2 {
-                    width: 250px;
+                    width: 150px;
                     animation: Forme2_Phone 1000ms ease-in-out forwards;
                     animation-delay: 2s;
-                    margin-left: -250px;
+                    margin-left: -150px;
                 }
             }
         .connexionSectionAfter{
                 &__title {
-                    max-width: 300px;
-                    font-size: 15px;
-                    margin-top: 30px;
+                    max-width: 250px;
+                    font-size: 10px;
+                    margin-top: 5%;
+                    padding-left: 5px;
                     h1{
                         animation: Textes_Phone 500ms ease-in-out forwards;
                         animation-delay: 2.5s;

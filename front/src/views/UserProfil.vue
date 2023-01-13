@@ -1,11 +1,13 @@
 <script>
     import axios from "axios"
     import TheHeader from "@/components/TheHeader.vue";
+    import TheFooter from "@/components/TheFooter.vue";
     export default {
         name: "UsersProfil",
-        components: { TheHeader },
+        components: { TheHeader, TheFooter },
         data() {
             return {
+                IsConnected: true,
                 UserModify: true,
                 User: {
                     FirstName:"",
@@ -23,6 +25,8 @@
                     Job: this.User.Job
                 })
                 .then(() => {
+                    this.$router.push("/homeConnected");
+                    console.log("Profil modifié")
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);
@@ -35,14 +39,17 @@
                     LastName: this.User.LastName,
                     Job: this.User.Job
                 })
-                .then()
+                .then(() => {
+                    this.$router.push("/homeConnected");
+                    console.log("Profil modifié")
+                })
                 .catch();
             }
         }
     }
 </script>
 <template>
-    <TheHeader/>
+    <TheHeader :IsConnected="!IsConnected"/>
     <main class="sectionUser">
         <article v-if="!UserModify" class="User">
             <figure class="User__img">
@@ -67,6 +74,7 @@
             </form>
         </article>
     </main>
+    <TheFooter/>
 </template>
 <style lang="scss">
     $couleur-primaire: #FD2D01;

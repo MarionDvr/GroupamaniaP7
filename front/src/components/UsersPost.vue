@@ -8,7 +8,7 @@ import axios from 'axios';
                 IsConnected: true,
                 content: "",
                 userId: localStorage.getItem("userId"),
-                //token: localStorage.getItem("token"),
+                token: localStorage.getItem("token"),
                 //Mettre les utilisateurs dans un tableau
                 users: [],
                 user: {
@@ -48,11 +48,14 @@ import axios from 'axios';
                         },
                 })
                 .then((response) => {
-                    for(let post of response.data) {
+                    this.post = response.data;
+                    console.log(this.post)
+                    /*for(let post of response.data) {
                         this.post.push(post);
+                        this.content = post.content;
                         console.log(this.posts);
                         console.log("Récupération des posts");
-                    }
+                    }*/
                     
                 })
                 .catch((error) => { console.log(error)});
