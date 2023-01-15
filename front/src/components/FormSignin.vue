@@ -7,14 +7,10 @@
             <form class="SigninSection__form" method="get">
                 <h2>Inscription</h2>
                 <label for="emailSignin" class="SigninSection__form__label">E-mail</label>
-                <input name="emailSignin" type="email" v-model="dataSignin.email" class="SigninSection__form__input" required>
+                <input name="emailSignin" type="email" v-model="dataSignin.email" onfocus="this.value=''" class="SigninSection__form__input" required>
                 <label for="passwordSignin" class="SigninSection__form__label">Mot de passe</label>
-                <input name="passwordSignin" type="password" v-model="dataSignin.password" class="SigninSection__form__input" required>
-                <label for="lastNameSignin" class="SigninSection__form__label">Nom de famille</label>
-                <input name="lastNameSignin" type="text" v-model="dataSignin.lastName" class="SigninSection__form__input" required>
-                <label for="firstNameSignin" class="SigninSection__form__label">Prénom</label>
-                <input name="firstNameSignin" type="text" v-model="dataSignin.firstName" class="SigninSection__form__input" required>
-                <!-- <p id="SigninErrorMsg" v-for="error in errors" v-if="errors.length">{{ error }}</p> -->
+                <input name="passwordSignin" type="password" v-model="dataSignin.password" onfocus="this.value=''" class="SigninSection__form__input" required>
+                <p id="SigninErrorMsg" v-for="error in errors" v-if="errors.length">{{ error }}</p>
                 <button type="submit" @click="addUser()">S'inscrire</button>
             </form>
         </section>
@@ -38,32 +34,42 @@
         },
         methods: {
             addUser() {
-                /*this.errors = [];
-                if(!this.dataSignin.email) {
-                    this.errors.push("Email requise");
-                }
-                if(!this.dataSignin.password) {
-                    this.errors.push("Mot de passe requis");
-                }
-                if(this.errors.length) {
-                    return false;
-                }*/
-                axios.post("http://localhost:3000/api/auth/signin",
-                {
-                    email: this.dataSignin.email,
-                    password: this.dataSignin.password,
-                    lastName: this.dataSignin.lastName,
-                    firstName: this.dataSignin.firstName
-                })
-                .then((response) => {
-                    localStorage.setItem("token", response.data.token);
-                    localStorage.setItem("userId", response.data.userId);
-                    console.log("Utilisateur créé");
-                    this.$router.push("/homeConnected");
-                })
-                .catch(function(erreur) {
-                    console.error('Une erreur est survenue' + erreur);
-                });
+                //Regexp email
+                let emailRegExp = new RegExp(/^([a-zA-Z0-9_\-.]+)@groupomania.com$/);
+                //Regexp mot de passe
+                let passwordRegExp = new RegExp(/^[a-zA-Z0-9_\-.@#]{8}$/);
+                this.errors = [];
+                    if(emailRegExp.test(this.dataSignin.email) == false){
+                        this.errors.push("L'email n'est pas valide");
+                    }
+                    if(passwordRegExp.test(this.dataSignin.password) == false){
+                        this.errors.push("Le mot de passe doit contenir 8 caractères");
+                    }
+                    if(!this.dataSignin.email) {
+                        this.errors.push("Email requise");
+                    }
+                    if(!this.dataSignin.password) {
+                        this.errors.push("Mot de passe requis");
+                    }
+                    if(this.errors.length) {
+                        return false;
+                    }
+                    else if(emailRegExp.test(this.dataSignin.email) == true && passwordRegExp.test(this.dataSignin.password) == true) {
+                        axios.post("http://localhost:3000/api/auth/signin",
+                        {
+                            email: this.dataSignin.email,
+                            password: this.dataSignin.password
+                        })
+                        .then((response) => {
+                            localStorage.setItem("token", response.data.token);
+                            localStorage.setItem("userId", response.data.userId);
+                            console.log("Utilisateur créé");
+                            this.$router.push("/homeConnected");
+                        })
+                        .catch(function(erreur) {
+                            console.error('Une erreur est survenue' + erreur);
+                        });
+                    }
             }
         }
     }

@@ -11,12 +11,12 @@
     <main id="main">
         <section class="connexionSection">
             <div class="connexionSectionBefor">
-                <img class="connexionSectionBefor__Forme1" src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
-                <img class="connexionSectionBefor__Forme2" src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
+                <img class="connexionSectionBefor__Forme1" src="../assets/logoConnexion.svg" alt="Logo Groupomania"/>
+                <img class="connexionSectionBefor__Forme2" src="../assets/logoConnexion.svg" alt="Logo Groupomania"/>
             </div>
             <div class="connexionSectionAfter">
                 <div class="connexionSectionAfter__title">
-                    <h1>Bienvenue sur l'intranet de Groupamania !</h1>
+                    <h1>Bienvenue sur l'intranet de Groupomania !</h1>
                     <h2>Votre réseau social d'entreprise</h2>
                 </div>
             </div>

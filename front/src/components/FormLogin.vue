@@ -24,7 +24,8 @@
                 dataLogin: {
                     email: "",
                     password: ""
-                }
+                },
+                errors: []
             }
         },
         methods: {
@@ -42,6 +43,7 @@
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);
+                    alert('Email et mot de passe incorrects');
                 });
             }
         }

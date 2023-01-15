@@ -34,9 +34,8 @@
                 <i class="fa-solid fa-plus"></i>
                 <p class="navToolTip">Ajouter un post</p>
             </router-link>
-            <figure>
+            <figure class="logoHeader">
                 <img class="headerConnected__img" src="../assets/logoGroupamania.svg" alt="Logo Groupamania"/>
-                <img class="headerConnected__imgPhone" src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
             </figure>
             <div id="menuCompte">
                 <ul class="navbar">
@@ -282,5 +281,9 @@
         p {
             margin-right: 0;
         }
+    }
+
+    .logoHeader {
+        display: none;
     }
 </style>
