@@ -28,8 +28,7 @@
                     lastName: "",
                     firstName: ""
                 },
-                errors: [],
-
+                errors: []
             }
         },
         methods: {
