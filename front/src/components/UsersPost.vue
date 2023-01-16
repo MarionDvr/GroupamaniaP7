@@ -5,7 +5,7 @@ import axios from 'axios';
         name: "UsersPost",
         data(){
             return{
-                IsConnected: true,
+                //IsConnected: true,
                 content: "",
                 userId: localStorage.getItem("userId"),
                 token: localStorage.getItem("token"),
@@ -51,7 +51,7 @@ import axios from 'axios';
                     this.posts = response.data;
                     console.log(this.post)
                     /*for(let post of response.data) {
-                        this.post.push(post);
+                        this.posts.push(post);
                         this.content = post.content;
                         console.log(this.posts);
                         console.log("Récupération des posts");
