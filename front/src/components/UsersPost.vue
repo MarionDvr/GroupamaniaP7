@@ -5,7 +5,7 @@ import axios from 'axios';
         name: "UsersPost",
         data(){
             return{
-                //IsConnected: true,
+                IsConnected: true,
                 content: "",
                 userId: localStorage.getItem("userId"),
                 token: localStorage.getItem("token"),
@@ -15,16 +15,27 @@ import axios from 'axios';
                     id: localStorage.getItem("userId")
                 },
                 //Mettre les info d'un post dans un objet
-                post: {},
+                post: "",
                 //Mettre les posts récupérer dans un tableau
                 posts: [],
                 //Pour que la flèche d'ouverture du post soit fermé
-                isDeployed: false  
+                isDeployed: false
             }
         },
+        mounted() {
+            this.GetAllPosts()
+        },
+        beforeUpdate(){
+        if(localStorage.getItem("token") == null)
+        {
+            this.$router.push("/");
+        } else{
+            console.log("ok");
+        }
+    },
         methods: {
             //Récupérer les utilisateurs
-            /*User() {
+            User() {
                 axios.get("http://localhost:3000/api/auth/users", {
                     headers: {
                             Authorization: "Bearer " + this.token,
@@ -36,7 +47,7 @@ import axios from 'axios';
                     console.log(this.users);
                 })
                 .catch((error) => { console.log(error)});
-            },*/
+            },
             //Récupérer les posts
             GetAllPosts() {
                 //erreur 403 l'utilisateur n'est pas autorisé 
@@ -49,7 +60,7 @@ import axios from 'axios';
                 })
                 .then((response) => {
                     this.posts = response.data;
-                    console.log(this.post)
+                    console.log(this.posts)
                     /*for(let post of response.data) {
                         this.posts.push(post);
                         this.content = post.content;
@@ -99,7 +110,7 @@ import axios from 'axios';
 </script>
 <template>
     <section class="UsersPosts">
-        <button type="submit" @click="GetAllPosts()"> ici </button>
+    <!--   <button type="submit" @click="GetAllPosts()"> ici </button>--> 
         <article v-for="post in posts" :key="post.id" class="post">
             <div class="post__user">
                 <figure class="post__user__figure">
