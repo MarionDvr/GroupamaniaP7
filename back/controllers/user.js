@@ -69,7 +69,7 @@ exports.modifyUser = (req, res) => {
   } : { ...req.body };
   User.findOne({ _id: req.params.id })
     .then(user => {
-      //Si l'utilisateur n'est pas celui qui a créé la sauce, renvoie d'une erreur
+      //Si l'utilisateur n'est pas le bon, renvoie d'une erreur
       if(user.userId != req.auth.userId) {
         res.status(401).json({ message: "non autorisé" });
       } else {
