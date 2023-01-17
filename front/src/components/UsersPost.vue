@@ -23,34 +23,26 @@ import axios from 'axios';
             }
         },
         mounted() {
-            this.GetAllPosts()
+            this.GetAllPosts(),
+            this.User()
         },
-        beforeUpdate(){
-        if(localStorage.getItem("token") == null)
-        {
-            this.$router.push("/");
-        } else{
-            console.log("ok");
-        }
-    },
         methods: {
             //Récupérer les utilisateurs
             User() {
                 axios.get("http://localhost:3000/api/auth/users", {
                     headers: {
-                            Authorization: "Bearer " + this.token,
+                            'Authorization': "Bearer " + this.token,
                             "Content-Type": "application/json",
                         },
                 })
                 .then((response) => {
-                    this.users = response.data.users;
+                    this.users = response.data;
                     console.log(this.users);
                 })
                 .catch((error) => { console.log(error)});
             },
             //Récupérer les posts
             GetAllPosts() {
-                //erreur 403 l'utilisateur n'est pas autorisé 
                 axios.get("http://localhost:3000/api/posts",
                 {
                     headers: {
@@ -61,12 +53,6 @@ import axios from 'axios';
                 .then((response) => {
                     this.posts = response.data;
                     console.log(this.posts)
-                    /*for(let posts of response.data) {
-                        this.post.push(posts);
-                        console.log(this.posts);
-                        console.log("Récupération des posts");
-                    }*/
-                    
                 })
                 .catch((error) => { console.log(error)});
             },

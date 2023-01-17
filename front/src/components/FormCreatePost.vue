@@ -19,7 +19,7 @@
                 axios.post("http://localhost:3000/api/posts",
                 {
                    headers: {
-                        "Authorization": "Bearer" + this.token,
+                        "Authorization": "Bearer " + this.token,
                         "Content-Type": "application/json",
                     },
                     post: {

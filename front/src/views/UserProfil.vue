@@ -8,42 +8,58 @@
         data() {
             return {
                 IsConnected: true,
-                UserModify: true,
-                User: {
-                    FirstName:"",
-                    LastName:"",
-                    Job:""
+                modify: true,
+                token: localStorage.getItem("token"),
+                userId: localStorage.getItem("userId"),
+                user: {
+                    id: localStorage.getItem("userId"),
+                    firstName:"",
+                    lastName:"",
+                    job:""
                 }
             }
         },
+        mounted() {
+            this.userProfil()
+        },
         methods: {
             async userProfil() {
-                axios.post("http://localhost:3000/api/users/${id}",
+                axios.get(`http://localhost:3000/api/auth/users/` + this.userId,
                 {
-                    FirstName: this.User.FirstName,
-                    LastName: this.User.LastName,
-                    Job: this.User.Job
+                    headers: {
+                            'Authorization': 'Bearer ' + this.token,
+                            'Content-Type': 'application/json'
+                        },
                 })
-                .then(() => {
-                    this.$router.push("/homeConnected");
-                    console.log("Profil modifié")
+                .then((response) => {
+                    this.user = response.data;
+                    console.log("Utilisateur récupéré")
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);
                 });
             },
             async modifyUser() {
-                axios.put("http://localhost:3000/api/users/modify",
+                //Ne fonctionne pas, pas de message d'erreur
+                axios.put(`http://localhost:3000/api/auth/users/` + this.userId,
                 { 
-                    FirstName: this.User.FirstName,
-                    LastName: this.User.LastName,
-                    Job: this.User.Job
+                    headers: {
+                            'Authorization': 'Bearer ' + this.token,
+                            'Content-Type': 'application/json'
+                    },
+                    firstName: this.user.firstName,
+                    lastName: this.user.lastName,
+                    job: this.user.job
                 })
-                .then(() => {
-                    this.$router.push("/homeConnected");
+                .then((response) => {
+                    this.user = response.data.user;
+                    console.log(this.user);
+                    //window.location.reload();
                     console.log("Profil modifié")
                 })
-                .catch();
+                .catch(function(erreur) {
+                    console.error('Une erreur est survenue' + erreur);
+                });
             }
         }
     }
@@ -51,26 +67,29 @@
 <template>
     <TheHeader :IsConnected="!IsConnected"/>
     <main class="sectionUser">
-        <article v-if="!UserModify" class="User">
+        <article class="User">
             <figure class="User__img">
-                <img src="{{ User.ImgUrl }}"/>
+               <!-- <img src="{{ User.ImgUrl }}"/>-->
             </figure>
-            <h3>{{ User.FirstName }} {{ User.LastName }}</h3>
-            <p> {{ User.Job }}</p>
-            <router-link><i class="fa-sharp fa-solid fa-pen picto"></i></router-link>
+            <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+            <p> {{ user.job }}</p>
+            <button class="User__button" @click="modify = !modify">
+                <p class="User__button__modify">Modifier</p>
+                <i class="fa-sharp fa-solid fa-pen picto User__button__picto"></i>
+            </button>
         </article>
-        <article v-else class="UserModify">
+        <article v-if="modify"  class="UserModify">
             <form action="post" class="form">
                 <h2>Modifier votre profil</h2>
                 <label for="FirstName">Prénom</label>
-                <input type="text" name="FirstName" v-model="User.FirstName"/>
+                <input type="text" name="FirstName" v-model="user.firstName"/>
                 <label for="LastName">Nom</label>
-                <input type="text" name="LastName" v-model="User.LastName"/>
+                <input type="text" name="LastName" v-model="user.lastName"/>
                 <label for="Job">Poste actuel</label>
-                <input type="text" name="Job" v-model="User.Job"/>
+                <input type="text" name="Job" v-model="user.job"/>
                 <label for="Photo">Photo</label>
                 <input type="file" name="Photo"/>
-                <button @click="userProfil()" type="submit">Modifier le profil</button>
+                <button @click="modifyUser()" type="submit">Modifier le profil</button>
             </form>
         </article>
     </main>
@@ -130,6 +149,37 @@
                 background: yellow;
                 border-radius: 100px;
                 margin: 15px;
+            }
+            &__button{
+                &__modify {
+                    margin: 0;
+                }
+                &__picto {
+                    display: none;
+                }
+            }
+            
+        }
+    }
+
+    @media screen and (max-width: 768px) /* Smartphone */
+    {
+        .sectionUser {
+            .User{
+                &__button {
+                    box-shadow: none;
+                    background: none;
+                    &__modify{
+                        display: none;
+                    }
+                    &__picto {
+                        display: block;
+                        font-size: 14pt;
+                    }
+                    &:hover{
+                        color: $couleur-primaire;
+                    }
+                }
             }
         }
     }
