@@ -9,7 +9,7 @@ router.post('/signin', userCtrl.signin);
 //Connexion d'un user
 router.post('/login', userCtrl.login);
 //Modification d'un user
-router.put('/modify', userCtrl.modifyUser);
+router.put('/users/:id', userCtrl.modifyUser);
 //Récupérer un user
 router.get('/users/:id', auth, multer, userCtrl.getUser);
 //Récupérer tous les users
