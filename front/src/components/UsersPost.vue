@@ -54,16 +54,15 @@ import axios from 'axios';
                 axios.get("http://localhost:3000/api/posts",
                 {
                     headers: {
-                            "Authorization": "Bearer" + localStorage.getItem("token"),
-                            "Content-Type": "application/json",
-                        },
+                            'Authorization': 'Bearer ' + this.token,
+                            'Content-Type': 'application/json'
+                        }
                 })
                 .then((response) => {
                     this.posts = response.data;
                     console.log(this.posts)
-                    /*for(let post of response.data) {
-                        this.posts.push(post);
-                        this.content = post.content;
+                    /*for(let posts of response.data) {
+                        this.post.push(posts);
                         console.log(this.posts);
                         console.log("Récupération des posts");
                     }*/
