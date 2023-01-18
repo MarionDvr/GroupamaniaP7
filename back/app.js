@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 //const helmet = require('helmet');
+const path = require('path');
 const postRoutes = require('./routes/post');
 const userRoutes = require('./routes/user');
 const app = express();
@@ -33,4 +34,5 @@ app.use(express.json());
 //Attribution des middlewares aux bonnes routes
 app.use('/api/posts', postRoutes);
 app.use('/api/auth', userRoutes);
+app.use('/images', express.static(path.join(__dirname, 'images')));
   module.exports = app;

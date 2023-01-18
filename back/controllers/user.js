@@ -75,7 +75,16 @@ exports.modifyUser = (req, res) => {
       } else {
         //Sinon mise à jour de la base de donnée
         User.updateOne({ _id: req.params.id }, { ...userObject, _id: req.params.id })
-          .then(() => { res.status(200).json({ message: 'Utilisateur modifiée!' }); })
+          .then(() => { res.status(200).json({ 
+            message: 'Utilisateur modifiée!', 
+            user: {
+                id: user.id,
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                photo: user.photo
+            } 
+        }); })
           .catch( error => { res.status(401).json({ error })});
       }
     })
