@@ -15,7 +15,7 @@ import axios from 'axios';
                     id: localStorage.getItem("userId")
                 },
                 //Mettre les info d'un post dans un objet
-                post: "",
+                post: {},
                 //Mettre les posts récupérer dans un tableau
                 posts: [],
                 //Pour que la flèche d'ouverture du post soit fermé
@@ -82,7 +82,7 @@ import axios from 'axios';
                 }
             },
             likePost() {
-                axios.post(`http://localhost:3000/api/posts/:id/like` , {
+                axios.post(`http://localhost:3000/api/posts/`+ this.postId + `/like` , {
                     headers: {
                             Authorization: "Bearer " + this.token,
                         }
@@ -101,7 +101,7 @@ import axios from 'axios';
         <article v-for="post in posts" :key="post.id" class="post">
             <div class="post__user">
                 <figure class="post__user__figure">
-                    <img v-if="user.photo === null" src="../assets/PhotoUserDefault.jpeg" class="post__user__figure__img" alt="Photo de l'utilisateur"/>
+                    <img v-if="user.photo == null" src="http://localhost:3000/images/PhotoUserDefault.jpg" class="post__user__figure__img" alt="Photo de l'utilisateur"/>
                     <img v-else :src="user.photo" class="post__user__figure__img" alt="Photo de l'utilisateur"/>
                 </figure>
                 <div class="post__user__profil"  v-for="user in users.filter((user) => {
@@ -131,8 +131,7 @@ import axios from 'axios';
                     <i class="fa-sharp fa-solid fa-pen picto"></i>
                 </router-link>
                 <!-- Supprimer le post (seulement par l'utilisateur qui l'a créé)-->
-                <i class="fa-solid fa-trash picto" v-for="user in users.filter((user) => {
-                    user.id == post.userId;})" :key="user.id" @click="deletePost()"></i>
+                <i class="fa-solid fa-trash picto" @click="deletePost()"></i>
             </div>
                 <div @click="isDeployed = !isDeployed" class="post__elements__arrow">
                     <i v-if="isDeployed" class="fa-solid fa-chevron-up"></i>
