@@ -27,6 +27,7 @@ import axios from 'axios';
             this.GetUsers()
         },
         methods: {
+            //Récupérer les users
             GetUsers() {
                 axios.get(`http://localhost:3000/api/auth/users/`,
                 {
@@ -38,13 +39,12 @@ import axios from 'axios';
                 .then((response) => {
                     this.users = response.data;
                     console.log(this.users)
-                    console.log("Utilisateurs récupéré")
+                    console.log("Utilisateurs récupérés")
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);
                 });
-            },
-            
+            },           
             //Récupérer les posts
             GetAllPosts() {
                 axios.get("http://localhost:3000/api/posts",
@@ -61,13 +61,13 @@ import axios from 'axios';
                 })
                 .catch((error) => { console.log(error)});
             },
-            
+            //Supprimer un post
             deletePost() {
                 let confirmDeletePost = confirm(
                     "Êtes-vous sûr de vouloir supprimer ce post ?"
                 );
                 if (confirmDeletePost == true) {
-                    axios.delete(`http://localhost:3000/api/posts/:id`, {
+                    axios.delete(`http://localhost:3000/api/posts/` + this.post.id, {
                         headers: {
                             Authorization: "Bearer " + this.token,
                         }
@@ -121,10 +121,18 @@ import axios from 'axios';
                 <p v-if="isDeployed" >{{ post.text }}</p>
                 </div>
             <div class="post__picto" v-if="isDeployed">
-                <i class="fa-solid fa-heart picto" @click="likePost()"></i>
-                <p class="post_picto_likes">{{ post.likes }}</p>
-                <router-link to="/modifyPost"><i class="fa-sharp fa-solid fa-pen picto"></i></router-link>
-                <i class="fa-solid fa-trash picto" @click="deletePost()"></i>
+                <div class="post__picto__heart">
+                    <i class="fa-solid fa-heart picto" @click="likePost()"></i>
+                    <p class="post__picto__likes">{{ post.likes }}</p>
+                </div>
+                <!-- Modifier le post (seulement par l'utilisateur qui l'a créé)-->
+                <router-link to="/modifyPost" v-for="user in users.filter((user) => {
+                    user.id == post.userId;})" :key="user.id">
+                    <i class="fa-sharp fa-solid fa-pen picto"></i>
+                </router-link>
+                <!-- Supprimer le post (seulement par l'utilisateur qui l'a créé)-->
+                <i class="fa-solid fa-trash picto" v-for="user in users.filter((user) => {
+                    user.id == post.userId;})" :key="user.id" @click="deletePost()"></i>
             </div>
                 <div @click="isDeployed = !isDeployed" class="post__elements__arrow">
                     <i v-if="isDeployed" class="fa-solid fa-chevron-up"></i>
@@ -247,6 +255,14 @@ import axios from 'axios';
                     &:hover {
                         color: $couleur-primaire;
                     }
+                }
+                &__heart{
+                    display: flex;
+                }
+                &__likes{
+                   margin-top: auto;
+                   margin-bottom: auto;
+                   margin-left: 20px;
                 }
             }
         }
