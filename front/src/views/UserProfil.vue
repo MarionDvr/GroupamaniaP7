@@ -15,7 +15,8 @@
                     id: localStorage.getItem("userId"),
                     firstName:"",
                     lastName:"",
-                    job:""
+                    job:"",
+                    photo:""
                 }
             }
         },
@@ -47,9 +48,13 @@
                             'Authorization': 'Bearer ' + this.token,
                             'Content-Type': 'application/json'
                     },
-                    firstName: this.user.firstName,
-                    lastName: this.user.lastName,
-                    job: this.user.job
+                    user: {
+                        firstName: this.user.firstName,
+                        lastName: this.user.lastName,
+                        job: this.user.job,
+                        photo: this.user.photo
+                    }
+                    
                 })
                 .then((response) => {
                     this.user = response.data.user;

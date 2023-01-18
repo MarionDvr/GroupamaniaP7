@@ -19,28 +19,32 @@ import axios from 'axios';
                 //Mettre les posts récupérer dans un tableau
                 posts: [],
                 //Pour que la flèche d'ouverture du post soit fermé
-                isDeployed: false
+                isDeployed: false,
             }
         },
         mounted() {
             this.GetAllPosts(),
-            this.User()
+            this.GetUsers()
         },
         methods: {
-            //Récupérer les utilisateurs
-            User() {
-                axios.get("http://localhost:3000/api/auth/users", {
+            GetUsers() {
+                axios.get(`http://localhost:3000/api/auth/users/`,
+                {
                     headers: {
-                            'Authorization': "Bearer " + this.token,
-                            "Content-Type": "application/json",
+                            'Authorization': 'Bearer ' + this.token,
+                            'Content-Type': 'application/json'
                         },
                 })
                 .then((response) => {
                     this.users = response.data;
-                    console.log(this.users);
+                    console.log(this.users)
+                    console.log("Utilisateurs récupéré")
                 })
-                .catch((error) => { console.log(error)});
+                .catch(function(erreur) {
+                    console.error('Une erreur est survenue' + erreur);
+                });
             },
+            
             //Récupérer les posts
             GetAllPosts() {
                 axios.get("http://localhost:3000/api/posts",
@@ -53,6 +57,7 @@ import axios from 'axios';
                 .then((response) => {
                     this.posts = response.data;
                     console.log(this.posts)
+                    console.log("Posts récupérés")
                 })
                 .catch((error) => { console.log(error)});
             },
@@ -87,22 +92,20 @@ import axios from 'axios';
                 })
                 .catch( error => { console.log(error)});
             }
-
-            
         }
         
     }
 </script>
 <template>
     <section class="UsersPosts">
-    <!--   <button type="submit" @click="GetAllPosts()"> ici </button>--> 
         <article v-for="post in posts" :key="post.id" class="post">
             <div class="post__user">
                 <figure class="post__user__figure">
-                    <img v-if="user.imageUrl === null" src="../assets/PhotoUserDefault.jpeg" class="post__user__figure__img" alt="Photo de l'utilisateur"/>
-                    <img v-else :src="user.imageUrl" class="post__user__figure__img" alt="Photo de l'utilisateur"/>
+                    <img v-if="user.photo === null" src="../assets/PhotoUserDefault.jpeg" class="post__user__figure__img" alt="Photo de l'utilisateur"/>
+                    <img v-else :src="user.photo" class="post__user__figure__img" alt="Photo de l'utilisateur"/>
                 </figure>
-                <div class="post__user__profil">
+                <div class="post__user__profil"  v-for="user in users.filter((user) => {
+                    user.id == post.userId;})" :key="user.id">
                     <div class="post__user__profil__name">
                         <p>{{ user.firstName }}</p>
                         <p>{{ user.lastName }}</p>
