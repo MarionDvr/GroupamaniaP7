@@ -11,9 +11,7 @@ import axios from 'axios';
                 token: localStorage.getItem("token"),
                 //Mettre les utilisateurs dans un tableau
                 users: [],
-                user: {
-                    id: localStorage.getItem("userId")
-                },
+                user: {},
                 //Mettre les info d'un post dans un objet
                 post: {},
                 //Mettre les posts récupérer dans un tableau
@@ -38,7 +36,7 @@ import axios from 'axios';
                 })
                 .then((response) => {
                     this.users = response.data;
-                    console.log(this.users)
+                    //console.log(this.users)
                     console.log("Utilisateurs récupérés")
                 })
                 .catch(function(erreur) {
@@ -56,7 +54,7 @@ import axios from 'axios';
                 })
                 .then((response) => {
                     this.posts = response.data;
-                    console.log(this.posts)
+                    //console.log(this.posts)
                     console.log("Posts récupérés")
                 })
                 .catch((error) => { console.log(error)});
@@ -82,7 +80,7 @@ import axios from 'axios';
                 }
             },
             likePost() {
-                axios.post(`http://localhost:3000/api/posts/`+ this.postId + `/like` , {
+                axios.post(`http://localhost:3000/api/posts/`+ this.post.id + `/like` , {
                     headers: {
                             Authorization: "Bearer " + this.token,
                         }
@@ -104,7 +102,7 @@ import axios from 'axios';
                     <img v-if="user.photo == null" src="http://localhost:3000/images/PhotoUserDefault.jpg" class="post__user__figure__img" alt="Photo de l'utilisateur"/>
                     <img v-else :src="user.photo" class="post__user__figure__img" alt="Photo de l'utilisateur"/>
                 </figure>
-                <div class="post__user__profil">
+                <div class="post__user__profil" v-if="post.userId == user.id">
                     <div class="post__user__profil__name">
                         <p>{{ user.firstName }}</p>
                         <p>{{ user.lastName }}</p>
@@ -117,7 +115,7 @@ import axios from 'axios';
                 <figure class="post__elements__figure">    
                     <img :src="post.imageUrl" class="post__elements__figure__img" alt="Photo du post"/>
                 </figure>
-                <p v-if="isDeployed" >{{ post.text }}</p>
+                <p v-if="isDeployed" >{{ post.userId }}</p>
                 </div>
             <div class="post__picto" v-if="isDeployed">
                 <div class="post__picto__heart">
@@ -126,14 +124,12 @@ import axios from 'axios';
                 </div>
                 <!-- Ne fonctionne pas -->
                 <!-- Modifier le post (seulement par l'utilisateur qui l'a créé)-->
-                <router-link to="/modifyPost" v-for="user in users.filter((user) => {
-                    user.id == post.userId;})" :key="user.id">
+                <router-link to="/modifyPost" v-if="post.userId == userId">
                     <i class="fa-sharp fa-solid fa-pen picto"></i>
                 </router-link>
                 <!-- Ne fonctionne pas -->
                 <!-- Supprimer le post (seulement par l'utilisateur qui l'a créé)-->
-                <i class="fa-solid fa-trash picto" @click="deletePost()" v-for="user in users.filter((user) => {
-                    user.id == post.userId;})" :key="user.id"></i>
+                <i class="fa-solid fa-trash picto" @click="deletePost()" v-if="post.userId == userId"></i>
             </div>
                 <div @click="isDeployed = !isDeployed" class="post__elements__arrow">
                     <i v-if="isDeployed" class="fa-solid fa-chevron-up"></i>
