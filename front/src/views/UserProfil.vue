@@ -24,7 +24,7 @@
             this.userProfil()
         },
         methods: {
-            async userProfil() {
+            userProfil() {
                 axios.get(`http://localhost:3000/api/auth/users/` + this.userId,
                 {
                     headers: {
@@ -40,7 +40,7 @@
                     console.error('Une erreur est survenue' + erreur);
                 });
             },
-            async modifyUser() {
+            modifyUser() {
                 //Ne fonctionne pas, pas de message d'erreur
                 axios.put(`http://localhost:3000/api/auth/users/` + this.userId,
                 { 
@@ -70,11 +70,12 @@
     }
 </script>
 <template>
-    <TheHeader :IsConnected="!IsConnected"/>
+    <TheHeader :IsConnected="IsConnected"/>
     <main class="sectionUser">
         <article class="User">
-            <figure class="User__img">
-               <!-- <img src="{{ User.ImgUrl }}"/>-->
+            <figure >
+                <img class="User__img" v-if="user.photo == null" src="http://localhost:3000/images/PhotoUserDefault.jpg"/>
+                <img class="User__img" v-else :src="user.photo" alt="Photo de l'utilisateur"/>
             </figure>
             <h3>{{ user.firstName }} {{ user.lastName }}</h3>
             <p> {{ user.job }}</p>
@@ -164,6 +165,9 @@
                 }
             }
             
+        }
+        .UserModify{
+            margin-top: 40px;
         }
     }
 
