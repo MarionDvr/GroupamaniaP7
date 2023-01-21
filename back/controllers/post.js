@@ -39,7 +39,7 @@ exports.modifyPost = (req, res) => {
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
   //Sinon on traite req.body
   } : { ...req.body  };
-  //Suppression de userId pour la crétion de la sauce
+  //Suppression de userId pour la crétion du post
   delete postObject._userId;
   Post.findOne({ _id: req.params.id })
     .then (post => {
