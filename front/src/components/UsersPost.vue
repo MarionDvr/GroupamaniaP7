@@ -18,6 +18,7 @@ import axios from 'axios';
                 posts: [],
                 //Pour que la flèche d'ouverture du post soit fermé
                 isDeployed: false,
+
             }
         },
         mounted() {
@@ -100,12 +101,15 @@ import axios from 'axios';
 <template>
     <section class="UsersPosts">
         <article v-for="post in posts.slice().reverse()" :key="post._id" class="post">
-            <div class="post__user">
+            <div class="post__user" v-for="user in users.filter((user) => {
+                return user._id == post.userId;
+              })"
+              :key="user._id">
                 <figure class="post__user__figure">
                     <img v-if="user.photo == null" src="http://localhost:3000/images/PhotoUserDefault.jpg" class="post__user__figure__img" alt="Photo de l'utilisateur"/>
                     <img v-else :src="user.photo" class="post__user__figure__img" alt="Photo de l'utilisateur"/>
                 </figure>
-                <div class="post__user__profil" v-if="post.userId == user.id">
+                <div class="post__user__profil">
                     <div class="post__user__profil__name">
                         <p>{{ user.firstName }}</p>
                         <p>{{ user.lastName }}</p>
@@ -116,7 +120,7 @@ import axios from 'axios';
             <div class="post__elements">
                 <h2> {{ post.title }}</h2>
                 <!-- Test pour récupéré l'id du post -->
-                 <p class="test"> {{ post._id }}</p>  
+                <!-- <p class="test"> {{ post._id }}</p>  -->
                 <figure class="post__elements__figure">    
                     <img :src="post.imageUrl" class="post__elements__figure__img" alt="Photo du post"/>
                 </figure>
@@ -129,7 +133,7 @@ import axios from 'axios';
                     <p class="post__picto__likes">{{ post.likes }}</p>
                 </div>
                 <!-- Modifier le post (seulement par l'utilisateur qui l'a créé)-->
-                <router-link to="/modifyPost" v-if="post.userId == userId">
+                <router-link to="/modifyPost" v-if="post.userId == userId || user.isAdmin == true">
                     <i class="fa-sharp fa-solid fa-pen picto"></i>
                 </router-link>
                 <!-- Supprimer le post (seulement par l'utilisateur qui l'a créé)-->

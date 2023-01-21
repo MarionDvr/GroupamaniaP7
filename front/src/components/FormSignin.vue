@@ -10,9 +10,9 @@
                 <input name="emailSignin" type="email" v-model="dataSignin.email" onfocus="this.value=''" class="SigninSection__form__input" required>
                 <label for="passwordSignin" class="SigninSection__form__label">Mot de passe</label>
                 <input name="passwordSignin" type="password" v-model="dataSignin.password" onfocus="this.value=''" class="SigninSection__form__input" required>
-                <div v-for="error in errors" v-if="errors.length" :key="error">
+                <!--<div v-for="error in errors" v-if="errors.length" :key="error">
                     <p id="SigninErrorMsg">{{ error }}</p>
-                </div>
+                </div>-->
                 <button type="submit" @click="addUser()">S'inscrire</button>
             </form>
         </section>
@@ -27,8 +27,6 @@
                 dataSignin: {
                     email: "",
                     password: "",
-                    lastName: "",
-                    firstName: ""
                 },
                 errors: []
             }
@@ -63,7 +61,8 @@
                             firstName: "",
                             lastName: "",
                             photo: "",
-                            job: ""
+                            job: "",
+                            isAdmin: false
 
                         })
                         .then((response) => {
