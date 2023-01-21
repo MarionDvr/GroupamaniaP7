@@ -55,6 +55,9 @@ import axios from 'axios';
                 .then((response) => {
                     this.posts = response.data;
                     //console.log(this.posts)
+                    let datePost = this.post.date.Date();
+                    let options = { years: 'numeric', month: 'long', day:'numeric'};
+                    console.log(datePost.toLocaleDateString('fr-FR', options));
                     console.log("Posts récupérés")
                 })
                 .catch((error) => { console.log(error)});
@@ -80,7 +83,7 @@ import axios from 'axios';
                 }
             },
             likePost() {
-                axios.post(`http://localhost:3000/api/posts/`+ this.post.id + `/like` , {
+                axios.post(`http://localhost:3000/api/posts/`+ this.postId + `/like` , {
                     headers: {
                             Authorization: "Bearer " + this.token,
                         }
@@ -115,7 +118,8 @@ import axios from 'axios';
                 <figure class="post__elements__figure">    
                     <img :src="post.imageUrl" class="post__elements__figure__img" alt="Photo du post"/>
                 </figure>
-                <p v-if="isDeployed" >{{ post.userId }}</p>
+                <p v-if="isDeployed">{{ post.text }}</p>
+                <p v-if="isDeployed"> {{ post.date }}</p>
                 </div>
             <div class="post__picto" v-if="isDeployed">
                 <div class="post__picto__heart">

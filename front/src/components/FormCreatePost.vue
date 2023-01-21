@@ -6,12 +6,14 @@
             return {
                 IsConnected: true,
                 CreatePost: true,
+                token: localStorage.getItem('token'),
+                userId: localStorage.getItem('userId'),
                 dataPost: {
                     title: "",
                     text: "",
                     //imageUrl:""
                 },
-                token: localStorage.getItem('token')
+                
             }
         },
         methods: {
@@ -25,7 +27,8 @@
                     post: {
                         title: this.dataPost.title,
                         text: this.dataPost.text,
-                        //imageUrl: this.dataPost.imageUrl
+                        //imageUrl: this.dataPost.imageUrl,
+                        date: new Date().toLocaleDateString("fr")
                     }
                 })
                 .then((response) => {
@@ -40,6 +43,10 @@
             ModifyPost() {
                 axios.put("http://localhost:3000/api/posts/:id",
                 {
+                    headers: {
+                        "Authorization": "Bearer " + this.token,
+                        "Content-Type": "application/json",
+                    },
                     post: {
                         title: this.dataPost.title,
                         text: this.dataPost.text,
