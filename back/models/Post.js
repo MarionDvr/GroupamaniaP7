@@ -7,6 +7,7 @@ const postSchema = mongoose.Schema({
     imageUrl: { type: String},
     likes: { type: Number, default: 0 },
     usersLiked: { type: [String], default: [] },
+    date: { type: String, required: true }
 });
 //Exportation du schéma en tant que modèle mongoose et disponible pour l'app
 module.exports = mongoose.model('Post', postSchema);
