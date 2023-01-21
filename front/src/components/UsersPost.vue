@@ -55,9 +55,7 @@ import axios from 'axios';
                 .then((response) => {
                     this.posts = response.data;
                     //console.log(this.posts)
-                    let datePost = this.post.date.Date();
-                    let options = { years: 'numeric', month: 'long', day:'numeric'};
-                    console.log(datePost.toLocaleDateString('fr-FR', options));
+                    
                     console.log("Posts récupérés")
                 })
                 .catch((error) => { console.log(error)});
@@ -83,12 +81,14 @@ import axios from 'axios';
                 }
             },
             likePost() {
-                axios.post(`http://localhost:3000/api/posts/`+ this.postId + `/like` , {
+                axios.post(`http://localhost:3000/api/posts/63c511a6122b57fb6dd38bcb/like` , {
                     headers: {
                             Authorization: "Bearer " + this.token,
                         }
                 })
-                .then(() => {
+                .then((response) => {
+                    console.log(response);
+                    console.log("Like ajouté");
                     window.location.reload();
                 })
                 .catch( error => { console.log(error)});
@@ -99,7 +99,7 @@ import axios from 'axios';
 </script>
 <template>
     <section class="UsersPosts">
-        <article v-for="post in posts.slice().reverse()" :key="post.id" class="post">
+        <article v-for="post in posts.slice().reverse()" :key="post._id" class="post">
             <div class="post__user">
                 <figure class="post__user__figure">
                     <img v-if="user.photo == null" src="http://localhost:3000/images/PhotoUserDefault.jpg" class="post__user__figure__img" alt="Photo de l'utilisateur"/>
@@ -115,6 +115,8 @@ import axios from 'axios';
             </div>
             <div class="post__elements">
                 <h2> {{ post.title }}</h2>
+                <!-- Test pour récupéré l'id du post -->
+                 <p class="test"> {{ post._id }}</p>  
                 <figure class="post__elements__figure">    
                     <img :src="post.imageUrl" class="post__elements__figure__img" alt="Photo du post"/>
                 </figure>
@@ -126,12 +128,10 @@ import axios from 'axios';
                     <i class="fa-solid fa-heart picto" @click="likePost()"></i>
                     <p class="post__picto__likes">{{ post.likes }}</p>
                 </div>
-                <!-- Ne fonctionne pas -->
                 <!-- Modifier le post (seulement par l'utilisateur qui l'a créé)-->
                 <router-link to="/modifyPost" v-if="post.userId == userId">
                     <i class="fa-sharp fa-solid fa-pen picto"></i>
                 </router-link>
-                <!-- Ne fonctionne pas -->
                 <!-- Supprimer le post (seulement par l'utilisateur qui l'a créé)-->
                 <i class="fa-solid fa-trash picto" @click="deletePost()" v-if="post.userId == userId"></i>
             </div>
@@ -267,6 +267,10 @@ import axios from 'axios';
                 }
             }
         }
+    }
+
+    .test {
+        font-size: 20pt;
     }
     
 
