@@ -1,16 +1,16 @@
 <script>
     import TheHeader from "@/components/TheHeader.vue";
-    import FormCreatePost from "@/components/FormCreatePost.vue";
+    import FormModifyPost from "@/components/FormModifyPost.vue";
     import TheFooter from "@/components/TheFooter.vue";
     export default {
         name: "HomeConnected",
-        components: { TheHeader, FormCreatePost, TheFooter }
+        components: { TheHeader, FormModifyPost, TheFooter }
     }
 </script>   
 <template>
     <TheHeader :IsConnected="!IsConnected"/>
     <main class="section">
-        <FormCreatePost/>
+        <FormModifyPost/>
     </main>
     <TheFooter/>
 </template>
