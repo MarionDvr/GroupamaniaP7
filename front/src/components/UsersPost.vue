@@ -233,7 +233,6 @@ import axios from 'axios';
                 }
                 &__figure {
                     width: 100%;
-                    height: 250px;
                     margin: 0;
                     overflow: hidden;
                     &__img{

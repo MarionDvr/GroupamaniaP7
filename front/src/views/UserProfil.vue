@@ -73,12 +73,16 @@
     <TheHeader :IsConnected="IsConnected"/>
     <main class="sectionUser">
         <article class="User">
-            <figure >
-                <img class="User__img" v-if="user.photo == null" src="http://localhost:3000/images/PhotoUserDefault.jpg"/>
-                <img class="User__img" v-else :src="user.photo" alt="Photo de l'utilisateur"/>
-            </figure>
-            <h3>{{ user.firstName }} {{ user.lastName }}</h3>
-            <p> {{ user.job }}</p>
+            <div class="User__container">
+                <figure>
+                    <img class="User__container__img" v-if="user.photo == null" src="http://localhost:3000/images/PhotoUserDefault.jpg"/>
+                    <img class="User__container__img" v-else :src="user.photo" alt="Photo de l'utilisateur"/>
+                </figure>
+                <div class="User__container__nameJob">
+                    <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+                    <p> {{ user.job }}</p>
+                </div>
+            </div>
             <button class="User__button" @click="modify = !modify">
                 <p class="User__button__modify">Modifier</p>
                 <i class="fa-sharp fa-solid fa-pen picto User__button__picto"></i>
@@ -136,7 +140,6 @@
         }
         }
         .User {
-            display: block;
             margin-left: auto;
             margin-right: auto;
             display: flex;
@@ -147,16 +150,21 @@
             padding: 50px;
             width: 50%;
             box-shadow: 5px 11px 10px 1px #CAC3C3;
-            position:relative;
-            z-index: 2;
-            &__img {
-                width: 70px;
-                height: 70px;
-                background: yellow;
-                border-radius: 100px;
-                margin: 15px;
+            &__container{
+                display: flex;
+                &__img {
+                    height: 200px;
+                    clip-path:ellipse(33% 50%);
+                }
+                &__nameJob{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
             }
+            
             &__button{
+                margin-left: 25%;
                 &__modify {
                     margin: 0;
                 }
