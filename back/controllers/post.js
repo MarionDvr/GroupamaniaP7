@@ -12,7 +12,6 @@ exports.getOnePost = (req, res) => {
     .then(post => res.status(200).json(post))
     .catch(error => res.status(404).json({ error }));
 };
-
 //CREER un post
 exports.createPost = (req, res) => {
   //Obtenir un objet utilisable grâce à JSON.parse
@@ -25,7 +24,7 @@ exports.createPost = (req, res) => {
     ...postObject,
     userId: req.auth.userId,
   //Chemin de l'image
-    //imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
     likes: 0, 
     usersLiked: []
   });
