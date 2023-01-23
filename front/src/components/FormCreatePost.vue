@@ -19,16 +19,15 @@
             AddPost() {
                 axios.post("http://localhost:3000/api/posts",
                 {
-                   headers: {
-                        "Authorization": "Bearer " + this.token,
-                        "Content-Type": "application/json",
+                    headers: {
+                            'Authorization': 'Bearer ' + this.token,
+                            'Content-Type': 'application/json'
                     },
-                    post: {
-                        title: this.dataPost.title,
-                        text: this.dataPost.text,
-                        //imageUrl: this.dataPost.imageUrl,
-                        date: new Date().toLocaleDateString("fr")
-                    }
+                    userId: this.userId,
+                    title: this.dataPost.title,
+                    text: this.dataPost.text,
+                    date: new Date().toLocaleDateString("fr")
+                    
                 })
                 .then((response) => {
                     console.log(response)
@@ -53,7 +52,7 @@
             <input type="file" name="Image" class="form__inputImg" v-on:change="onFileChange()"/>
             <label for="Texte" class="form__label">Texte</label>
             <textarea name="Texte" class="form__inputText" v-model="dataPost.text"></textarea>
-            <button type="submit" v-if="CreatePost" @click="AddPost()">Poster !</button>
+            <button type="submit" @click="AddPost()">Poster !</button>
         </form>
     </section>
 </template>
