@@ -17,18 +17,18 @@
         },
         methods: {
             AddPost() {
-                axios.post("http://localhost:3000/api/posts",
+                let headers = {
+                    'Authorization': 'Bearer ' + this.token,
+                    'Content-Type': 'application/json'
+                }
+                axios.post("http://localhost:3000/api/posts", 
                 {
-                    headers: {
-                            'Authorization': 'Bearer ' + this.token,
-                            'Content-Type': 'application/json'
-                    },
                     userId: this.userId,
                     title: this.dataPost.title,
                     text: this.dataPost.text,
-                    date: new Date().toLocaleDateString("fr")
-                    
-                })
+                    date: new Date().toLocaleDateString("fr") 
+                } ,
+                {headers: headers})
                 .then((response) => {
                     console.log(response)
                     console.log('Post ajouté')
