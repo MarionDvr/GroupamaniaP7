@@ -6,6 +6,12 @@ exports.getAllPosts = (req, res) => {
       .then((posts) => res.status(200).json(posts))
       .catch(error => res.status(400).json({ error }));
   };
+//AFFICHER UN post
+exports.getOnePost = (req, res) => {
+  Post.findOne({ _id: req.params.id })
+    .then(post => res.status(200).json(post))
+    .catch(error => res.status(404).json({ error }));
+};
 
 //CREER un post
 exports.createPost = (req, res) => {
@@ -19,14 +25,13 @@ exports.createPost = (req, res) => {
     ...postObject,
     userId: req.auth.userId,
   //Chemin de l'image
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+    //imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
     likes: 0, 
     usersLiked: []
   });
   post.save()
     .then(() => { res.status(201).json({ message: 'Post enregistré' })})
     .catch(error => {res.status(400).json({ error }), console.log('error:', error)});
-
 };
 
 //MODIFIER un post
@@ -36,7 +41,7 @@ exports.modifyPost = (req, res) => {
   //Obtenir un objet utilisable avec JSON.parse
     ...JSON.parse(req.body.post),
   //Ajout d'une nouvelle image
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+   imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
   //Sinon on traite req.body
   } : { ...req.body  };
   //Suppression de userId pour la crétion du post
