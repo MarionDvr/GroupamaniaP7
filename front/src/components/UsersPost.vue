@@ -93,6 +93,9 @@ import axios from 'axios';
                     window.location.reload();
                 })
                 .catch( error => { console.log(error)});
+            },
+            setPostId() {
+                localStorage.setItem('postId', this.post._id);
             }
         }
         
@@ -133,7 +136,7 @@ import axios from 'axios';
                     <p class="post__picto__likes">{{ post.likes }}</p>
                 </div>
                 <!-- Modifier le post (seulement par l'utilisateur qui l'a créé)-->
-                <router-link to="/modifyPost" v-if="post.userId == userId || user.isAdmin == true">
+                <router-link to="/modifyPost" v-if="post.userId == userId || user.isAdmin == true" @click="setPostId()">
                     <i class="fa-sharp fa-solid fa-pen picto"></i>
                 </router-link>
                 <!-- Supprimer le post (seulement par l'utilisateur qui l'a créé)-->

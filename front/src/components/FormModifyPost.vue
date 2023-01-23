@@ -5,6 +5,9 @@
         data() {
             return {
                 IsConnected: true,
+                showInputTitle: false,
+                showInputImage: false,
+                showInputText: false,
                 token: localStorage.getItem('token'),
                 userId: localStorage.getItem('userId'),
                 dataPost: {
@@ -15,7 +18,27 @@
                 
             }
         },
+        mounted (){
+            this.GetOnePost()
+        },
         methods: {
+            //Récupérer le post
+            GetOnePost() {
+                axios.get(`http://localhost:3000/api/posts/` /*+ this.post._id*/,
+                {
+                    headers: {
+                            'Authorization': 'Bearer ' + this.token,
+                            'Content-Type': 'application/json'
+                        }
+                })
+                .then((response) => {
+                    this.post = response.data;
+                    console.log(this.post)
+                    console.log("Post récupéré")
+                })
+                .catch((error) => { console.log(error)});
+            },
+            //Modifier le post
             ModifyPost() {
                 axios.put("http://localhost:3000/api/posts/:id",
                 {
@@ -24,6 +47,7 @@
                         "Content-Type": "application/json",
                     },
                     post: {
+                        userId: this.userId,
                         title: this.dataPost.title,
                         text: this.dataPost.text,
                         //imageUrl: this.dataPost.imageUrl
@@ -49,14 +73,20 @@
 <template>
     <section>   
         <form class="form">
+            <!-- problème récupération post.id -->
             <h2>Modifier votre post</h2>
             <label for="Titre" class="form__label">Titre</label>
-            <input name="Titre" class="form__inputTitre" v-model="dataPost.title"/>
+            <!--<h3 v-if="!showInputTitle"> {{ post.title }}</h3>-->
+            <button @click="showInputTitle = !showInputTitle" v-if="!showInputTitle">Modifier le titre</button>
+            <input v-if="showInputTitle" name="Titre" class="form__inputTitre" v-model="dataPost.title"/>
             <label for="Image" class="form__label">Image</label>
-            <!-- V-model ? -->
-            <input type="file" name="Image" class="form__inputImg" v-on:change="onFileChange()"/>
+            <!--<img :src="post.imageUrl" v-if="!showInputImage"/>-->
+            <button @click="showInputImage = !showInputImage" v-if="!showInputImage">Modifier l'image</button>
+            <input v-if="showInputImage" type="file" name="Image" class="form__inputImg" v-on:change="onFileChange()"/>
             <label for="Texte" class="form__label">Texte</label>
-            <textarea name="Texte" class="form__inputText" v-model="dataPost.text"></textarea>
+            <!--<p v-if="!showInputText"> {{ post.text }}</p>-->
+            <button @click="showInputText = !showInputText" v-if="!showInputText">Modifier le texte</button>
+            <textarea v-if="showInputText" name="Texte" class="form__inputText" v-model="dataPost.text"></textarea>
             <button type="submit" @click="ModifyPost()">Modifier !</button>
         </form>
     </section>
@@ -116,6 +146,23 @@
             box-shadow: 2px 2px 7px 1px #D8D3D3 inset;
             overflow: scroll;
             resize: none;
+        }
+        &__button {
+            background: $couleur-secondaire;
+            color: $couleur-tertiaire;
+            font-size: 14pt;
+            border: none;
+            padding: 10px;
+            margin-left: 10px;
+            margin-top: 20px;
+            width: 190px;
+            box-shadow: 3px 2px 9px 1px #CAC3C3;
+            display: flex;
+            justify-content: center;
+            cursor: pointer;
+            &:hover{
+                background: $couleur-primaire;
+            }
         }
 
         
