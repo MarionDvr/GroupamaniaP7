@@ -16,18 +16,21 @@
             }
         },
         methods: {
-            AddPost() {
+            addPost() {
                 let headers = {
-                    'Authorization': 'Bearer ' + this.token,
-                    'Content-Type': 'application/json'
+                    "Authorization": "Bearer " + this.token,
+                    "Content-Type": "application/json"
                 }
-                axios.post("http://localhost:3000/api/posts", 
-                {
+                let date = new Date().toLocaleDateString("fr");
+                let post = {
                     userId: this.userId,
                     title: this.dataPost.title,
                     text: this.dataPost.text,
-                    date: new Date().toLocaleDateString("fr") 
-                } ,
+                    date: date 
+                }
+                
+                axios.post("http://localhost:3000/api/posts", 
+                post,
                 {headers: headers})
                 .then((response) => {
                     console.log(response)
@@ -35,7 +38,8 @@
                     //this.$router.push("/homeConnected");
                 })
                 .catch(function(erreur) {
-                    console.error('Une erreur est survenue' + erreur);
+                    console.error('Une erreur est survenue' + erreur.response);
+                    console.log(post);
                 });
             }
         }
@@ -52,7 +56,7 @@
             <input type="file" name="Image" class="form__inputImg" v-on:change="onFileChange()"/>
             <label for="Texte" class="form__label">Texte</label>
             <textarea name="Texte" class="form__inputText" v-model="dataPost.text"></textarea>
-            <button type="submit" @click="AddPost()">Poster !</button>
+            <button type="submit" @click="addPost()">Poster !</button>
         </form>
     </section>
 </template>
