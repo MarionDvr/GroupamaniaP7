@@ -81,8 +81,15 @@ import axios from 'axios';
                     return;
                 }
             },
-            likePost() {
-                axios.post(`http://localhost:3000/api/posts/63c511a6122b57fb6dd38bcb/like` , {
+            likePost(id) {
+                const newLike = {
+                    like: 1,
+                    userID: this.userId,
+                    postId:id
+                }
+                const data = newLike;
+                axios.post(`http://localhost:3000/api/posts/${id}/like` , {
+                    data,
                     headers: {
                             Authorization: "Bearer " + this.token,
                         }
@@ -92,7 +99,9 @@ import axios from 'axios';
                     console.log("Like ajouté");
                     window.location.reload();
                 })
-                .catch( error => { console.log(error)});
+                .catch( error => { console.log(error)
+                    console.log(newLike);
+                });
             },
             setPostId() {
                 localStorage.setItem('postId', this.post._id);
