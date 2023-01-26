@@ -11,13 +11,14 @@ import axios from 'axios';
                 token: localStorage.getItem("token"),
                 //Mettre les utilisateurs dans un tableau
                 users: [],
-                user: {},
+                user: "",
                 //Mettre les info d'un post dans un objet
-                post: {},
+                post: "",
                 //Mettre les posts récupérer dans un tableau
                 posts: [],
                 //Pour que la flèche d'ouverture du post soit fermé
                 isDeployed: false,
+                liked: []
 
             }
         },
@@ -56,8 +57,13 @@ import axios from 'axios';
                 .then((response) => {
                     this.posts = response.data;
                     //console.log(this.posts)
+                     console.log("Posts récupérés")
+                })
+                .then((response) => {
+                    this.post = response.post;
+                    console.log(this.post)
                     
-                    console.log("Posts récupérés")
+                     console.log("Post récupéré")
                 })
                 .catch((error) => { console.log(error)});
             },
@@ -85,7 +91,7 @@ import axios from 'axios';
                 const newLike = {
                     like: 1,
                     userID: this.userId,
-                    postId:id
+                    postId: id
                 }
                 const data = newLike;
                 axios.post(`http://localhost:3000/api/posts/${id}/like` , {
@@ -96,6 +102,7 @@ import axios from 'axios';
                 })
                 .then((response) => {
                     console.log(response);
+                    this.GetAllPosts();
                     console.log("Like ajouté");
                     window.location.reload();
                 })
@@ -132,7 +139,7 @@ import axios from 'axios';
             <div class="post__elements">
                 <h2> {{ post.title }}</h2>
                 <!-- Test pour récupéré l'id du post -->
-                <!-- <p class="test"> {{ post._id }}</p>  -->
+                <!-- <p class="test"> {{ post._id }}</p> -->
                 <figure class="post__elements__figure">    
                     <img :src="post.imageUrl" class="post__elements__figure__img" alt="Photo du post"/>
                 </figure>
@@ -141,7 +148,7 @@ import axios from 'axios';
                 </div>
             <div class="post__picto" v-if="isDeployed">
                 <div class="post__picto__heart">
-                    <i class="fa-solid fa-heart picto" @click="likePost()"></i>
+                    <i class="fa-solid fa-heart picto" @click="likePost(post._id)"></i>
                     <p class="post__picto__likes">{{ post.likes }}</p>
                 </div>
                 <!-- Modifier le post (seulement par l'utilisateur qui l'a créé)-->
@@ -180,6 +187,10 @@ import axios from 'axios';
         transform: translateY(0px);
     }
 }
+
+    .testLike {
+        visibility: hidden;
+    }
 
     .UsersPosts {
         display: flex;

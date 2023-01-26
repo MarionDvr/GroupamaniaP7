@@ -35,6 +35,7 @@
                 .then((response) => {
                     console.log(response)
                     console.log('Post ajouté')
+                    //window.location.reload();
                     //this.$router.push("/homeConnected");
                 })
                 .catch(function(erreur) {

@@ -183,9 +183,24 @@
     {
         .sectionUser {
             .User{
+                &__container{
+                    flex-direction: column;
+                    &__img{
+                        max-height: 100%;
+                    }
+                    &__nameJob{
+                        margin-left: 25%;
+                        p{
+                            margin-left: 10%;
+                            margin-top: 0;
+                        }
+                    }
+                }
+                
                 &__button {
                     box-shadow: none;
                     background: none;
+                    margin-left: 15%;
                     &__modify{
                         display: none;
                     }
