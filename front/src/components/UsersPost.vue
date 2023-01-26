@@ -59,21 +59,15 @@ import axios from 'axios';
                     //console.log(this.posts)
                      console.log("Posts récupérés")
                 })
-                .then((response) => {
-                    this.post = response.post;
-                    console.log(this.post)
-                    
-                     console.log("Post récupéré")
-                })
                 .catch((error) => { console.log(error)});
             },
             //Supprimer un post
-            deletePost() {
+            deletePost(id) {
                 let confirmDeletePost = confirm(
                     "Êtes-vous sûr de vouloir supprimer ce post ?"
                 );
                 if (confirmDeletePost == true) {
-                    axios.delete(`http://localhost:3000/api/posts/` + this.post.id, {
+                    axios.delete(`http://localhost:3000/api/posts/${id}`, {
                         headers: {
                             Authorization: "Bearer " + this.token,
                         }
@@ -90,29 +84,28 @@ import axios from 'axios';
             likePost(id) {
                 const newLike = {
                     like: 1,
-                    userID: this.userId,
-                    postId: id
+                    userId: this.userId,
+                    id: id
                 }
                 const data = newLike;
-                axios.post(`http://localhost:3000/api/posts/${id}/like` , {
-                    data,
-                    headers: {
-                            Authorization: "Bearer " + this.token,
-                        }
-                })
+                const headers = {
+                    'Authorization': "Bearer " + this.token,
+                    'Content-Type': 'application/json'
+                }
+                axios.post(`http://localhost:3000/api/posts/${id}/like`,
+                    data, { headers: headers } 
+                )
                 .then((response) => {
                     console.log(response);
-                    this.GetAllPosts();
                     console.log("Like ajouté");
-                    window.location.reload();
+                    //window.location.reload();
                 })
                 .catch( error => { console.log(error)
                     console.log(newLike);
+                    console.log(this.token);
+                    console.log(error.response)
                 });
             },
-            setPostId() {
-                localStorage.setItem('postId', this.post._id);
-            }
         }
         
     }
@@ -156,7 +149,7 @@ import axios from 'axios';
                     <i class="fa-sharp fa-solid fa-pen picto"></i>
                 </router-link>
                 <!-- Supprimer le post (seulement par l'utilisateur qui l'a créé)-->
-                <i class="fa-solid fa-trash picto" @click="deletePost()" v-if="post.userId == userId"></i>
+                <i class="fa-solid fa-trash picto" @click="deletePost(post._id)" v-if="post.userId == userId"></i>
             </div>
                 <div @click="isDeployed = !isDeployed" class="post__elements__arrow">
                     <i v-if="isDeployed" class="fa-solid fa-chevron-up"></i>
