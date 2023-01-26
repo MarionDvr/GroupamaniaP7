@@ -87,13 +87,12 @@ import axios from 'axios';
                     userId: this.userId,
                     id: id
                 }
-                const data = newLike;
                 const headers = {
                     'Authorization': "Bearer " + this.token,
                     'Content-Type': 'application/json'
                 }
                 axios.post(`http://localhost:3000/api/posts/${id}/like`,
-                    data, { headers: headers } 
+                    newLike, { headers: headers } 
                 )
                 .then((response) => {
                     console.log(response);
@@ -101,8 +100,6 @@ import axios from 'axios';
                     //window.location.reload();
                 })
                 .catch( error => { console.log(error)
-                    console.log(newLike);
-                    console.log(this.token);
                     console.log(error.response)
                 });
             },
