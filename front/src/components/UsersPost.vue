@@ -87,8 +87,8 @@ import axios from 'axios';
                     userId: this.userId,
                     id: id
                 };
-                const like = JSON.stringify(newLike);
-                axios.post(`http://localhost:3000/api/posts/${id}/like`, like, 
+                const dataLike = JSON.stringify(newLike);
+                axios.post(`http://localhost:3000/api/posts/${id}/like`, dataLike, 
                 { 
                     headers: {
                         'Authorization': "Bearer " + this.token,
