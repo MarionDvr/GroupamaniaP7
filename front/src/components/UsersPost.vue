@@ -86,14 +86,15 @@ import axios from 'axios';
                     like: 1,
                     userId: this.userId,
                     id: id
-                }
+                };
+                const body = JSON.stringify(newLike);
                 const headers = {
                     'Authorization': "Bearer " + this.token,
                     'Content-Type': 'application/json'
-                }
-                axios.post(`http://localhost:3000/api/posts/${id}/like`,
-                    newLike, { headers: headers } 
-                )
+                };
+                const url = `http://localhost:3000/api/posts/${id}/like`;
+
+                axios.post(url, body, { headers: headers })
                 .then((response) => {
                     console.log(response);
                     console.log("Like ajouté");
@@ -103,6 +104,10 @@ import axios from 'axios';
                     console.log(error.response)
                 });
             },
+            setPostId(id) {
+                localStorage.setItem("postId", id);
+                this.$router.push("/modifyPost");
+            }
         }
         
     }
@@ -142,7 +147,7 @@ import axios from 'axios';
                     <p class="post__picto__likes">{{ post.likes }}</p>
                 </div>
                 <!-- Modifier le post (seulement par l'utilisateur qui l'a créé)-->
-                <router-link to="/modifyPost" v-if="post.userId == userId || user.isAdmin == true" @click="setPostId()">
+                <router-link to="/modifyPost" v-if="post.userId == userId || user.isAdmin == true" @click="setPostId(post._id)">
                     <i class="fa-sharp fa-solid fa-pen picto"></i>
                 </router-link>
                 <!-- Supprimer le post (seulement par l'utilisateur qui l'a créé)-->

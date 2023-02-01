@@ -10,6 +10,7 @@
                 showInputText: false,
                 token: localStorage.getItem('token'),
                 userId: localStorage.getItem('userId'),
+                postId: localStorage.getItem('postId'),
                 dataPost: {
                     title: "",
                     text: "",
@@ -24,7 +25,7 @@
         methods: {
             //Récupérer le post
             GetOnePost() {
-                axios.get(`http://localhost:3000/api/posts/` /*+ this.post._id*/,
+                axios.get(`http://localhost:3000/api/posts/` + this.postId,
                 {
                     headers: {
                             'Authorization': 'Bearer ' + this.token,
@@ -40,22 +41,24 @@
             },
             //Modifier le post
             ModifyPost() {
-                axios.put("http://localhost:3000/api/posts/:id",
+                //Problème de modification, si on change juste le titre, les autres champs se vident
+                let post = {
+                    userId: this.userId,
+                    title: this.title,
+                    text: this.text,
+                    //imageUrl: this.dataPost.imageUrl
+                }
+                axios.put("http://localhost:3000/api/posts/" + this.postId, post,
                 {
                     headers: {
-                        "Authorization": "Bearer " + this.token,
-                        "Content-Type": "application/json",
-                    },
-                    post: {
-                        userId: this.userId,
-                        title: this.dataPost.title,
-                        text: this.dataPost.text,
-                        //imageUrl: this.dataPost.imageUrl
+                        'Authorization': "Bearer " + this.token,
+                        'Content-Type': 'application/json'
                     }
                 })
                 .then((response) => {
-                    console.log(response)
-                    this.$router.push("/homeConnected");
+                    console.log(response);
+                    console.log('Post modifié!');
+                    //this.$router.push("/homeConnected");
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);
@@ -73,7 +76,6 @@
 <template>
     <section>   
         <form class="form">
-            <!-- problème récupération post.id -->
             <h2>Modifier votre post</h2>
             <label for="Titre" class="form__label">Titre</label>
             <!--<h3 v-if="!showInputTitle"> {{ post.title }}</h3>-->

@@ -30,8 +30,7 @@
                 }
                 
                 axios.post("http://localhost:3000/api/posts", 
-                post,
-                {headers: headers})
+                post, {headers: headers})
                 .then((response) => {
                     console.log(response)
                     console.log('Post ajouté')

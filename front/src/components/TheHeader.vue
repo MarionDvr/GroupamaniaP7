@@ -3,6 +3,7 @@
         name: "TheHeader",
         methods: {
             deconnected() {
+                localStorage.clear();
                 this.$router.push("/");
                 console.log("Utilisateur déconnecté")
             },
