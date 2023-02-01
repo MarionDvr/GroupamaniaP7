@@ -40,12 +40,12 @@
                 .catch((error) => { console.log(error)});
             },
             //Modifier le post
+            //Problème => La modification change tous les champs, même la date 
             ModifyPost() {
-                //Problème de modification, si on change juste le titre, les autres champs se vident
                 let post = {
                     userId: this.userId,
-                    title: this.title,
-                    text: this.text,
+                    title: this.dataPost.title,
+                    text: this.dataPost.text,
                     //imageUrl: this.dataPost.imageUrl
                 }
                 axios.put("http://localhost:3000/api/posts/" + this.postId, post,
