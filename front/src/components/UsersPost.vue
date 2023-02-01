@@ -87,14 +87,14 @@ import axios from 'axios';
                     userId: this.userId,
                     id: id
                 };
-                const body = JSON.stringify(newLike);
-                const headers = {
-                    'Authorization': "Bearer " + this.token,
-                    'Content-Type': 'application/json'
-                };
-                const url = `http://localhost:3000/api/posts/${id}/like`;
-
-                axios.post(url, body, { headers: headers })
+                const like = JSON.stringify(newLike);
+                axios.post(`http://localhost:3000/api/posts/${id}/like`, like, 
+                { 
+                    headers: {
+                        'Authorization': "Bearer " + this.token,
+                        'Content-Type': 'application/json'
+                    },
+                })
                 .then((response) => {
                     console.log(response);
                     console.log("Like ajouté");
@@ -102,6 +102,7 @@ import axios from 'axios';
                 })
                 .catch( error => { console.log(error)
                     console.log(error.response)
+                    console.log(newLike);
                 });
             },
             setPostId(id) {

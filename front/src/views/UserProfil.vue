@@ -41,20 +41,19 @@
                 });
             },
             modifyUser() {
+                let user = {
+                        firstName: this.user.firstName,
+                        lastName: this.user.lastName,
+                        job: this.user.job,
+                        photo: this.user.photo
+                    };
                 //Ne fonctionne pas, pas de message d'erreur
-                axios.put(`http://localhost:3000/api/auth/users/` + this.userId,
+                axios.put(`http://localhost:3000/api/auth/users/` + this.userId, user,
                 { 
                     headers: {
                             'Authorization': 'Bearer ' + this.token,
                             'Content-Type': 'application/json'
                     },
-                    user: {
-                        firstName: this.user.firstName,
-                        lastName: this.user.lastName,
-                        job: this.user.job,
-                        photo: this.user.photo
-                    }
-                    
                 })
                 .then((response) => {
                     this.user = response.data.user;

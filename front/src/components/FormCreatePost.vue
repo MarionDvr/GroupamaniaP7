@@ -17,20 +17,20 @@
         },
         methods: {
             addPost() {
-                let headers = {
-                    "Authorization": "Bearer " + this.token,
-                    "Content-Type": "application/json"
-                }
                 let date = new Date().toLocaleDateString("fr");
                 let post = {
                     userId: this.userId,
                     title: this.dataPost.title,
                     text: this.dataPost.text,
-                    date: date 
+                    date: date,
                 }
                 
-                axios.post("http://localhost:3000/api/posts", 
-                post, {headers: headers})
+                axios.post("http://localhost:3000/api/posts", post, {
+                    headers: {
+                    "Authorization": "Bearer " + this.token,
+                    "Content-Type": "application/json"
+                }
+                })
                 .then((response) => {
                     console.log(response)
                     console.log('Post ajouté')
