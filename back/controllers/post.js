@@ -15,6 +15,7 @@ exports.getOnePost = (req, res) => {
 //CREER un post
 exports.createPost = (req, res) => {
   //Obtenir un objet utilisable grâce à JSON.parse
+  //L'erreur est ici
   const postObject = JSON.parse(req.body.post);
   //Suppression de l'id sauce et de l'id utilisateur (pour ne pas donné la possibilité aux utilisateurs malveillant d'en insérer un mauvais), il sera remplacé par celui du token
   delete postObject._id;
@@ -26,7 +27,7 @@ exports.createPost = (req, res) => {
   //Chemin de l'image
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
     likes: 0, 
-    usersLiked: []
+    usersLiked:[]
   });
   post.save()
     .then(() => { res.status(201).json({ message: 'Post enregistré' })})
