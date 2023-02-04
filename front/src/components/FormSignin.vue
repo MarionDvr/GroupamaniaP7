@@ -62,7 +62,7 @@
                             lastName: "",
                             photo: "",
                             job: "",
-                            isAdmin: false
+                            isAdmin: 0
 
                         })
                         .then((response) => {
