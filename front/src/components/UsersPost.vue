@@ -25,7 +25,8 @@ import axios from 'axios';
         },
         mounted() {
             this.GetAllPosts(),
-            this.GetUsers()
+            this.GetUsers(),
+            this.GetUser()
         },
         methods: {
             //Récupérer les users
@@ -45,7 +46,25 @@ import axios from 'axios';
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);
                 });
-            },           
+            },  
+             //Récupérer le user
+             GetUser() {
+                axios.get('http://localhost:3000/api/auth/users/' + this.userId,
+                {
+                    headers: {
+                            'Authorization': 'Bearer ' + this.token,
+                            'Content-Type': 'application/json'
+                        },
+                })
+                .then((response) => {
+                    this.user = response.data;
+                    console.log(this.user)
+                    console.log("Utilisateur récupéré")
+                })
+                .catch(function(erreur) {
+                    console.error('Une erreur est survenue' + erreur);
+                });
+            },          
             //Récupérer les posts
             GetAllPosts() {
                 axios.get("http://localhost:3000/api/posts",
@@ -104,100 +123,7 @@ import axios from 'axios';
                 .catch( error => { console.log(error)
                     console.log(error.response)
                 });
-               /* //récupérer les données du post
-                axios.get(`http://localhost:3000/api/posts/` + id,
-                {
-                    headers: {
-                            'Authorization': 'Bearer ' + this.token,
-                            'Content-Type': 'application/json'
-                        }
-                })
-                .then((response) => {
-                    this.post = response.data;
-                    console.log("Post récupéré")
-                    //récupérer le tableau usersLiked
-                    let usersLikedPost = this.post.usersLiked;
-                    //Si le tableau n'est pas vide (pour éviter les erreurs)
-                    if(usersLikedPost.length !== 0){
-                        //Rechercher si l'id de l'utilisateur est présent dans usersLiked
-                        for(let i = 0; i < usersLikedPost.length; i++)
-                        {
-                            //Si l'utilisateur a déjà liké
-                            if(this.userId === usersLikedPost[i]) {
-                                console.log("l'utilisateur a déjà liké");
-                                const newUnlike = {
-                                    like: -1,
-                                    userId: this.userId,
-                                    id: id
-                                }
-                                const dataLike = JSON.stringify(newUnlike);
-                                axios.post(`http://localhost:3000/api/posts/${id}/like`, dataLike, 
-                                { 
-                                    headers: {
-                                        'Authorization': "Bearer " + this.token,
-                                        'Content-Type': 'application/json'
-                                    },
-                                })
-                                .then((response) => {
-                                    console.log(response);
-                                    console.log("Like supprimé");
-                                    //window.location.reload();
-                                })
-                                .catch( error => { console.log(error)
-                                    console.log(error.response)
-                                });
-                            //Si l'utilisateur n'a pas encore liké
-                            } else {
-                                const newLike = {
-                                    like: 1,
-                                    userId: this.userId,
-                                    id: id
-                                };
-                                const dataLike = JSON.stringify(newLike);
-                                axios.post(`http://localhost:3000/api/posts/${id}/like`, dataLike, 
-                                { 
-                                    headers: {
-                                        'Authorization': "Bearer " + this.token,
-                                        'Content-Type': 'application/json'
-                                    },
-                                })
-                                .then((response) => {
-                                    console.log(response);
-                                    console.log("Like ajouté");
-                                    //window.location.reload();
-                                })
-                                .catch( error => { console.log(error)
-                                    console.log(error.response);
-                                });
-                            }
-                        }
-                        
-                    //sinon le tableau est vide
-                    } else {
-                        const newLike = {
-                            like: 1,
-                            userId: this.userId,
-                            id: id
-                        };
-                        const dataLike = JSON.stringify(newLike);
-                        axios.post(`http://localhost:3000/api/posts/${id}/like`, dataLike, 
-                        { 
-                            headers: {
-                                'Authorization': "Bearer " + this.token,
-                                'Content-Type': 'application/json'
-                            },
-                        })
-                        .then((response) => {
-                            console.log(response);
-                            console.log("Like ajouté");
-                            //window.location.reload();
-                        })
-                        .catch( error => { console.log(error)
-                            console.log(error.response);
-                        });
-                    }
-                })
-                .catch((error) => { console.log(error)});*/
+               
             },
             //Envoyer l'id du post a modifier dans le localStorage
             setPostId(id) {
@@ -245,7 +171,7 @@ import axios from 'axios';
                     <i class="fa-sharp fa-solid fa-pen picto"></i>
                 </router-link>
                 <!-- Supprimer le post (seulement par l'utilisateur qui l'a créé ou par l'admin)-->
-                <i class="fa-solid fa-trash picto" @click="deletePost(post._id)" v-if="post.userId == userId || user.isAdmin == true"></i>
+                <i class="fa-solid fa-trash picto" @click="deletePost(post._id)" v-if="post.userId == userId || user.isAdmin == true"></i>   
             </div>
                 <div @click="isDeployed = !isDeployed" class="post__elements__arrow">
                     <i v-if="isDeployed" class="fa-solid fa-chevron-up"></i>
