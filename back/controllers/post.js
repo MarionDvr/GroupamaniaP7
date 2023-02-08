@@ -13,17 +13,49 @@ exports.getOnePost = (req, res) => {
     .catch(error => res.status(404).json({ error }));
 };
 //CREER un post
-exports.createPost = (req, res) => {
+/*exports.createPost = (req, res, next) => {
   const postObject = req.body;
   const post = new Post({
-  //faire une copie de tous les élements de req.body.sauce
+      ...postObject,
+  });
+  if (req.file)
+  {
+      post.imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+  }
+
+  post
+    .save()
+    .then(() => res.status(201).json({ post }))
+    .catch((err) => console.log(err));
+};*/
+exports.createPost = (req, res) => {
+  const postObject = req.body;
+  //Suppression de l'id du post et de l'id utilisateur (pour ne pas donné la possibilité aux utilisateurs malveillant d'en insérer un mauvais), il sera remplacé par celui du token
+  delete postObject._id;
+  delete postObject.userId;
+  const post = new Post({
+  //... pour faire une copie de tous les élements de req.body
+  ...postObject,
+  userId: req.auth.userId
+});
+  //Chemin de l'image
+  if(req.file) {
+    //req.protocol pour http, req.get('host') pour le localhost, dossier images, et nom du fichier
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+  }
+post.save()
+  .then(() => { res.status(201).json({message: 'Post enregistré !'})})
+  .catch(error => { res.status(400).json({ error }), console.log('error:', error)})
+
+  /*const post = new Post({
+  //faire une copie de tous les élements de req.body.post
     ...postObject,
   //Chemin de l'image
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+    //imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
   });
   post.save()
     .then(() => { res.status(201).json({ message: 'Post enregistré' })})
-    .catch(error => {res.status(400).json({ error }), console.log('error:', error)});
+    .catch(error => {res.status(400).json({ error }), console.log('error:', error)});*/
 };
 
 //MODIFIER un post
