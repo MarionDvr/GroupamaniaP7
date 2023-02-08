@@ -163,19 +163,19 @@ import axios from 'axios';
                 </div>
             <div class="post__picto" v-if="isDeployed">
                 <div class="post__picto__heart">
-                    <i class="fa-solid fa-heart picto" @click="likePost(post._id)"></i>
+                    <i aria-label="Liker le post" class="fa-solid fa-heart picto" @click="likePost(post._id)"></i>
                     <p class="post__picto__likes">{{ post.likes }}</p>
                 </div>
                 <!-- Modifier le post (seulement par l'utilisateur qui l'a créé ou par l'admin)-->
-                <router-link to="/modifyPost" v-if="post.userId == userId || user.isAdmin == true" @click="setPostId(post._id)">
+                <router-link aria-label="Modifier le post" to="/modifyPost" v-if="post.userId == userId || user.isAdmin == true" @click="setPostId(post._id)">
                     <i class="fa-sharp fa-solid fa-pen picto"></i>
                 </router-link>
                 <!-- Supprimer le post (seulement par l'utilisateur qui l'a créé ou par l'admin)-->
-                <i class="fa-solid fa-trash picto" @click="deletePost(post._id)" v-if="post.userId == userId || user.isAdmin == true"></i>   
+                <i aria-label="Supprimer le post" class="fa-solid fa-trash picto" @click="deletePost(post._id)" v-if="post.userId == userId || user.isAdmin == true"></i>   
             </div>
                 <div @click="isDeployed = !isDeployed" class="post__elements__arrow">
-                    <i v-if="isDeployed" class="fa-solid fa-chevron-up"></i>
-                    <i v-else class="fa-solid fa-chevron-down"></i>
+                    <i v-if="isDeployed" class="fa-solid fa-chevron-up" aria-label="Fermer le post"></i>
+                    <i v-else class="fa-solid fa-chevron-down" aria-label="Ouvrir le post"></i>
                 </div>
            
         </article>

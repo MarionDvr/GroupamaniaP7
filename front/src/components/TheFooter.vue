@@ -5,9 +5,9 @@
 </script>
 <template>
     <footer>
-        <i class="fa-brands fa-twitter pictoFooter"></i>
-        <i class="fa-brands fa-instagram pictoFooter"></i>
-        <i class="fa-brands fa-facebook pictoFooter"></i>
+        <i class="fa-brands fa-twitter pictoFooter" aria-label="Lien vers twitter"></i>
+        <i class="fa-brands fa-instagram pictoFooter" aria-label="Lien vers instagram"></i>
+        <i class="fa-brands fa-facebook pictoFooter" aria-label="Lien vers facebook"></i>
     </footer>
 </template>
 <style lang="scss">

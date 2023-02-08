@@ -21,18 +21,18 @@
             </router-link>
             <div class="headerConnection__nav">
                 <router-link to="/ConnectionSignin" class="headerConnection__nav__link">S'inscrire</router-link>
-                <router-link to="/ConnectionSignin" class="pictoConnection"><i class="fa-solid fa-user-plus"></i></router-link>
+                <router-link to="/ConnectionSignin" class="pictoConnection"><i class="fa-solid fa-user-plus" aria-label="S'inscrire"></i></router-link>
                 <router-link to="/ConnectionLogin" class="headerConnection__nav__link">Se connecter</router-link>
-                <router-link to="/ConnectionLogin" class="pictoConnection"><i class="fa-solid fa-circle-user"></i></router-link>
+                <router-link to="/ConnectionLogin" class="pictoConnection"><i class="fa-solid fa-circle-user" aria-label="Se connecter"></i></router-link>
             </div>
         </nav>
         <nav  class="headerConnected" v-if="IsConnected">
             <router-link to="/homeConnected" class="headerConnected__picto">
-                <i class="fa-sharp fa-solid fa-house"></i>
+                <i class="fa-sharp fa-solid fa-house" aria-label="Accueil"></i>
                 <p class="navToolTip">Accueil</p>
             </router-link>
             <router-link to="/createPost" class="headerConnected__picto">
-                <i class="fa-solid fa-plus"></i>
+                <i class="fa-solid fa-plus" aria-label="Ajouter un post"></i>
                 <p class="navToolTip">Ajouter un post</p>
             </router-link>
             <figure class="logoHeader">
@@ -42,7 +42,7 @@
                 <ul class="navbar">
                     <li>
                         <a id="title">
-                            <i class="fa-solid fa-circle-user"></i>
+                            <i class="fa-solid fa-circle-user" aria-label="Voir le profil"></i>
                             <p class="title__p">Mon compte</p>
                         </a>
                         <ul>
