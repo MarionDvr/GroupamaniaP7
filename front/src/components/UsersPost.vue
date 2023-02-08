@@ -126,7 +126,6 @@ import axios from 'axios';
                                 .catch( error => { console.log(error)
                                     console.log(error.response)
                                 });
-                                break;
                             //Si l'utilisateur n'a pas encore liké
                             } else {
                                 const newLike = {
@@ -150,7 +149,6 @@ import axios from 'axios';
                                 .catch( error => { console.log(error)
                                     console.log(error.response);
                                 });
-                                break;
                             }
                         }
                         
@@ -211,10 +209,8 @@ import axios from 'axios';
             </div>
             <div class="post__elements">
                 <h2> {{ post.title }}</h2>
-                <!-- Test pour récupéré l'id du post -->
-                <!-- <p class="test"> {{ post._id }}</p> -->
                 <figure class="post__elements__figure">    
-                    <img :src="post.imageUrl" class="post__elements__figure__img" alt="Photo du post"/>
+                    <img v-if="post.imageUrl" :src="post.imageUrl" class="post__elements__figure__img" alt="Photo du post"/>
                 </figure>
                 <p v-if="isDeployed">{{ post.text }}</p>
                 <p v-if="isDeployed"> {{ post.date }}</p>
@@ -224,11 +220,11 @@ import axios from 'axios';
                     <i class="fa-solid fa-heart picto" @click="likePost(post._id)"></i>
                     <p class="post__picto__likes">{{ post.likes }}</p>
                 </div>
-                <!-- Modifier le post (seulement par l'utilisateur qui l'a créé)-->
+                <!-- Modifier le post (seulement par l'utilisateur qui l'a créé ou par l'admin)-->
                 <router-link to="/modifyPost" v-if="post.userId == userId || user.isAdmin == true" @click="setPostId(post._id)">
                     <i class="fa-sharp fa-solid fa-pen picto"></i>
                 </router-link>
-                <!-- Supprimer le post (seulement par l'utilisateur qui l'a créé)-->
+                <!-- Supprimer le post (seulement par l'utilisateur qui l'a créé ou par l'admin)-->
                 <i class="fa-solid fa-trash picto" @click="deletePost(post._id)" v-if="post.userId == userId || user.isAdmin == true"></i>
             </div>
                 <div @click="isDeployed = !isDeployed" class="post__elements__arrow">

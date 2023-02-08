@@ -22,15 +22,15 @@
                     userId: this.userId,
                     title: this.dataPost.title,
                     text: this.dataPost.text,
-                    imageUrl: this.imagePreview,
+                    imageUrl: this.file,
                     date: date,
                 };
 
                 //Si le post est vide
-                if(post == ""){
+               /* if(post == ""){
                     alert("Veuillez ajouter un titre et un texte");
                 //Si l'image est vide
-                } else {
+                } else {*/
                     axios.post("http://localhost:3000/api/posts", post, {
                         headers: {
                         "Authorization": "Bearer " + this.token,
@@ -40,13 +40,14 @@
                     .then((response) => {
                         console.log(response);
                         console.log('Post ajouté');
-                        this.$router.push("/homeConnected");
+                        console.log(post)
+                        //this.$router.push("/homeConnected");
                     })
                     .catch(function(erreur) {
                         console.error('Une erreur est survenue' + erreur.response);
                         console.log(post);
                     });
-                }
+                //}
             },
             selectImage() {
                 //Récupère le fichier grâce à ref
