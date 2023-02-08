@@ -76,7 +76,7 @@
 <template>
     <section>   
         <form class="form">
-            <h2>Modifier votre post</h2>
+            <h1>Modifier votre post</h1>
             <label for="Titre" class="form__label">Titre</label>
             <!--<h3 v-if="!showInputTitle"> {{ post.title }}</h3>-->
             <button @click="showInputTitle = !showInputTitle" v-if="!showInputTitle">Modifier le titre</button>

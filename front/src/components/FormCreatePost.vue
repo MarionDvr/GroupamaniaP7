@@ -60,7 +60,7 @@
 <template>
     <section>   
         <form class="form">
-            <h2>Ajouter votre post</h2>
+            <h1>Ajouter votre post</h1>
             <label for="Titre" class="form__label">Titre</label>
             <input name="Titre" class="form__inputTitre" v-model="dataPost.title"/>
             <label for="file" class="form__label">Image</label>
@@ -68,8 +68,8 @@
             <input type="file" ref="file" name="file" id="file" accept=".jpg, .jpeg, .gif, .png" class="form__inputImg" v-on:change="selectImage()" aria-label="Selection de l'image"/>
             <!-- pour voir le rendu avant l'envoie du nouveau post -->
             <img v-show="imagePreview" :src="imagePreview" class="publication-photo" alt="Prévisualisation de l'image" />
-            <label for="Texte" class="form__label">Texte</label>
-            <textarea name="Texte" class="form__inputText" v-model="dataPost.text"></textarea>
+            <label for="Text" class="form__label">Texte</label>
+            <textarea name="Text" class="form__inputText" v-model="dataPost.text"></textarea>
             <button type="submit" @click="addPost()">Poster !</button>
         </form>
     </section>

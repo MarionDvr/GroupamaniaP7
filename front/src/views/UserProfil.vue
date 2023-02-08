@@ -89,7 +89,7 @@
         </article>
         <article v-if="modify"  class="UserModify">
             <form action="post" class="form">
-                <h2>Modifier votre profil</h2>
+                <h1>Modifier votre profil</h1>
                 <label for="FirstName">Prénom</label>
                 <input type="text" name="FirstName" v-model="user.firstName"/>
                 <label for="LastName">Nom</label>
