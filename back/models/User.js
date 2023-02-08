@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema({
     lastName: {type: String},
     photo: {type: String},
     job: {type: String},
-    isAdmin: {type: Boolean}
+    isAdmin: {type: Boolean, default: false}
     
 });
 //Plugin pour qu'un utilisateur ne soit créé qu'une seule fois (pas possible de créer deux utilisateurs avec la même adresse mail)

@@ -14,20 +14,12 @@ exports.getOnePost = (req, res) => {
 };
 //CREER un post
 exports.createPost = (req, res) => {
-  //Obtenir un objet utilisable grâce à JSON.parse
-  //L'erreur est ici
-  const postObject = JSON.parse(req.body.post);
-  //Suppression de l'id sauce et de l'id utilisateur (pour ne pas donné la possibilité aux utilisateurs malveillant d'en insérer un mauvais), il sera remplacé par celui du token
-  delete postObject._id;
-  delete postObject.userId;
+  const postObject = req.body;
   const post = new Post({
   //faire une copie de tous les élements de req.body.sauce
     ...postObject,
-    userId: req.auth.userId,
   //Chemin de l'image
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-    likes: 0, 
-    usersLiked:[]
   });
   post.save()
     .then(() => { res.status(201).json({ message: 'Post enregistré' })})
@@ -74,24 +66,19 @@ exports.likePost = (req, res) => {
   if(req.body.like === 1) {
     Post.updateOne({ _id: req.params.id },
       {
-        $inc: {likes: req.body.like++},
+        $inc: {likes: +1},
         $push: { usersLiked: req.body.userId }
       })
       .then((post) => res.status(200).json({ message: "Like ajouté" }))
       .catch((error) => res.status(400).json({ error }));
   } else {
     //Unlike
-    Post.findOne({ _id: req.body.id })
-    .then((post) => {
-      if(post.usersLiked.includes(req.params.userId)) {
-        Post.updateOne({ _id: req.params.id },
-          {
-            $inc: { likes: -1 },
-            $pull: { usersLiked: req.body.userId }
-          })
-          .then((post) => res.status(200).json({ message: "Like enlevé" }))
-          .catch( (error) => res.status(400).json({ error }));
-      }
-    })
+      Post.updateOne({ _id: req.params.id },
+        {
+          $inc: { likes: -1 },
+          $pull: { usersLiked: req.body.userId }
+        })
+        .then((post) => res.status(200).json({ message: "Like enlevé" }))
+        .catch( (error) => res.status(400).json({ error }));
   }
 };
