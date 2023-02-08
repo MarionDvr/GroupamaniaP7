@@ -84,7 +84,27 @@ import axios from 'axios';
             },
             //Like et unlike
             likePost(id) {
-                //récupérer les données du post
+                const newUnlike = {
+                    userId: this.userId,
+                    id: id
+                }
+                const dataLike = JSON.stringify(newUnlike);
+                axios.post(`http://localhost:3000/api/posts/${id}/like`, dataLike, 
+                    { 
+                        headers: {
+                            'Authorization': "Bearer " + this.token,
+                            'Content-Type': 'application/json'
+                    },
+                })
+                .then((response) => {
+                    console.log(response);
+                    console.log("Like modifié");
+                    //window.location.reload();
+                })
+                .catch( error => { console.log(error)
+                    console.log(error.response)
+                });
+               /* //récupérer les données du post
                 axios.get(`http://localhost:3000/api/posts/` + id,
                 {
                     headers: {
@@ -177,7 +197,7 @@ import axios from 'axios';
                         });
                     }
                 })
-                .catch((error) => { console.log(error)});
+                .catch((error) => { console.log(error)});*/
             },
             //Envoyer l'id du post a modifier dans le localStorage
             setPostId(id) {
