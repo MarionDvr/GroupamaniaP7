@@ -94,17 +94,10 @@ exports.deletePost = (req, res) => {
 
 //LIKER, UNLIKER un post
 exports.likePost = (req, res) => {
-  //Like
-  if(req.body.like === 1) {
-    Post.updateOne({ _id: req.params.id },
-      {
-        $inc: {likes: +1},
-        $push: { usersLiked: req.body.userId }
-      })
-      .then((post) => res.status(200).json({ message: "Like ajouté" }))
-      .catch((error) => res.status(400).json({ error }));
-  } else {
-    //Unlike
+  //unlike
+  Post.findOne({ _id: req.body.id })
+  .then((post) => {
+    if(post.usersLiked.includes(req.body.userId)) {
       Post.updateOne({ _id: req.params.id },
         {
           $inc: { likes: -1 },
@@ -112,5 +105,15 @@ exports.likePost = (req, res) => {
         })
         .then((post) => res.status(200).json({ message: "Like enlevé" }))
         .catch( (error) => res.status(400).json({ error }));
-  }
+    } else {
+      //like
+        Post.updateOne({ _id: req.params.id },
+          {
+            $inc: { likes: +1 },
+            $push: { usersLiked: req.body.userId }
+        })
+        .then((post) => res.status(200).json({ message: "Like ajouté" }))
+        .catch( (error) => res.status(400).json({ error }));
+    }
+  })
 };
