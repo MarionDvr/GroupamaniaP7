@@ -58,7 +58,7 @@ import axios from 'axios';
                 })
                 .then((response) => {
                     this.user = response.data;
-                    console.log(this.user)
+                    //console.log(this.user)
                     console.log("Utilisateur récupéré")
                 })
                 .catch(function(erreur) {

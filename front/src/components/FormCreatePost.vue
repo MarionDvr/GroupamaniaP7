@@ -12,25 +12,21 @@
                     text: ""
                 },
                 imagePreview: "",
-                file: ""
+                file: "",
+                imageUrl: ""
             }
         },
         methods: {
             addPost() {
                 let date = new Date().toLocaleDateString("fr");
-                let post = {
+                
+                if(this.file === ""){
+                    let post = {
                     userId: this.userId,
                     title: this.dataPost.title,
                     text: this.dataPost.text,
-                    imageUrl: this.file,
                     date: date,
-                };
-
-                //Si le post est vide
-               /* if(post == ""){
-                    alert("Veuillez ajouter un titre et un texte");
-                //Si l'image est vide
-                } else {*/
+                    };
                     axios.post("http://localhost:3000/api/posts", post, {
                         headers: {
                         "Authorization": "Bearer " + this.token,
@@ -47,6 +43,39 @@
                         console.error('Une erreur est survenue' + erreur.response);
                         console.log(post);
                     });
+                } else {
+                    let post = {
+                    userId: this.userId,
+                    title: this.dataPost.title,
+                    text: this.dataPost.text,
+                    imageUrl: JSON.stringify(this.file),
+                    //imageUrl: this.file,
+                    date: date,
+                    };
+                    axios.post("http://localhost:3000/api/posts", post, {
+                        headers: {
+                        "Authorization": "Bearer " + this.token,
+                        "Content-Type": "application/json"
+                    }
+                    })
+                    .then((response) => {
+                        console.log(response);
+                        console.log('Post ajouté');
+                        console.log(post)
+                        //this.$router.push("/homeConnected");
+                    })
+                    .catch(function(erreur) {
+                        console.error('Une erreur est survenue' + erreur.response);
+                        console.log(post);
+                    });
+                }
+
+                //Si le post est vide
+               /* if(post == ""){
+                    alert("Veuillez ajouter un titre et un texte");
+                //Si l'image est vide
+                } else {*/
+                   
                 //}
             },
             selectImage() {
@@ -64,8 +93,7 @@
             <label for="Titre" class="form__label">Titre</label>
             <input name="Titre" class="form__inputTitre" v-model="dataPost.title"/>
             <label for="file" class="form__label">Image</label>
-            <!--<input type="file" @change="selectFile" ref="fileUpload" class="form__inputImg" id="file" name="Image" accept=".jpg, .jpeg, .gif, .png" />-->
-            <input type="file" ref="file" name="file" id="file" accept=".jpg, .jpeg, .gif, .png" class="form__inputImg" v-on:change="selectImage()" aria-label="Selection de l'image"/>
+            <input type="file" ref="file" name="file" id="file" class="form__inputImg" v-on:change="selectImage()" aria-label="Selection de l'image"/>
             <!-- pour voir le rendu avant l'envoie du nouveau post -->
             <img v-show="imagePreview" :src="imagePreview" class="publication-photo" alt="Prévisualisation de l'image" />
             <label for="Text" class="form__label">Texte</label>
