@@ -16,6 +16,9 @@
                     text: "",
                     //imageUrl:""
                 },
+                post: {},
+                imagePreview: "",
+                file: "",
                 
             }
         },
@@ -42,13 +45,22 @@
             //Modifier le post
             //Problème => La modification change tous les champs, même la date 
             ModifyPost() {
-                let post = {
-                    userId: this.userId,
-                    title: this.dataPost.title,
-                    text: this.dataPost.text,
-                    //imageUrl: this.dataPost.imageUrl
+                if(this.dataPost.title !== "") {
+                    this.newTitle = this.dataPost.title;
                 }
-                axios.put("http://localhost:3000/api/posts/" + this.postId, post,
+                if(this.dataPost.text !== "") {
+                    this.newText = this.dataPost.text;
+                }
+                if(this.dataPost.imageUrl !== "") {
+                    this.newImageUrl = this.dataPost.imageUrl
+                }
+                let newPost = {
+                    userId: this.userId,
+                    title: this.newTitle,
+                    text: this.newText,
+                    imageUrl: this.newImageUrl
+                }
+                axios.put("http://localhost:3000/api/posts/" + this.postId, newPost,
                 {
                     headers: {
                         'Authorization': "Bearer " + this.token,
@@ -59,17 +71,19 @@
                     console.log(response);
                     console.log('Post modifié!');
                     //this.$router.push("/homeConnected");
+                    console.log(newPost)
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);
+                    console.log(newPost)
                 });
             },
-            /*onFileChange(e) {
-                let files = e.dataTransfer.files;
-                if (!files.length)
-                    return;
-                this.createImage(files[0]);
-            }*/
+            selectImage() {
+                //Récupère le fichier grâce à ref
+                this.file = this.$refs.file.files[0];
+                this.imagePreview = URL.createObjectURL(this.file);
+            },
+            
         }
     }
 </script>
@@ -78,15 +92,16 @@
         <form class="form">
             <h1>Modifier votre post</h1>
             <label for="Titre" class="form__label">Titre</label>
-            <!--<h3 v-if="!showInputTitle"> {{ post.title }}</h3>-->
+            <h3 v-if="!showInputTitle"> {{ post.title }}</h3>
             <button @click="showInputTitle = !showInputTitle" v-if="!showInputTitle">Modifier le titre</button>
             <input v-if="showInputTitle" name="Titre" class="form__inputTitre" v-model="dataPost.title"/>
             <label for="Image" class="form__label">Image</label>
-            <!--<img :src="post.imageUrl" v-if="!showInputImage"/>-->
+            <img :src="post.imageUrl" v-if="!showInputImage"/>
+            <img v-show="imagePreview" :src="imagePreview" class="publication-photo" alt="Prévisualisation de l'image" />
             <button @click="showInputImage = !showInputImage" v-if="!showInputImage">Modifier l'image</button>
-            <input v-if="showInputImage" type="file" name="Image" class="form__inputImg" v-on:change="onFileChange()"/>
+            <input v-if="showInputImage" type="file" ref="file" name="file" id="file" class="form__inputImg" v-on:change="selectImage()" aria-label="Selection de l'image"/>
             <label for="Texte" class="form__label">Texte</label>
-            <!--<p v-if="!showInputText"> {{ post.text }}</p>-->
+            <p v-if="!showInputText"> {{ post.text }}</p>
             <button @click="showInputText = !showInputText" v-if="!showInputText">Modifier le texte</button>
             <textarea v-if="showInputText" name="Texte" class="form__inputText" v-model="dataPost.text"></textarea>
             <button type="submit" @click="ModifyPost()">Modifier !</button>
