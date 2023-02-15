@@ -43,7 +43,6 @@
                 .catch((error) => { console.log(error)});
             },
             //Modifier le post
-            //Problème => La modification change tous les champs, même la date 
             ModifyPost() {
                 if(this.dataPost.title !== "") {
                     this.newTitle = this.dataPost.title;

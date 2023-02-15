@@ -8,15 +8,17 @@
         data() {
             return {
                 IsConnected: true,
-                modify: true,
+                modify: false,
                 token: localStorage.getItem("token"),
                 userId: localStorage.getItem("userId"),
                 user: {
                     id: localStorage.getItem("userId"),
-                    firstName:"",
-                    lastName:"",
-                    job:"",
-                    photo:""
+                },
+                newUser: {
+                    firstName: "",
+                    lastName: "",
+                    job: "",
+                    photo: "",
                 }
             }
         },
@@ -41,14 +43,15 @@
                 });
             },
             modifyUser() {
-                let user = {
-                        firstName: this.user.firstName,
-                        lastName: this.user.lastName,
-                        job: this.user.job,
-                        photo: this.user.photo
+                let dataNewUser = {
+                        id: this.userId,
+                        firstName: this.newUser.firstName,
+                        lastName: this.newUser.lastName,
+                        job: this.newUser.job,
+                        photo: this.newUser.photo
                     };
                 //Ne fonctionne pas, pas de message d'erreur
-                axios.put(`http://localhost:3000/api/auth/users/` + this.userId, user,
+                axios.put(`http://localhost:3000/api/auth/users/` + this.userId, dataNewUser,
                 { 
                     headers: {
                             'Authorization': 'Bearer ' + this.token,
@@ -56,13 +59,15 @@
                     },
                 })
                 .then((response) => {
-                    this.user = response.data.user;
-                    console.log(this.user);
+                    console.log(response);
+                    console.log(dataNewUser);
                     //window.location.reload();
+                    //this.$router.push("/homeConnected");
                     console.log("Profil modifié")
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);
+                    console.log(dataNewUser);
                 });
             }
         }
@@ -74,7 +79,7 @@
         <article class="User">
             <div class="User__container">
                 <figure>
-                    <img class="User__container__img" v-if="user.photo == null" src="http://localhost:3000/images/PhotoUserDefault.jpg"/>
+                   <img class="User__container__img" v-if="user.photo == null" src="http://localhost:3000/images/PhotoUserDefault.jpg"/>
                     <img class="User__container__img" v-else :src="user.photo" alt="Photo de l'utilisateur"/>
                 </figure>
                 <div class="User__container__nameJob">
@@ -91,13 +96,13 @@
             <form action="post" class="form">
                 <h1>Modifier votre profil</h1>
                 <label for="FirstName">Prénom</label>
-                <input type="text" name="FirstName" v-model="user.firstName"/>
+                <input type="text" name="FirstName" v-model="newUser.firstName"/>
                 <label for="LastName">Nom</label>
-                <input type="text" name="LastName" v-model="user.lastName"/>
+                <input type="text" name="LastName" v-model="newUser.lastName"/>
                 <label for="Job">Poste actuel</label>
-                <input type="text" name="Job" v-model="user.job"/>
-                <label for="Photo">Photo</label>
-                <input type="file" name="Photo"/>
+                <input type="text" name="Job" v-model="newUser.job"/>
+                <!--<label for="Photo">Photo</label>-->
+                <!--<input type="file" name="Photo"/>-->
                 <button @click="modifyUser()" type="submit">Modifier le profil</button>
             </form>
         </article>
