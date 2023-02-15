@@ -59,38 +59,32 @@ exports.login = (req, res) => {
 
 //Modifier le user
 exports.modifyUser = (req, res) => {
-    //userObject regarde si req.file existe ou non
-  const userObject = req.file ? {
-    //Obtenir un objet utilisable grâce à JSON.parse
-    ...JSON.parse(req.body.user),
-    //Ajout de la nouvelle image
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-    //Sinon on traite req.body
-  } : { ...req.body };
-  User.findOne({ _id: req.params.id })
-    .then(user => {
-      //Si l'utilisateur n'est pas le bon, renvoie d'une erreur
-      if(user.userId != req.auth.userId) {
-        res.status(401).json({ message: "non autorisé" });
-      } else {
-        //Sinon mise à jour de la base de donnée
-        User.updateOne({ _id: req.params.id }, { ...userObject, _id: req.params.id })
-          .then(() => { res.status(200).json({ 
-            message: 'Utilisateur modifiée!', 
-            user: {
-                id: user.id,
-                email: user.email,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                photo: user.photo
-            } 
-        }); })
-          .catch( error => { res.status(401).json({ error })});
-      }
-    })
-    .catch( error => { res.status(400).json({ error })}); 
-
+    const userObject = req.file ? {
+        ...req.body.user,
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    } : {
+        ...req.body
+    };
+    User.findOne({
+            where: {
+                id: req.params.userId
+            }
+        })
+        .then(user => {
+                user.updateOne({
+                    ...userObject
+                }, {
+                    where: {
+                        id: req.params.userId
+                    }
+                })
+                .then((user) => res.status(200).json({message: 'Utilisateur modifié!'}))
+                .catch(error => res.status(405).json({error}))
+    });
 };
+
+
+
 
 //Récupérer le user
 exports.getUser = (req, res) => {
