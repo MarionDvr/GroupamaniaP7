@@ -71,17 +71,19 @@ exports.modifyUser = (req, res) => {
             }
         })
         .then(user => {
-                user.updateOne({
-                    ...userObject
-                }, {
-                    where: {
-                        id: req.params.userId
-                    }
-                })
-                .then((user) => res.status(200).json({message: 'Utilisateur modifié!'}))
-                .catch(error => res.status(405).json({error}))
+            user.updateOne({
+                ...userObject
+            }, {
+                where: {
+                    id: req.params.userId
+                }
+            })
+            .then((user) => res.status(200).json({message: 'Utilisateur modifié!'}))
+             .catch(error => res.status(405).json({error}))
     });
+
 };
+
 
 
 
