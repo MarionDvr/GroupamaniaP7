@@ -20,11 +20,12 @@
             addPost() {
                 let date = new Date().toLocaleDateString("fr");
                 
-                if(this.file === ""){
+                /*if(this.file === ""){
                     let post = {
                     userId: this.userId,
                     title: this.dataPost.title,
                     text: this.dataPost.text,
+                    imageUrl: this.dataPost.imageUrl,
                     date: date,
                     };
                     axios.post("http://localhost:3000/api/posts", post, {
@@ -43,13 +44,13 @@
                         console.error('Une erreur est survenue' + erreur.response);
                         console.log(post);
                     });
-                } else {
+                } else {*/
                     let post = {
                     userId: this.userId,
                     title: this.dataPost.title,
                     text: this.dataPost.text,
-                    imageUrl: JSON.stringify(this.file),
-                    //imageUrl: this.file,
+                    //imageUrl: this.dataPost.image,
+                    imageUrl: this.file,
                     date: date,
                     };
                     axios.post("http://localhost:3000/api/posts", post, {
@@ -68,7 +69,7 @@
                         console.error('Une erreur est survenue' + erreur.response);
                         console.log(post);
                     });
-                }
+                //}
 
                 //Si le post est vide
                /* if(post == ""){
@@ -94,6 +95,7 @@
             <input name="Titre" class="form__inputTitre" v-model="dataPost.title"/>
             <label for="file" class="form__label">Image</label>
             <input type="file" ref="file" name="file" id="file" class="form__inputImg" v-on:change="selectImage()" aria-label="Selection de l'image"/>
+            <!--<input type="text"  v-model="dataPost.image" name="file"  class="form__inputImg"  aria-label="Selection de l'image"/>-->
             <!-- pour voir le rendu avant l'envoie du nouveau post -->
             <img v-show="imagePreview" :src="imagePreview" class="publication-photo" alt="Prévisualisation de l'image" />
             <label for="Text" class="form__label">Texte</label>

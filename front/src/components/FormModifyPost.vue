@@ -14,7 +14,7 @@
                 dataPost: {
                     title: "",
                     text: "",
-                    //imageUrl:""
+                    imageUrl:""
                 },
                 post: {},
                 imagePreview: "",

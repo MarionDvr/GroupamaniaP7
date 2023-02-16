@@ -12,7 +12,7 @@
                 token: localStorage.getItem("token"),
                 userId: localStorage.getItem("userId"),
                 user: {
-                    id: localStorage.getItem("userId"),
+                    id: this.userId,
                 },
                 newUser: {
                     firstName: "",
@@ -36,7 +36,8 @@
                 })
                 .then((response) => {
                     this.user = response.data;
-                    console.log("Utilisateur récupéré")
+                    console.log("Utilisateur récupéré");
+                    console.log(this.user);
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);
@@ -48,7 +49,7 @@
                         firstName: this.newUser.firstName,
                         lastName: this.newUser.lastName,
                         job: this.newUser.job,
-                        photo: this.newUser.photo
+                        //photo: this.newUser.photo
                     };
                 //Ne fonctionne pas, pas de message d'erreur
                 axios.put(`http://localhost:3000/api/auth/users/` + this.userId, dataNewUser,
