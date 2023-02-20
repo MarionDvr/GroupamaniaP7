@@ -56,7 +56,8 @@
                     axios.post("http://localhost:3000/api/posts", post, {
                         headers: {
                         "Authorization": "Bearer " + this.token,
-                        "Content-Type": "application/json"
+                        //"Content-Type": "multipart/form-data",
+                        "Content-Type": "application/json",
                     }
                     })
                     .then((response) => {
@@ -94,7 +95,7 @@
             <label for="Titre" class="form__label">Titre</label>
             <input name="Titre" class="form__inputTitre" v-model="dataPost.title"/>
             <label for="file" class="form__label">Image</label>
-            <input type="file" ref="file" name="file" id="file" class="form__inputImg" v-on:change="selectImage()" aria-label="Selection de l'image"/>
+            <input type="file" ref="file" name="file" id="file" class="form__inputImg" @change="selectImage()" aria-label="Selection de l'image"/>
             <!--<input type="text"  v-model="dataPost.image" name="file"  class="form__inputImg"  aria-label="Selection de l'image"/>-->
             <!-- pour voir le rendu avant l'envoie du nouveau post -->
             <img v-show="imagePreview" :src="imagePreview" class="publication-photo" alt="Prévisualisation de l'image" />
