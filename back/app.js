@@ -7,7 +7,6 @@ const userRoutes = require('./routes/user');
 const app = express();
 //const dotenv = require("dotenv");
 //dotenv.config();
-
 //const MY_DB_IDENTIFIERS = process.env.mongoDBIdentifiers;
 
 //Connexion à MangoDB
