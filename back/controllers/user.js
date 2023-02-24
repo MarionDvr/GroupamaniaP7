@@ -65,28 +65,14 @@ exports.modifyUser = (req, res) => {
     } : {
         ...req.body
     };
-    User.findOne({
-        where: {
-            id: req.params.id
-        }
-    })
+    User.findOne({ _id: req.params.id })
     .then(user => {
-        user.update({
-            ...userObject
-        }, {
-            where: {
-                id: req.params.id
-            }
-        })
+        user.update({ ...userObject }, { _id: req.params.id })
         .then((user) => res.status(200).json({message: 'Utilisateur modifié!'}))
         .catch(error => res.status(405).json({error}))
     });
 
 };
-
-
-
-
 
 //Récupérer le user
 exports.getUser = (req, res) => {
