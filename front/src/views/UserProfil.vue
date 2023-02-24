@@ -44,13 +44,25 @@
                 });
             },
             modifyUser() {
+                if(this.newUser.firstName !== "") {
+                    this.newUserFirstName = this.newUser.firstName;
+                }
+                if(this.newUser.lastName !== "") {
+                    this.newUserLastName = this.newUser.lastName;
+                }
+                if(this.newUser.job !== "") {
+                    this.newUserJob = this.newUser.job
+                }
+                if(this.newUser.photo !== "") {
+                    this.newUserPhoto = this.newUser.photo
+                }
                 let dataNewUser = {
-                        id: this.userId,
-                        firstName: this.newUser.firstName,
-                        lastName: this.newUser.lastName,
-                        job: this.newUser.job,
-                        //photo: this.newUser.photo
-                    };
+                    id: this.userId,
+                    firstName: this.newUserFirstName,
+                    lastName: this.newUserLastName,
+                    job: this.newUserJob,
+                    //photo: this.newUserPhoto
+                };
                 //Ne fonctionne pas, pas de message d'erreur
                 axios.put(`http://localhost:3000/api/auth/users/` + this.userId, dataNewUser,
                 { 
