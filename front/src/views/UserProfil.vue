@@ -94,8 +94,8 @@
             </div>
             <div v-else class="User__container">
                 <figure>
-                   <img class="User__container__img" v-if="user.photo == ''" src="http://localhost:3000/images/PhotoUserDefault.jpg"/>
-                    <img class="User__container__img" v-else :src="user.photo" alt="Photo de l'utilisateur"/>
+                   <img class="User__container__imgDefault" v-if="user.photo == ''" src="http://localhost:3000/images/PhotoUserDefault.jpg"/>
+                    <img class="User__container__imgUser" v-else :src="user.photo" alt="Photo de l'utilisateur"/>
                 </figure>
                 <div class="User__container__nameJob">
                     <h3>{{ user.firstName }} {{ user.lastName }}</h3>
@@ -162,6 +162,7 @@
         }
         }
         .User {
+            align-items: center;
             margin-left: auto;
             margin-right: auto;
             display: flex;
@@ -177,11 +178,16 @@
             }
             &__container{
                 display: flex;
-                &__img {
+                &__imgUser {
                     height: 200px;
                     clip-path:ellipse(33% 50%);
                 }
+                &__imgDefault {
+                    height: 200px;
+                    clip-path:ellipse(40% 40%);
+                }
                 &__nameJob{
+                    align-items: center;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
@@ -189,7 +195,7 @@
             }
             
             &__button{
-                margin-left: 25%;
+                align-items: center;
                 &__modify {
                     margin: 0;
                 }
@@ -214,9 +220,9 @@
                         max-height: 100%;
                     }
                     &__nameJob{
-                        margin-left: 25%;
+                        margin-left: 0;
                         p{
-                            margin-left: 10%;
+                            margin-left: 0;
                             margin-top: 0;
                         }
                     }
@@ -225,7 +231,6 @@
                 &__button {
                     box-shadow: none;
                     background: none;
-                    margin-left: 15%;
                     &__modify{
                         display: none;
                     }
