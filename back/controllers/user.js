@@ -60,26 +60,26 @@ exports.login = (req, res) => {
 //Modifier le user
 exports.modifyUser = (req, res) => {
     const userObject = req.file ? {
-        ...req.body.user,
+        ...req.body.file,
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : {
         ...req.body
     };
     User.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(user => {
+        user.update({
+            ...userObject
+        }, {
             where: {
-                id: req.params.userId
+                id: req.params.id
             }
         })
-        .then(user => {
-            user.updateOne({
-                ...userObject
-            }, {
-                where: {
-                    id: req.params.userId
-                }
-            })
-            .then((user) => res.status(200).json({message: 'Utilisateur modifié!'}))
-             .catch(error => res.status(405).json({error}))
+        .then((user) => res.status(200).json({message: 'Utilisateur modifié!'}))
+        .catch(error => res.status(405).json({error}))
     });
 
 };
