@@ -142,7 +142,7 @@ import axios from 'axios';
               })"
               :key="user._id">
                 <figure class="post__user__figure">
-                    <img v-if="user.photo == null" src="http://localhost:3000/images/PhotoUserDefault.jpg" class="post__user__figure__img" alt="Photo de l'utilisateur"/>
+                    <img v-if="user.photo == ''" src="http://localhost:3000/images/PhotoUserDefault.jpg" class="post__user__figure__img" alt="Photo de l'utilisateur"/>
                     <img v-else :src="user.photo" class="post__user__figure__img" alt="Photo de l'utilisateur"/>
                 </figure>
                 <div class="post__user__profil">
@@ -312,6 +312,20 @@ import axios from 'axios';
 
     .test {
         font-size: 20pt;
+    }
+    @media screen and (max-width: 768px) /* Smartphone */
+    {
+        .UsersPosts {
+            .post {
+                margin-right: 7%;
+                margin-left: 7%;
+                margin-top: 40px;
+                width: 85%;
+                &__elements {
+                    padding-top: 30px;
+                }
+            }
+        }
     }
     
 

@@ -136,7 +136,6 @@
         h2 {
             padding: 0;
             margin: 0;
-            margin-left: 10px;
         }
         &__label {
             margin-top: 30px;
@@ -175,6 +174,13 @@
     }
     button {
         margin-left: 10px;
+    }
+    @media screen and (max-width: 768px) /* Smartphone */
+    { 
+        button {
+            margin-left: 0;
+            max-width: 85%;
+        }
     }
 
 </style>

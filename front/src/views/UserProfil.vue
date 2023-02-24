@@ -62,7 +62,6 @@
                 .then((response) => {
                     console.log(response);
                     console.log(dataNewUser);
-                    //window.location.reload();
                     //this.$router.push("/homeConnected");
                     console.log("Profil modifié")
                 })
@@ -78,9 +77,12 @@
     <TheHeader :IsConnected="IsConnected"/>
     <main class="sectionUser">
         <article class="User">
-            <div class="User__container">
+            <div v-if="user.firstName == '' || user.lastName == '' || user.job == ''">
+                <h3 class="User__emptyProfil">Veuillez complétez votre profil</h3>
+            </div>
+            <div v-else class="User__container">
                 <figure>
-                   <img class="User__container__img" v-if="user.photo == null" src="http://localhost:3000/images/PhotoUserDefault.jpg"/>
+                   <img class="User__container__img" v-if="user.photo == ''" src="http://localhost:3000/images/PhotoUserDefault.jpg"/>
                     <img class="User__container__img" v-else :src="user.photo" alt="Photo de l'utilisateur"/>
                 </figure>
                 <div class="User__container__nameJob">
@@ -142,6 +144,9 @@
         }
         input {
             margin-bottom: 10px;
+            border: none;
+            background: #FFFFFF;
+            box-shadow: 2px 2px 7px 1px #D8D3D3 inset;
         }
         }
         .User {
@@ -155,6 +160,9 @@
             padding: 50px;
             width: 50%;
             box-shadow: 5px 11px 10px 1px #CAC3C3;
+            &__emptyProfil{
+                text-align: center;
+            }
             &__container{
                 display: flex;
                 &__img {

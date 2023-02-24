@@ -119,9 +119,6 @@
         transform: translateX(280%);
     }
 }
-
-        
-
         /* main */
         #main {
             background: none;
@@ -249,7 +246,7 @@
                     max-width: 250px;
                     font-size: 10px;
                     margin-top: 5%;
-                    padding-left: 5px;
+                    padding-left: 20px;
                     h1{
                         animation: Textes_Phone 500ms ease-in-out forwards;
                         animation-delay: 2.5s;
