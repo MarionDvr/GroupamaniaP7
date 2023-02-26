@@ -1,4 +1,5 @@
 const Post = require('../models/Post');
+const fs = require("fs");
 
 //AFFICHER TOUS les posts
 exports.getAllPosts = (req, res) => {
@@ -57,9 +58,20 @@ exports.modifyPost = (req, res) => {
 
 //SUPPRIMER un post
 exports.deletePost = (req, res) => {
-  Post.deleteOne({ _id: req.params.id })
+  /*Post.deleteOne({ _id: req.params.id })
     .then(() => res.status(200).json({ message: "Post supprimé" }))
-    .catch( error => { res.status(400).json({ error })});
+    .catch( error => { res.status(400).json({ error })});*/
+  
+  Post.findOne({ _id: req.params.id })
+  .then((post) => { 
+    const filename = post.imageUrl.split("/images/")[1]; //Trouver le nom de l'image pour la suppression
+    fs.unlink(`images/${filename}`), () => {
+      Post.deleteOne({ _id: req.params.id })
+      .then(() => res.status(200).json({ message: "Post supprimé" }))
+      .catch( error => { res.status(404).json({ error })});
+    }
+  })
+  .catch( error => { res.status(400).json({ error })});
 };
 
 //LIKER, UNLIKER un post

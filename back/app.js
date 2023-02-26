@@ -5,12 +5,11 @@ const path = require('path');
 const postRoutes = require('./routes/post');
 const userRoutes = require('./routes/user');
 const app = express();
-//const dotenv = require("dotenv");
-//dotenv.config();
-//const MY_DB_IDENTIFIERS = process.env.mongoDBIdentifiers;
+const dotenv = require('dotenv').config();
+const MY_DB_IDENTIFIERS = process.env.mongoDBIdentifiers;
 
 //Connexion à MangoDB
-mongoose.connect('mongodb+srv://Groupamania:devroede@cluster1.gudnqbd.mongodb.net/?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://' + MY_DB_IDENTIFIERS + '@cluster1.gudnqbd.mongodb.net/?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
