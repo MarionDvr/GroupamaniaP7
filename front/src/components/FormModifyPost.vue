@@ -14,7 +14,6 @@
                 dataPost: {
                     title: "",
                     text: "",
-                    imageUrl:""
                 },
                 post: {},
                 imagePreview: "",
@@ -31,8 +30,8 @@
                 axios.get(`http://localhost:3000/api/posts/` + this.postId,
                 {
                     headers: {
-                            'Authorization': 'Bearer ' + this.token,
-                            'Content-Type': 'application/json'
+                            "Authorization": "Bearer " + this.token,
+                            "Content-Type": "multipart/form-data",
                         }
                 })
                 .then((response) => {
@@ -44,37 +43,33 @@
             },
             //Modifier le post
             ModifyPost() {
+                const formData = new FormData();
+                formData.append('userId', this.userId);
                 if(this.dataPost.title !== "") {
-                    this.newTitle = this.dataPost.title;
+                    formData.append('title', this.dataPost.title);
                 }
                 if(this.dataPost.text !== "") {
-                    this.newText = this.dataPost.text;
+                    formData.append('text', this.dataPost.text);
                 }
-                if(this.dataPost.imageUrl !== "") {
-                    this.newImageUrl = this.dataPost.imageUrl
+                if(this.file !== "") {
+                    formData.append('image', this.file);
                 }
-                let newPost = {
-                    userId: this.userId,
-                    title: this.newTitle,
-                    text: this.newText,
-                    imageUrl: this.newImageUrl
-                }
-                axios.put("http://localhost:3000/api/posts/" + this.postId, newPost,
+                axios.put("http://localhost:3000/api/posts/" + this.postId, formData,
                 {
                     headers: {
                         'Authorization': "Bearer " + this.token,
-                        'Content-Type': 'application/json'
+                        "Content-Type": "multipart/form-data",
                     }
                 })
                 .then((response) => {
                     console.log(response);
                     console.log('Post modifié!');
                     //this.$router.push("/homeConnected");
-                    console.log(newPost)
+                    console.log(formData)
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);
-                    console.log(newPost)
+                    console.log(formData)
                 });
             },
             selectImage() {
@@ -96,7 +91,8 @@
             <input v-if="showInputTitle" name="Titre" class="form__inputTitre" v-model="dataPost.title"/>
             <label for="Image" class="form__label">Image</label>
             <img :src="post.imageUrl" v-if="!showInputImage"/>
-            <img v-show="imagePreview" :src="imagePreview" class="publication-photo" alt="Prévisualisation de l'image" />
+            <!-- pour voir le rendu avant l'envoie du nouveau post -->
+            <img v-show="imagePreview" :src="imagePreview" class="publication-photo" alt="Prévisualisation de l'image"/>
             <button @click="showInputImage = !showInputImage" v-if="!showInputImage">Modifier l'image</button>
             <input v-if="showInputImage" type="file" ref="file" name="file" id="file" class="form__inputImg" v-on:change="selectImage()" aria-label="Selection de l'image"/>
             <label for="Texte" class="form__label">Texte</label>

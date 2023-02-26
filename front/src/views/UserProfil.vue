@@ -18,8 +18,8 @@
                     firstName: "",
                     lastName: "",
                     job: "",
-                    photo: "",
-                }
+                },
+                file: ""
             }
         },
         mounted() {
@@ -37,51 +37,47 @@
                 .then((response) => {
                     this.user = response.data;
                     console.log("Utilisateur récupéré");
-                    console.log(this.user);
+                    //console.log(this.user);
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);
                 });
             },
             modifyUser() {
+                const formData = new FormData();
+                formData.append('id', this.userId);
                 if(this.newUser.firstName !== "") {
-                    this.newUserFirstName = this.newUser.firstName;
+                    formData.append('firstName', this.newUser.firstName);
                 }
                 if(this.newUser.lastName !== "") {
-                    this.newUserLastName = this.newUser.lastName;
+                    formData.append('lastName', this.newUser.lastName);
                 }
                 if(this.newUser.job !== "") {
-                    this.newUserJob = this.newUser.job
+                    formData.append('job', this.newUser.job);
                 }
-                if(this.newUser.photo !== "") {
-                    this.newUserPhoto = this.newUser.photo
+                if(this.file !== "") {
+                    formData.append('image', this.file);
                 }
-                let dataNewUser = {
-                    id: this.userId,
-                    firstName: this.newUserFirstName,
-                    lastName: this.newUserLastName,
-                    job: this.newUserJob,
-                    //photo: this.newUserPhoto
-                };
-                //Ne fonctionne pas, pas de message d'erreur
-                axios.put(`http://localhost:3000/api/auth/users/` + this.userId, dataNewUser,
+                axios.put(`http://localhost:3000/api/auth/users/` + this.userId, formData,
                 { 
                     headers: {
                             'Authorization': 'Bearer ' + this.token,
-                            'Content-Type': 'application/json'
+                            "Content-Type": "multipart/form-data",
                     },
                 })
                 .then((response) => {
                     console.log(response);
-                    console.log(dataNewUser);
-                    //this.$router.push("/homeConnected");
+                    this.$router.push("/homeConnected");
                     console.log("Profil modifié")
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);
-                    console.log(dataNewUser);
                 });
-            }
+            },
+            selectImage() {
+                //Récupère le fichier grâce à ref
+                this.file = this.$refs.file.files[0];
+            },
         }
     }
 </script>
@@ -116,8 +112,8 @@
                 <input type="text" name="LastName" v-model="newUser.lastName"/>
                 <label for="Job">Poste actuel</label>
                 <input type="text" name="Job" v-model="newUser.job"/>
-                <!--<label for="Photo">Photo</label>-->
-                <!--<input type="file" name="Photo"/>-->
+                <label for="file">Photo</label>
+                <input type="file" ref="file" name="file" id="file"  @change="selectImage()" aria-label="Selection de l'image"/>
                 <button @click="modifyUser()" type="submit">Modifier le profil</button>
             </form>
         </article>

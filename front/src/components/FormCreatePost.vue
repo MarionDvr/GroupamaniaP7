@@ -13,72 +13,65 @@
                 },
                 imagePreview: "",
                 file: "",
-                imageUrl: ""
             }
         },
         methods: {
             addPost() {
                 let date = new Date().toLocaleDateString("fr");
-                
-                /*if(this.file === ""){
-                    let post = {
-                    userId: this.userId,
-                    title: this.dataPost.title,
-                    text: this.dataPost.text,
-                    imageUrl: this.dataPost.imageUrl,
-                    date: date,
-                    };
-                    axios.post("http://localhost:3000/api/posts", post, {
-                        headers: {
-                        "Authorization": "Bearer " + this.token,
-                        "Content-Type": "application/json"
-                    }
-                    })
-                    .then((response) => {
-                        console.log(response);
-                        console.log('Post ajouté');
-                        console.log(post)
-                        //this.$router.push("/homeConnected");
-                    })
-                    .catch(function(erreur) {
-                        console.error('Une erreur est survenue' + erreur.response);
-                        console.log(post);
-                    });
-                } else {*/
-                    let post = {
-                    userId: this.userId,
-                    title: this.dataPost.title,
-                    text: this.dataPost.text,
-                    //imageUrl: this.dataPost.image,
-                    imageUrl: this.file,
-                    date: date,
-                    };
-                    axios.post("http://localhost:3000/api/posts", post, {
-                        headers: {
-                        "Authorization": "Bearer " + this.token,
-                        //"Content-Type": "multipart/form-data",
-                        "Content-Type": "application/json",
-                    }
-                    })
-                    .then((response) => {
-                        console.log(response);
-                        console.log('Post ajouté');
-                        console.log(post)
-                        //this.$router.push("/homeConnected");
-                    })
-                    .catch(function(erreur) {
-                        console.error('Une erreur est survenue' + erreur.response);
-                        console.log(post);
-                    });
-                //}
+                //Si il n'y a pas de titre
+                if(this.dataPost.title == ""){
+                    alert("Veuillez ajouter un titre");
+                }
+                //Si il n'y a pas de texte
+                if(this.dataPost.text == ""){
+                    alert("Veuillez ajouter un texte");
+                }
+                if(this.file == ""){
+                    const formData = new FormData();
+                    formData.append('userId', this.userId);
+                    formData.append('title', this.dataPost.title);
+                    formData.append('text', this.dataPost.text);
+                    formData.append('date', date);
 
-                //Si le post est vide
-               /* if(post == ""){
-                    alert("Veuillez ajouter un titre et un texte");
-                //Si l'image est vide
-                } else {*/
-                   
-                //}
+                    axios.post("http://localhost:3000/api/posts", formData, {
+                        headers: {
+                            "Authorization": "Bearer " + this.token,
+                            "Content-Type": "multipart/form-data",
+                        }
+                    })
+                    .then((response) => {
+                        console.log(response);
+                        console.log('Post ajouté');
+                        console.log(formData)
+                        this.$router.push("/homeConnected");
+                    })
+                    .catch(function(erreur) {
+                        console.error('Une erreur est survenue' + erreur.response);
+                    });
+                } else {
+                    const formData = new FormData();
+                    formData.append('image', this.file);
+                    formData.append('userId', this.userId);
+                    formData.append('title', this.dataPost.title);
+                    formData.append('text', this.dataPost.text);
+                    formData.append('date', date);
+
+                    axios.post("http://localhost:3000/api/posts", formData, {
+                        headers: {
+                            "Authorization": "Bearer " + this.token,
+                            "Content-Type": "multipart/form-data",
+                        }
+                    })
+                    .then((response) => {
+                        console.log(response);
+                        console.log('Post ajouté');
+                        console.log(formData)
+                        this.$router.push("/homeConnected");
+                    })
+                    .catch(function(erreur) {
+                        console.error('Une erreur est survenue' + erreur.response);
+                    });
+                }
             },
             selectImage() {
                 //Récupère le fichier grâce à ref
@@ -87,6 +80,7 @@
             },
         }
     }
+    
 </script>
 <template>
     <section>   
@@ -96,7 +90,6 @@
             <input name="Titre" class="form__inputTitre" v-model="dataPost.title"/>
             <label for="file" class="form__label">Image</label>
             <input type="file" ref="file" name="file" id="file" class="form__inputImg" @change="selectImage()" aria-label="Selection de l'image"/>
-            <!--<input type="text"  v-model="dataPost.image" name="file"  class="form__inputImg"  aria-label="Selection de l'image"/>-->
             <!-- pour voir le rendu avant l'envoie du nouveau post -->
             <img v-show="imagePreview" :src="imagePreview" class="publication-photo" alt="Prévisualisation de l'image" />
             <label for="Text" class="form__label">Texte</label>
