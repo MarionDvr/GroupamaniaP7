@@ -1,5 +1,5 @@
 const Post = require('../models/Post');
-const fs = require("fs");
+const fs = require('fs');
 
 //AFFICHER TOUS les posts
 exports.getAllPosts = (req, res) => {
@@ -47,29 +47,27 @@ exports.modifyPost = (req, res) => {
       if(post.userId != req.auth.userId) {
         res.status(401).json({ message: "non autorisé" });
       } else {
+        const filename = post.imageUrl.split("/images/")[1]; //Trouver le nom de l'image pour la suppression
+        fs.unlink(`images/${filename}`, () => {
       //Sinon mise à jour de la BDD
-        Post.updateOne({ _id: req.params.id }, {...postObject, _id: req.params.id })
-          .then(() => { res.status(200).json({ message: "Post modifié" }); })
-          .catch( error => { res.status(400).json({ error })});
+          Post.updateOne({ _id: req.params.id }, {...postObject, _id: req.params.id })
+            .then(() => { res.status(200).json({ message: "Post modifié" }); })
+            .catch( error => { res.status(400).json({ error })});
+        });
       }
-    })
-
-  };
+    });
+};
 
 //SUPPRIMER un post
 exports.deletePost = (req, res) => {
-  /*Post.deleteOne({ _id: req.params.id })
-    .then(() => res.status(200).json({ message: "Post supprimé" }))
-    .catch( error => { res.status(400).json({ error })});*/
-  
   Post.findOne({ _id: req.params.id })
   .then((post) => { 
     const filename = post.imageUrl.split("/images/")[1]; //Trouver le nom de l'image pour la suppression
-    fs.unlink(`images/${filename}`), () => {
+    fs.unlink(`images/${filename}`, () => {
       Post.deleteOne({ _id: req.params.id })
       .then(() => res.status(200).json({ message: "Post supprimé" }))
       .catch( error => { res.status(404).json({ error })});
-    }
+    });
   })
   .catch( error => { res.status(400).json({ error })});
 };
