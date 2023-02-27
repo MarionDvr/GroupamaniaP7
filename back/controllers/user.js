@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 
 //S'enregistrer
 exports.signin = (req, res) => {
@@ -64,9 +65,12 @@ exports.modifyUser = (req, res) => {
     } : { ...req.body };
     User.findOne({ _id: req.params.id })
     .then(user => {
-        user.updateOne({ ...userObject }, { _id: req.params.id })
-        .then((user) => res.status(200).json({message: 'Utilisateur modifié!'}))
-        .catch(error => res.status(405).json({error}))
+        const filename = user.photo.split("/images/")[1]; //Trouver le nom de l'image pour la suppression
+        fs.unlink(`images/${filename}`, () => {
+            user.updateOne({ ...userObject }, { _id: req.params.id })
+            .then((user) => res.status(200).json({message: 'Utilisateur modifié!'}))
+            .catch(error => res.status(405).json({error}))
+        });
     });
 
 };
