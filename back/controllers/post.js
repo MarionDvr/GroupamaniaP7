@@ -47,13 +47,10 @@ exports.modifyPost = (req, res) => {
       if(post.userId != req.auth.userId) {
         res.status(401).json({ message: "non autorisé" });
       } else {
-        const filename = post.imageUrl.split("/images/")[1]; //Trouver le nom de l'image pour la suppression
-        fs.unlink(`images/${filename}`, () => {
       //Sinon mise à jour de la BDD
           Post.updateOne({ _id: req.params.id }, {...postObject, _id: req.params.id })
             .then(() => { res.status(200).json({ message: "Post modifié" }); })
             .catch( error => { res.status(400).json({ error })});
-        });
       }
     });
 };
