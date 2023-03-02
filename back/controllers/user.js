@@ -2,6 +2,8 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
+const dotenv = require('dotenv').config();
+const TOKEN_KEY = process.env.tokenKey;
 
 //S'enregistrer
 exports.signin = (req, res) => {
@@ -17,7 +19,14 @@ exports.signin = (req, res) => {
             });
             //Sauvegarde du nouvel utilisateur
             user.save()
-                .then(() => res.status(201).json({message: 'Utilisateur créé'}))
+                .then((user) => res.status(201).json({
+                    userId: user._id,
+                    token: jwt.sign(
+                        { userId: user._id },
+                        TOKEN_KEY,
+                        { expiresIn: '24h' }
+                    ),
+                    message: 'Utilisateur créé'}))
                 .catch(error => res.status(400).json({ error }));
         })
         .catch(error => res.status(500).json({ error }));
@@ -32,28 +41,28 @@ exports.login = (req, res) => {
             if(!user) {
                 return res.status(400).json({ message: 'Paire identifiant/mot de passe incorrecte' });
             } 
-            //else {
+            else {
                //comparer le mot de passe entré avec le hash enregistré dans la base de données
                 bcrypt.compare(req.body.password, user.password)
                     .then(valid => {
                         if(!valid) {
                             return res.status(401).json({ message: 'Paire identifiant/mot de passe incorrecte' });
                         } 
-                        //else {
+                        else {
                             //Si le mot de passe est valide, renvoie de la réponse avec l'id utilisateur et le token
                             res.status(200).json({
                                 userId: user._id,
                                 //sign() pour chiffrer un nouveau token (qui contient L'id utilisateur, la clef secrète pour crypter le token et la durée de validité du token)
                                 token: jwt.sign(
                                     { userId: user._id },
-                                    'GROUPAMANIA_TOKEN_SECRET',
+                                    TOKEN_KEY,
                                     { expiresIn: '24h' }
                                 )
                             })
-                        //}
+                        }
                     })
                     .catch(error => res.status(500).json({ error }));
-            //}
+            }
         })
         .catch(error => res.status(500).json({ message:'login ne fonctionne pas' }));
 };
