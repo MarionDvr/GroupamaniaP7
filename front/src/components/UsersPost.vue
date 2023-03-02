@@ -9,18 +9,14 @@ import axios from 'axios';
                 content: "",
                 userId: localStorage.getItem("userId"),
                 token: localStorage.getItem("token"),
-                //Mettre les utilisateurs dans un tableau
                 users: [],
                 user: "",
-                //Mettre les info d'un post dans un objet
                 post: "",
                 //Mettre les posts récupérer dans un tableau
                 posts: [],
                 //Pour que la flèche d'ouverture du post soit fermé
                 isDeployed: false,
                 liked: [],
-                
-
             }
         },
         mounted() {
@@ -40,7 +36,6 @@ import axios from 'axios';
                 })
                 .then((response) => {
                     this.users = response.data;
-                    //console.log(this.users)
                     console.log("Utilisateurs récupérés")
                 })
                 .catch(function(erreur) {
@@ -58,7 +53,6 @@ import axios from 'axios';
                 })
                 .then((response) => {
                     this.user = response.data;
-                    //console.log(this.user)
                     console.log("Utilisateur récupéré")
                 })
                 .catch(function(erreur) {
@@ -76,7 +70,6 @@ import axios from 'axios';
                 })
                 .then((response) => {
                     this.posts = response.data;
-                    //console.log(this.posts)
                      console.log("Posts récupérés")
                 })
                 .catch((error) => { console.log(error)});
@@ -107,6 +100,7 @@ import axios from 'axios';
                     userId: this.userId,
                     id: id
                 }
+                //stringify pour éviter les erreurs avec les données provenant du localStorage
                 const dataLike = JSON.stringify(newUnlike);
                 axios.post(`http://localhost:3000/api/posts/${id}/like`, dataLike, 
                     { 
@@ -131,7 +125,6 @@ import axios from 'axios';
                 this.$router.push("/modifyPost");
             }
         }
-        
     }
 </script>
 <template>
@@ -160,7 +153,7 @@ import axios from 'axios';
                 </figure>
                 <p v-if="isDeployed">{{ post.text }}</p>
                 <p v-if="isDeployed"> {{ post.date }}</p>
-                </div>
+            </div>
             <div class="post__picto" v-if="isDeployed">
                 <div class="post__picto__heart">
                     <i aria-label="Liker le post" class="fa-solid fa-heart picto" @click="likePost(post._id)"></i>
@@ -173,11 +166,10 @@ import axios from 'axios';
                 <!-- Supprimer le post (seulement par l'utilisateur qui l'a créé ou par l'admin)-->
                 <i aria-label="Supprimer le post" class="fa-solid fa-trash picto" @click="deletePost(post._id)" v-if="post.userId == userId || user.isAdmin == true"></i>   
             </div>
-                <div @click="isDeployed = !isDeployed" class="post__elements__arrow">
-                    <i v-if="isDeployed" class="fa-solid fa-chevron-up" aria-label="Fermer le post"></i>
-                    <i v-else class="fa-solid fa-chevron-down" aria-label="Ouvrir le post"></i>
-                </div>
-           
+            <div @click="isDeployed = !isDeployed" class="post__elements__arrow">
+                <i v-if="isDeployed" class="fa-solid fa-chevron-up" aria-label="Fermer le post"></i>
+                <i v-else class="fa-solid fa-chevron-down" aria-label="Ouvrir le post"></i>
+            </div>
         </article>
     </section>
 </template>
@@ -188,23 +180,18 @@ import axios from 'axios';
     $couleur-header: white;
     $background-grey:#F2F1F0;
     
-@keyframes post {
-    0% {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    50%{
-        opacity: 1;
-    }
-    
-    100% {
-        opacity: 1;
-        transform: translateY(0px);
-    }
-}
-
-    .testLike {
-        visibility: hidden;
+    @keyframes post {
+        0% {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        50%{
+            opacity: 1;
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0px);
+        }
     }
 
     .UsersPosts {
@@ -257,7 +244,6 @@ import axios from 'axios';
                         margin: 0;
                     }
                 }
-                
             }
             &__elements{
                 padding: 40px 40px 0 40px;
@@ -327,7 +313,4 @@ import axios from 'axios';
             }
         }
     }
-    
-
-    
 </style>

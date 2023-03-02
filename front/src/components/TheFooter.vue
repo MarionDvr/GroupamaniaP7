@@ -16,7 +16,6 @@
     $couleur-secondaire: #FFD7D7;
     $background-grey:#F2F1F0;
     
-
     footer {
         background: $couleur-tertiaire;
         margin: 0;

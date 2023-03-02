@@ -2,8 +2,8 @@
     <main>
         <section class="LoginSection">
             <figure class="LoginSection__logo">
-                        <img src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
-                    </figure>
+                <img src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
+            </figure>
             <form class="LoginSection__form" @submit.prevent="UserConnect()" method="post">
                 <h2>Connexion</h2>
                 <label for="emailLogin" class="LoginSection__form__label">E-mail</label>
@@ -25,7 +25,6 @@
                     email: "",
                     password: ""
                 },
-                errors: []
             }
         },
         methods: {
@@ -39,7 +38,7 @@
                     localStorage.setItem("token", response.data.token);
                     localStorage.setItem("userId", response.data.userId);
                     console.log("Utilisateur connecté")
-                    this.$router.push("/homeConnected");
+                    this.$router.push({ path: 'homeConnected' });
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);

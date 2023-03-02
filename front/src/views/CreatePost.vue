@@ -7,12 +7,9 @@
         components: { TheHeader, FormCreatePost, TheFooter }
     }
 </script>
-
 <template>
     <TheHeader :IsConnected="!IsConnected"/>
-    <main>
-        <FormCreatePost/>
-    </main>
+    <FormCreatePost/>
     <TheFooter/>
     
 </template>

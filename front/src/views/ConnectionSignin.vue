@@ -7,7 +7,6 @@
         components: { TheHeader, FormSignin, TheFooter }
     }
 </script>
-
 <template>
     <TheHeader/>
     <FormSignin/>

@@ -13,10 +13,11 @@
 </script>
 <template>  
     <header class="header">
+        <!-- Header quand l'utilisateur est déconnecté -->
         <nav class="headerConnection" v-if="!IsConnected">
             <router-link to="/" class="headerConnection__logo">
                 <figure>
-                    <img class="headerConnection__img" src="../assets/logoGroupamania.svg" alt="logo Groupamania"/>
+                    <img class="headerConnection__img" src="../assets/logoGroupamania.svg" alt="logo Groupamania" aria-label="Retour à l'accueil"/>
                 </figure>
             </router-link>
             <div class="headerConnection__nav">
@@ -26,7 +27,8 @@
                 <router-link to="/ConnectionLogin" class="pictoConnection"><i class="fa-solid fa-circle-user" aria-label="Se connecter"></i></router-link>
             </div>
         </nav>
-        <nav  class="headerConnected" v-if="IsConnected">
+        <!-- Header quand l'utilisateur est connecté -->
+        <nav class="headerConnected" v-if="IsConnected">
             <router-link to="/homeConnected" class="headerConnected__picto">
                 <i class="fa-sharp fa-solid fa-house" aria-label="Accueil"></i>
                 <p class="navToolTip">Accueil</p>
@@ -75,18 +77,18 @@
         margin: 0;
         padding: 0;
         height: 100px;
-            &__logo {
-                margin-left: 35%;
-                margin-right: auto;
-                width: 300px;
-                padding-top: 15px;
-                &__img {
+        &__logo {
+            margin-left: 35%;
+            margin-right: auto;
+            width: 300px;
+            padding-top: 15px;
+            &__img {
                 width: 100%;
-                }
             }
-            &__nav {
-                margin-top: 40px;
-                &__link {
+        }
+        &__nav {
+            margin-top: 40px;
+            &__link {
                 text-decoration: none;
                 color: $couleur-tertiaire;
                 font-size: 14pt;
@@ -95,9 +97,8 @@
                 &:hover {
                     color: $couleur-primaire;
                 }
-                }
             }
-            
+        }
     }
 
     .pictoConnection {

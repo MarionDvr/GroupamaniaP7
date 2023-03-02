@@ -2,8 +2,8 @@
     <main>
         <section class="SigninSection">
             <figure class="SigninSection__logo">
-                        <img src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
-                    </figure>
+                <img src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
+            </figure>
             <form class="SigninSection__form" method="get">
                 <h2>Inscription</h2>
                 <label for="emailSignin" class="SigninSection__form__label">E-mail</label>
@@ -38,43 +38,44 @@
                 //Regexp mot de passe
                 let passwordRegExp = new RegExp(/^[a-zA-Z0-9_\-.@#]{8}$/);
                 this.errors = [];
-                    if(emailRegExp.test(this.dataSignin.email) == false){
-                        this.errors.push("L'email n'est pas valide");
-                    }
-                    if(passwordRegExp.test(this.dataSignin.password) == false){
-                        this.errors.push("Le mot de passe doit contenir 8 caractères");
-                    }
-                    if(!this.dataSignin.email) {
-                        this.errors.push("Email requise");
-                    }
-                    if(!this.dataSignin.password) {
-                        this.errors.push("Mot de passe requis");
-                    }
-                    if(this.errors.length) {
-                        return false;
-                    }
-                    else if(emailRegExp.test(this.dataSignin.email) == true && passwordRegExp.test(this.dataSignin.password) == true) {
-                        axios.post("http://localhost:3000/api/auth/signin",
-                        {
-                            email: this.dataSignin.email,
-                            password: this.dataSignin.password,
-                            firstName: "",
-                            lastName: "",
-                            photo: "",
-                            job: "",
-                            isAdmin: 0
-
-                        })
-                        .then((response) => {
-                            localStorage.setItem("token", response.data.token);
-                            localStorage.setItem("userId", response.data.userId);
-                            console.log("Utilisateur créé");
-                            this.$router.push("/homeConnected");
-                        })
-                        .catch(function(erreur) {
-                            console.error('Une erreur est survenue' + erreur);
-                        });
-                    }
+                if(emailRegExp.test(this.dataSignin.email) == false){
+                    this.errors.push("L'email n'est pas valide");
+                }
+                if(passwordRegExp.test(this.dataSignin.password) == false){
+                    this.errors.push("Le mot de passe doit contenir 8 caractères");
+                }
+                if(!this.dataSignin.email) {
+                    this.errors.push("Email requise");
+                }
+                if(!this.dataSignin.password) {
+                    this.errors.push("Mot de passe requis");
+                }
+                if(this.errors.length) {
+                    return false;
+                }
+                else if(emailRegExp.test(this.dataSignin.email) == true && passwordRegExp.test(this.dataSignin.password) == true) {
+                    axios.post("http://localhost:3000/api/auth/signin",
+                    {
+                        email: this.dataSignin.email,
+                        password: this.dataSignin.password,
+                        firstName: "",
+                        lastName: "",
+                        photo: "",
+                        job: "",
+                        isAdmin: 0
+                    })
+                    .then((response) => {
+                        console.log(response)
+                        localStorage.setItem("token", response.data.token);
+                        localStorage.setItem("userId", response.data.userId);
+                        this.$router.push({ path: 'homeConnected' });
+                        console.log("Utilisateur créé");
+                        
+                    })
+                    .catch(function(erreur) {
+                        console.error('Une erreur est survenue' + erreur);
+                    });
+                }
             }
         }
     }
@@ -123,7 +124,6 @@
                 background: #FFFFFF;
                 box-shadow: 2px 2px 7px 1px #D8D3D3 inset;
             }
-        
         }
     }
     #SigninErrorMsg {
@@ -159,8 +159,6 @@
                     width: 90%;
                 }
             }
-
         }
     } 
-        
 </style>

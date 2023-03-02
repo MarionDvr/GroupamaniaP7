@@ -26,6 +26,7 @@
                 if(this.dataPost.text == ""){
                     alert("Veuillez ajouter un texte");
                 }
+                //Si il n'y a pas d'image
                 if(this.file == ""){
                     const formData = new FormData();
                     formData.append('userId', this.userId);
@@ -42,7 +43,6 @@
                     .then((response) => {
                         console.log(response);
                         console.log('Post ajouté');
-                        console.log(formData)
                         this.$router.push("/homeConnected");
                     })
                     .catch(function(erreur) {
@@ -65,8 +65,7 @@
                     .then((response) => {
                         console.log(response);
                         console.log('Post ajouté');
-                        console.log(formData)
-                        this.$router.push("/homeConnected");
+                        this.$router.push({ path: 'homeConnected' });
                     })
                     .catch(function(erreur) {
                         console.error('Une erreur est survenue' + erreur.response);
@@ -83,20 +82,22 @@
     
 </script>
 <template>
-    <section>   
-        <form class="form">
-            <h1>Ajouter votre post</h1>
-            <label for="Titre" class="form__label">Titre</label>
-            <input name="Titre" class="form__inputTitre" v-model="dataPost.title"/>
-            <label for="file" class="form__label">Image</label>
-            <input type="file" ref="file" name="file" id="file" class="form__inputImg" @change="selectImage()" aria-label="Selection de l'image"/>
-            <!-- pour voir le rendu avant l'envoie du nouveau post -->
-            <img v-show="imagePreview" :src="imagePreview" class="publication-photo" alt="Prévisualisation de l'image" />
-            <label for="Text" class="form__label">Texte</label>
-            <textarea name="Text" class="form__inputText" v-model="dataPost.text"></textarea>
-            <button type="submit" @click="addPost()">Poster !</button>
-        </form>
-    </section>
+    <main>
+        <section>   
+            <form class="form">
+                <h1>Ajouter votre post</h1>
+                <label for="Titre" class="form__label">Titre</label>
+                <input name="Titre" class="form__inputTitre" v-model="dataPost.title"/>
+                <label for="file" class="form__label">Image</label>
+                <input type="file" ref="file" name="file" id="file" class="form__inputImg" @change="selectImage()" aria-label="Selection de l'image"/>
+                <!-- pour voir le rendu image avant l'envoie du nouveau post -->
+                <img v-show="imagePreview" :src="imagePreview" class="publication-photo" alt="Prévisualisation de l'image" />
+                <label for="Text" class="form__label">Texte</label>
+                <textarea name="Text" class="form__inputText" v-model="dataPost.text"></textarea>
+                <button type="submit" @click="addPost()">Poster !</button>
+            </form>
+        </section>
+    </main>
 </template>
 <style lang="scss">
     $couleur-primaire: #FD2D01;

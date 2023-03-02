@@ -37,7 +37,6 @@
                 .then((response) => {
                     this.user = response.data;
                     console.log("Utilisateur récupéré");
-                    //console.log(this.user);
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);
@@ -46,15 +45,19 @@
             modifyUser() {
                 const formData = new FormData();
                 formData.append('id', this.userId);
+                //Si le prénom est modifié
                 if(this.newUser.firstName !== "") {
                     formData.append('firstName', this.newUser.firstName);
                 }
+                //Si le nom est modifié
                 if(this.newUser.lastName !== "") {
                     formData.append('lastName', this.newUser.lastName);
                 }
+                //Si l'emploi est modifié
                 if(this.newUser.job !== "") {
                     formData.append('job', this.newUser.job);
                 }
+                //Si l'image est modifiée
                 if(this.file !== "") {
                     formData.append('image', this.file);
                 }
@@ -67,8 +70,8 @@
                 })
                 .then((response) => {
                     console.log(response);
-                    this.$router.push("/homeConnected");
-                    console.log("Profil modifié")
+                    this.$router.push({ path: 'homeConnected' });
+                    console.log("Profil modifié");
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);
@@ -90,7 +93,7 @@
             </div>
             <div v-else class="User__container">
                 <figure>
-                   <img class="User__container__imgDefault" v-if="user.photo == ''" src="http://localhost:3000/images/PhotoUserDefault.jpg"/>
+                    <img class="User__container__imgDefault" v-if="user.photo == ''" src="http://localhost:3000/images/PhotoUserDefault.jpg"/>
                     <img class="User__container__imgUser" v-else :src="user.photo" alt="Photo de l'utilisateur"/>
                 </figure>
                 <div class="User__container__nameJob">
@@ -132,30 +135,30 @@
         padding-top: 50px;
         padding-bottom: 100px;
         .form {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        background-color: white;
-        border-radius: 40px;
-        padding: 50px;
-        width: 50%;
-        box-shadow: 5px 11px 10px 1px #CAC3C3;
-        h2 {
-            margin-bottom: 30px;
-        }
-        label {
-            margin-top: 10px;
-            margin-left: 10px;
-        }
-        input {
-            margin-bottom: 10px;
-            border: none;
-            background: #FFFFFF;
-            box-shadow: 2px 2px 7px 1px #D8D3D3 inset;
-        }
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: white;
+            border-radius: 40px;
+            padding: 50px;
+            width: 50%;
+            box-shadow: 5px 11px 10px 1px #CAC3C3;
+            h2 {
+                margin-bottom: 30px;
+            }
+            label {
+                margin-top: 10px;
+                margin-left: 10px;
+            }
+            input {
+                margin-bottom: 10px;
+                border: none;
+                background: #FFFFFF;
+                box-shadow: 2px 2px 7px 1px #D8D3D3 inset;
+            }
         }
         .User {
             align-items: center;
@@ -189,7 +192,6 @@
                     justify-content: center;
                 }
             }
-            
             &__button{
                 align-items: center;
                 &__modify {
@@ -199,8 +201,8 @@
                     display: none;
                 }
             }
-            
         }
+
         .UserModify{
             margin-top: 40px;
         }
@@ -209,7 +211,7 @@
     @media screen and (max-width: 768px) /* Smartphone */
     {
         .sectionUser {
-            .User{
+            .User {
                 &__container{
                     flex-direction: column;
                     &__img{
@@ -223,7 +225,6 @@
                         }
                     }
                 }
-                
                 &__button {
                     box-shadow: none;
                     background: none;
@@ -241,5 +242,4 @@
             }
         }
     }
-
 </style>

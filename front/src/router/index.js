@@ -42,8 +42,6 @@ const routes = [
     name: 'ModifyPost',
     component: ModifyPost
   }
-
-  
 ]
 
 const router = createRouter({
