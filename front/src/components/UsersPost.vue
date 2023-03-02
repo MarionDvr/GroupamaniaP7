@@ -88,7 +88,7 @@ import axios from 'axios';
                     .then(() => { 
                         window.location.reload();
                     })
-                    .catch( error => { console.log( error )});
+                    .catch( error => { console.log( error ), console.log('ici')});
                 } else {
                     console.log("Annuler la suppression");
                     return;
