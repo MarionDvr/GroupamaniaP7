@@ -14,11 +14,7 @@
     
 </template>
 <style lang="scss">
-    $couleur-primaire: #FD2D01;
-    $couleur-secondaire: #FFD7D7;
-    $couleur-tertiaire: #4E5166;
-    $couleur-header: white;
-    $background-grey:#F2F1F0;
+    @import "_variables.scss"; 
 
     main {
         background: $background-grey;

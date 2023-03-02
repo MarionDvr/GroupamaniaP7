@@ -11,10 +11,7 @@
     </footer>
 </template>
 <style lang="scss">
-    $couleur-tertiaire: #4E5166;
-    $couleur-header: white;
-    $couleur-secondaire: #FFD7D7;
-    $background-grey:#F2F1F0;
+    @import "_variables.scss"; 
     
     footer {
         background: $couleur-tertiaire;

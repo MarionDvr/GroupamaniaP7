@@ -25,12 +25,8 @@
     <TheFooter/>
 </template>
 <style lang="scss">
-    @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-    $couleur-primaire: #FD2D01;
-    $couleur-secondaire: #FFD7D7;
-    $couleur-tertiaire: #4E5166;
-    $couleur-header: white;
-    $background-grey:#F2F1F0;
+    @import "_variables.scss"; 
+    
     body {
         font-family: Lato;
         color: $couleur-tertiaire;
