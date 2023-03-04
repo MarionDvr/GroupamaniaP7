@@ -174,7 +174,7 @@ import axios from 'axios';
     </section>
 </template>
 <style lang="scss">
-    @import "_variables.scss";   
+    @import "../assets/sass/_variables.scss";   
     
     @keyframes post {
         0% {

@@ -101,13 +101,13 @@
                 <p v-if="!showInputText"> {{ post.text }}</p>
                 <button @click="showInputText = !showInputText" v-if="!showInputText">Modifier le texte</button>
                 <textarea v-if="showInputText" name="Texte" class="form__inputText" v-model="dataPost.text"></textarea>
-                <button type="submit" @click="ModifyPost()">Modifier !</button>
+                <button type="button" @click="ModifyPost()">Modifier !</button>
             </form>
         </section>
     </main>
 </template>
 <style lang="scss">
-    @import "_variables.scss"; 
+    @import "../assets/sass/_variables.scss";
 
     .main {
         background: $background-grey;

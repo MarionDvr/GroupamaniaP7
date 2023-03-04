@@ -2,9 +2,9 @@
     <main>
         <section class="SigninSection">
             <figure class="SigninSection__logo">
-                <img src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
+                <img src="../assets/images/logoConnexion.svg" alt="Logo Groupamania"/>
             </figure>
-            <form class="SigninSection__form" method="get">
+            <form class="SigninSection__form">
                 <h2>Inscription</h2>
                 <label for="emailSignin" class="SigninSection__form__label">E-mail</label>
                 <input name="emailSignin" type="email" v-model="dataSignin.email" onfocus="this.value=''" class="SigninSection__form__input" required>
@@ -13,7 +13,7 @@
                 <div v-for="error in errors" :key="error">
                     <p id="SigninErrorMsg" v-if="errors.length">{{ error }}</p>
                 </div>
-                <button type="submit" @click="addUser()">S'inscrire</button>
+                <button type="button" @click= "addUser()">S'inscrire</button>
             </form>
         </section>
     </main>
@@ -81,7 +81,7 @@
     }
 </script>
 <style lang="scss">
-    @import "_variables.scss"; 
+   @import "../assets/sass/_variables.scss"; 
     
     .SigninSection {
         display: flex;

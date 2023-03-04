@@ -117,14 +117,14 @@
                 <input type="text" name="Job" v-model="newUser.job"/>
                 <label for="file">Photo</label>
                 <input type="file" ref="file" name="file" id="file"  @change="selectImage()" aria-label="Selection de l'image"/>
-                <button @click="modifyUser()" type="submit">Modifier le profil</button>
+                <button @click="modifyUser()" type="button">Modifier le profil</button>
             </form>
         </article>
     </main>
     <TheFooter/>
 </template>
 <style lang="scss">
-    @import "_variables.scss"; 
+    @import "../assets/sass/_variables.scss"; 
 
     .sectionUser {
         background: $background-grey;

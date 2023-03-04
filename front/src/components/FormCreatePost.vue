@@ -94,13 +94,13 @@
                 <img v-show="imagePreview" :src="imagePreview" class="publication-photo" alt="Prévisualisation de l'image" />
                 <label for="Text" class="form__label">Texte</label>
                 <textarea name="Text" class="form__inputText" v-model="dataPost.text"></textarea>
-                <button type="submit" @click="addPost()">Poster !</button>
+                <button type="button" @click="addPost()">Poster !</button>
             </form>
         </section>
     </main>
 </template>
 <style lang="scss">
-    @import "_variables.scss"; 
+   @import "../assets/sass/_variables.scss";
 
     section {
         position: relative;

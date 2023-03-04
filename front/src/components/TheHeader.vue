@@ -8,7 +8,12 @@
                 console.log("Utilisateur déconnecté")
             },
         },
-        props: ['IsConnected']
+        props: {
+            IsConnected: {
+                type: Boolean,
+                default: false
+            }
+        }
     }
 </script>
 <template>  
@@ -17,7 +22,7 @@
         <nav class="headerConnection" v-if="!IsConnected">
             <router-link to="/" class="headerConnection__logo">
                 <figure>
-                    <img class="headerConnection__img" src="../assets/logoGroupamania.svg" alt="logo Groupamania" aria-label="Retour à l'accueil"/>
+                    <img class="headerConnection__img" src="../assets/images/logoGroupamania.svg" alt="logo Groupamania" aria-label="Retour à l'accueil"/>
                 </figure>
             </router-link>
             <div class="headerConnection__nav">
@@ -38,7 +43,7 @@
                 <p class="navToolTip">Ajouter un post</p>
             </router-link>
             <figure class="logoHeader">
-                <img class="headerConnected__img" src="../assets/logoGroupamania.svg" alt="Logo Groupamania"/>
+                <img class="headerConnected__img" src="../assets/images/logoGroupamania.svg" alt="Logo Groupamania"/>
             </figure>
             <div id="menuCompte">
                 <ul class="navbar">
@@ -59,7 +64,7 @@
 </template>
 
 <style lang="scss">
-    @import "_variables.scss";
+    @import "../assets/sass/_variables.scss";
     /* Header déconnecté */
     figure {
         margin: 0;

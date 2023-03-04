@@ -2,7 +2,7 @@
     <main>
         <section class="LoginSection">
             <figure class="LoginSection__logo">
-                <img src="../assets/logoConnexion.svg" alt="Logo Groupamania"/>
+                <img src="../assets/images/logoConnexion.svg" alt="Logo Groupamania"/>
             </figure>
             <form class="LoginSection__form" @submit.prevent="UserConnect()" method="post">
                 <h2>Connexion</h2>
@@ -49,7 +49,7 @@
     }
 </script>
 <style lang="scss">
-    @import "_variables.scss"; 
+    @import "../assets/sass/_variables.scss"; 
 
     .LoginSection {
         display: flex;

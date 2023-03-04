@@ -11,8 +11,8 @@
     <main id="main">
         <section class="connexionSection">
             <div class="connexionSectionBefor">
-                <img class="connexionSectionBefor__Forme1" src="../assets/logoConnexion.svg" alt="Logo Groupomania"/>
-                <img class="connexionSectionBefor__Forme2" src="../assets/logoConnexion.svg" alt="Logo Groupomania"/>
+                <img class="connexionSectionBefor__Forme1" src="../assets/images/logoConnexion.svg" alt="Logo Groupomania"/>
+                <img class="connexionSectionBefor__Forme2" src="../assets/images/logoConnexion.svg" alt="Logo Groupomania"/>
             </div>
             <div class="connexionSectionAfter">
                 <div class="connexionSectionAfter__title">
@@ -25,7 +25,7 @@
     <TheFooter/>
 </template>
 <style lang="scss">
-    @import "_variables.scss"; 
+    @import "../assets/sass/_variables.scss";
     
     body {
         font-family: Lato;
@@ -120,7 +120,7 @@
         background: none;
     }
     .connexionSection {
-        background-image: url('../assets/HalfLogo.svg');
+        background-image: url('../assets/images/HalfLogo.svg');
         background-repeat: no-repeat;
         -webkit-background-size: cover;
         -moz-background-size: cover;

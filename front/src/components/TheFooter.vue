@@ -11,7 +11,7 @@
     </footer>
 </template>
 <style lang="scss">
-    @import "_variables.scss"; 
+    @import "../assets/sass/_variables.scss"; 
     
     footer {
         background: $couleur-tertiaire;

@@ -8,7 +8,7 @@
     }
 </script>
 <template>
-    <TheHeader/>
+    <TheHeader :IsConnected="IsConnected"/>
     <FormSignin/>
     <TheFooter/>
 </template>

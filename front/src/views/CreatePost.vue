@@ -14,7 +14,7 @@
     
 </template>
 <style lang="scss">
-    @import "_variables.scss"; 
+    @import "../assets/sass/_variables.scss"; 
 
     main {
         background: $background-grey;
