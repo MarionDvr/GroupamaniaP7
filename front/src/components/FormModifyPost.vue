@@ -53,9 +53,10 @@
                     formData.append('text', this.dataPost.text);
                 }
                 //Si il y a modification de l'image
-                if(this.file !== "") {
+                if(this.file !== null) {
                     formData.append('image', this.file);
                 }
+                
                 axios.put("http://localhost:3000/api/posts/" + this.postId, formData,
                 {
                     headers: {
@@ -67,6 +68,7 @@
                     console.log(response);
                     console.log('Post modifié!');
                     this.$router.push({ path: 'homeConnected' });
+                    console.log(formData);
                 })
                 .catch(function(erreur) {
                     console.error('Une erreur est survenue' + erreur);
