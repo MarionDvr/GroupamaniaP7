@@ -43,7 +43,6 @@
             //Modifier le post
             ModifyPost() {
                 const formData = new FormData();
-                formData.append('userId', this.userId);
                 //Si il y a modification du titre
                 if(this.dataPost.title !== "") {
                     formData.append('title', this.dataPost.title);
