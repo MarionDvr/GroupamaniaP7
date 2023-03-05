@@ -68,6 +68,7 @@ exports.login = (req, res) => {
 //Modifier le user
 exports.modifyUser = (req, res) => {
     const userObject = req.file ? {
+        ...req.body,
         photo: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body };
     User.findOne({ _id: req.params.id })
