@@ -35,10 +35,11 @@ exports.createPost = (req, res) => {
 exports.modifyPost = (req, res) => {
   //Voir si le req.file existe déjà
   const postObject = req.file ? {
+    ...req.body,
   //Ajout d'une nouvelle image
-   imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
   //Sinon on traite req.body
-  } : { ...req.body  };
+  } : { ...req.body };
   //Suppression de userId pour la crétion du post
   delete postObject._userId;
   Post.findOne({ _id: req.params.id })
