@@ -173,10 +173,10 @@
             padding: 50px;
             width: 50%;
             box-shadow: 5px 11px 10px 1px #CAC3C3;
-            &__emptyProfil{
+            &__emptyProfil {
                 text-align: center;
             }
-            &__container{
+            &__container {
                 display: flex;
                 &__imgDefault {
                     height: 200px;
@@ -189,14 +189,14 @@
                     margin-right: 20px;
                     object-fit: cover;
                 }
-                &__nameJob{
+                &__nameJob {
                     align-items: center;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
                 }
             }
-            &__button{
+            &__button {
                 align-items: center;
                 &__modify {
                     margin: 0;
@@ -207,9 +207,13 @@
             }
         }
 
-        .UserModify{
+        .UserModify {
             margin-top: 40px;
         }
+    }
+
+    #file {
+        box-shadow: none;
     }
 
     @media screen and (max-width: 768px) /* Smartphone */
