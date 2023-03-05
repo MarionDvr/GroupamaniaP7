@@ -7,7 +7,6 @@
         components: { TheHeader, TheFooter },
         data() {
             return {
-                IsConnected: true,
                 modify: false,
                 token: localStorage.getItem("token"),
                 userId: localStorage.getItem("userId"),
@@ -24,6 +23,12 @@
         },
         mounted() {
             this.userProfil()
+        },
+        props: {
+            IsConnected: {
+                type: Boolean,
+                default: false
+            }
         },
         methods: {
             userProfil() {
@@ -85,7 +90,7 @@
     }
 </script>
 <template>
-    <TheHeader :IsConnected="IsConnected"/>
+    <TheHeader :IsConnected="!IsConnected"/>
     <main class="sectionUser">
         <article class="User">
             <div v-if="user.firstName == '' || user.lastName == '' || user.job == ''">
@@ -173,13 +178,16 @@
             }
             &__container{
                 display: flex;
-                &__imgUser {
-                    height: 200px;
-                    clip-path:ellipse(33% 50%);
-                }
                 &__imgDefault {
                     height: 200px;
                     clip-path:ellipse(40% 40%);
+                }
+                &__imgUser {
+                    height: 200px;
+                    width: 200px;
+                    border-radius: 50%;
+                    margin-right: 20px;
+                    object-fit: cover;
                 }
                 &__nameJob{
                     align-items: center;
@@ -210,6 +218,9 @@
             .User {
                 &__container{
                     flex-direction: column;
+                    &__imgUser {
+                        margin-right: 0;
+                }
                     &__img{
                         max-height: 100%;
                     }

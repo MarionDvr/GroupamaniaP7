@@ -92,17 +92,17 @@
                 <label for="Titre" class="form__label">Titre</label>
                 <h3 v-if="!showInputTitle"> {{ post.title }}</h3>
                 <button @click="showInputTitle = !showInputTitle" v-if="!showInputTitle">Modifier le titre</button>
-                <input v-if="showInputTitle" name="Titre" class="form__inputTitre" v-model="dataPost.title"/>
+                <input id="Titre" v-if="showInputTitle" class="form__inputTitre" v-model="dataPost.title"/>
                 <label for="Image" class="form__label">Image</label>
-                <img :src="post.imageUrl" v-if="!showInputImage"/>
+                <img :src="post.imageUrl" v-if="!showInputImage" alt="Image du post"/>
                 <!-- pour voir le rendu avant l'envoie du nouveau post -->
                 <img v-show="imagePreview" :src="imagePreview" class="publication-photo" alt="Prévisualisation de l'image"/>
                 <button @click="showInputImage = !showInputImage" v-if="!showInputImage">Modifier l'image</button>
-                <input v-if="showInputImage" type="file" ref="file" name="file" id="file" class="form__inputImg" v-on:change="selectImage()" aria-label="Selection de l'image"/>
+                <input id="Image" v-if="showInputImage" type="file" ref="file" class="form__inputImg" v-on:change="selectImage()" aria-label="Selection de l'image"/>
                 <label for="Texte" class="form__label">Texte</label>
                 <p v-if="!showInputText"> {{ post.text }}</p>
                 <button @click="showInputText = !showInputText" v-if="!showInputText">Modifier le texte</button>
-                <textarea v-if="showInputText" name="Texte" class="form__inputText" v-model="dataPost.text"></textarea>
+                <textarea id="Text" v-if="showInputText" class="form__inputText" v-model="dataPost.text"></textarea>
                 <button type="button" @click="ModifyPost()">Modifier !</button>
             </form>
         </section>

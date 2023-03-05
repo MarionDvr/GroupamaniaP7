@@ -1,6 +1,12 @@
 <script>
     export default {
         name: "TheHeader",
+        props: {
+            IsConnected: {
+                type: Boolean,
+                default: false
+            }
+        },
         methods: {
             deconnected() {
                 localStorage.clear();
@@ -8,12 +14,6 @@
                 console.log("Utilisateur déconnecté")
             },
         },
-        props: {
-            IsConnected: {
-                type: Boolean,
-                default: false
-            }
-        }
     }
 </script>
 <template>  

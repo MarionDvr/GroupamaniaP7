@@ -3,6 +3,12 @@
     import TheFooter from "@/components/TheFooter.vue";
     export default {
         name: "HomeConnexion",
+        props: {
+            IsConnected: {
+                type: Boolean,
+                default: false
+            }
+        },
         components: { TheHeader, TheFooter }
     }
 </script>   

@@ -7,9 +7,9 @@
             <form class="SigninSection__form">
                 <h2>Inscription</h2>
                 <label for="emailSignin" class="SigninSection__form__label">E-mail</label>
-                <input name="emailSignin" type="email" v-model="dataSignin.email" onfocus="this.value=''" class="SigninSection__form__input" required>
+                <input id="emailSignin" type="email" v-model="dataSignin.email" onfocus="this.value=''" class="SigninSection__form__input" required>
                 <label for="passwordSignin" class="SigninSection__form__label">Mot de passe</label>
-                <input name="passwordSignin" type="password" v-model="dataSignin.password" onfocus="this.value=''" class="SigninSection__form__input" required>
+                <input id="passwordSignin" type="password" v-model="dataSignin.password" onfocus="this.value=''" class="SigninSection__form__input" required>
                 <div v-for="error in errors" :key="error">
                     <p id="SigninErrorMsg" v-if="errors.length">{{ error }}</p>
                 </div>

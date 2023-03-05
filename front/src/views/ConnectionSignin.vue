@@ -4,6 +4,12 @@
     import TheFooter from "@/components/TheFooter.vue";
     export default {
         name: "ConnectionSignin",
+        props: {
+            IsConnected: {
+                type: Boolean,
+                default: false
+            }
+        },
         components: { TheHeader, FormSignin, TheFooter }
     }
 </script>

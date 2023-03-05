@@ -7,9 +7,9 @@
             <form class="LoginSection__form" @submit.prevent="UserConnect()" method="post">
                 <h2>Connexion</h2>
                 <label for="emailLogin" class="LoginSection__form__label">E-mail</label>
-                <input name="emailLogin" type="email" v-model="dataLogin.email" class="LoginSection__form__input" required>
+                <input id="emailLogin" type="email" v-model="dataLogin.email" class="LoginSection__form__input" required>
                 <label for="passwordLogin" class="LoginSection__form__label">Mot de passe</label>
-                <input name="passwordLogin" type="password" v-model="dataLogin.password" class="LoginSection__form__input" required>
+                <input id="passwordLogin" type="password" v-model="dataLogin.password" class="LoginSection__form__input" required>
                 <button type="submit">Se connecter</button>
             </form>
         </section>
