@@ -3,7 +3,6 @@
     name: "App",
   };
 </script>
-
 <template>
   <div id="app" class="app wrap">
     <router-view/>
@@ -11,8 +10,8 @@
 </template>
 <style lang="scss">
   .wrap {
-            max-width: 1500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+    max-width: 1500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 </style>
