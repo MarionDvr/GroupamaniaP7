@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-//const helmet = require('helmet');
 const path = require('path');
 const postRoutes = require('./routes/post');
 const userRoutes = require('./routes/user');
@@ -15,22 +14,21 @@ mongoose.connect('mongodb+srv://' + MY_DB_IDENTIFIERS + '@cluster1.gudnqbd.mongo
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-  //headers pour débloquer les erreurs CORS (Puisque les resuêtes viennent de deux server différents)
+  //Headers pour débloquer les erreurs CORS (Puisque les requêtes viennent de deux serveurs différents)
 app.use((req, res, next) => {
-    //accéder à l'API depuis n'importe quelle origine
+    //Accéder à l'API depuis n'importe quelle origine
     res.setHeader('Access-Control-Allow-Origin', '*');
-    //envoyer des requêtes avec les méthodes GET, POST, PUT, DELETE, PATCH et OPTIONS
+    //Envoyer des requêtes avec les méthodes GET, POST, PUT, DELETE, PATCH et OPTIONS
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-    //ajouter les headers aux requêtes envoyées vers l'API
+    //Ajouter les headers aux requêtes envoyées vers l'API
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
     next();
   });
 
-
 app.use(express.json());
-//app.use(helmet());
 //Attribution des middlewares aux bonnes routes
 app.use('/api/posts', postRoutes);
 app.use('/api/auth', userRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
+
 module.exports = app;

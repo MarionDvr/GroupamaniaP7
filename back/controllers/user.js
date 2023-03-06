@@ -1,7 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const fs = require('fs');
 const dotenv = require('dotenv').config();
 const TOKEN_KEY = process.env.tokenKey;
 
@@ -35,7 +34,7 @@ exports.login = (req, res) => {
     //Rechercher l'email dans la base de données
     User.findOne({ email: req.body.email})
         .then(user => {
-            //Si l'email n'est trouvé, renvoyer un message d'erreur
+            //Si l'email n'est pas trouvée, renvoyer un message d'erreur
             if(!user) {
                 return res.status(400).json({ message: 'Paire identifiant/mot de passe incorrecte' });
             } 
@@ -69,28 +68,24 @@ exports.login = (req, res) => {
 exports.modifyUser = (req, res) => {
     const userObject = req.file ? {
         ...req.body,
-        photo: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        photo: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
     } : { ...req.body };
     User.findOne({ _id: req.params.id })
     .then(user => {
-        const filename = user.photo.split("/images/")[1]; //Trouver le nom de l'image pour la suppression
-        fs.unlink(`images/${filename}`, () => {
             user.updateOne({ ...userObject }, { _id: req.params.id })
-            .then((user) => res.status(200).json({message: 'Utilisateur modifié!'}))
-            .catch(error => res.status(405).json({error}))
-        });
+            .then( (user) => res.status(200).json({ message: 'Utilisateur modifié!'}))
+            .catch( error => res.status(405).json({ error }))
     });
-
 };
 
-//Récupérer le user
+//Récupérer LE user
 exports.getUser = (req, res) => {
-    User.findOne({_id: req.params.id})
-    .then(user => res.status(200).json(user))
+    User.findOne({ _id: req.params.id })
+    .then( user => res.status(200).json(user))
     .catch( error => { res.status(500).json({ error })});
 };
 
-//Récupérer les users
+//Récupérer LES users
 exports.getAllUsers = (req, res) => {
     User.find()
     .then((users) => res.status(200).json(users))

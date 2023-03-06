@@ -6,13 +6,15 @@ exports.getAllPosts = (req, res) => {
     Post.find()
       .then((posts) => res.status(200).json(posts))
       .catch(error => res.status(400).json({ error }));
-  };
+};
+
 //AFFICHER UN post
 exports.getOnePost = (req, res) => {
   Post.findOne({ _id: req.params.id })
     .then(post => res.status(200).json(post))
     .catch(error => res.status(404).json({ error }));
 };
+
 //CREER un post
 exports.createPost = (req, res) => {
   const postObject = req.body;
@@ -24,7 +26,7 @@ exports.createPost = (req, res) => {
   });
   //Chemin de l'image
   if(req.file) {
-    post.imageUrl= `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    post.imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
   }
   post.save()
   .then(() => { res.status(201).json({message: 'Post enregistré !'})})
@@ -44,15 +46,10 @@ exports.modifyPost = (req, res) => {
   delete postObject._userId;
   Post.findOne({ _id: req.params.id })
     .then (post => {
-      //Si l'utilisateur n'est pas celui qui a créé le post
-      if(post.userId != req.auth.userId) {
-        res.status(401).json({ message: "non autorisé" });
-      } else {
-      //Sinon mise à jour de la BDD
-          Post.updateOne({ _id: req.params.id }, {...postObject, _id: req.params.id })
-            .then(() => { res.status(200).json({ message: "Post modifié" }); })
-            .catch( error => { res.status(400).json({ error })});
-      }
+      //Mise à jour de la BDD
+        Post.updateOne({ _id: req.params.id }, {...postObject, _id: req.params.id })
+          .then(() => { res.status(200).json({ message: "Post modifié" }); })
+          .catch( error => { res.status(400).json({ error })});
     });
 };
 
@@ -60,21 +57,25 @@ exports.modifyPost = (req, res) => {
 exports.deletePost = (req, res) => {
   Post.findOne({ _id: req.params.id })
   .then((post) => { 
-    const filename = post.imageUrl.split("/images/")[1]; //Trouver le nom de l'image pour la suppression
-    fs.unlink(`images/${filename}`, () => {
+    //Si le post contient une image
+    if(post.file == true) {
+      //Trouver le nom de l'image pour la suppression
+      const filename = post.imageUrl.split("/images/")[1]; 
+      fs.unlink(`images/${filename}`)
+    }
       Post.deleteOne({ _id: req.params.id })
       .then(() => res.status(200).json({ message: "Post supprimé" }))
       .catch( error => { res.status(404).json({ error })});
-    });
+    //});
   })
   .catch( error => { res.status(400).json({ error })});
 };
 
 //LIKER, UNLIKER un post
 exports.likePost = (req, res) => {
-  //unlike
   Post.findOne({ _id: req.body.id })
   .then((post) => {
+    //unlike
     if(post.usersLiked.includes(req.body.userId)) {
       Post.updateOne({ _id: req.params.id },
         {
