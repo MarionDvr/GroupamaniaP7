@@ -5,8 +5,6 @@ import axios from 'axios';
         name: "UsersPost",
         data(){
             return{
-                IsConnected: true,
-                content: "",
                 userId: localStorage.getItem("userId"),
                 token: localStorage.getItem("token"),
                 users: [],
@@ -14,7 +12,7 @@ import axios from 'axios';
                 post: "",
                 //Mettre les posts récupérer dans un tableau
                 posts: [],
-                //Pour que la flèche d'ouverture du post soit fermé
+                //Pour que la flèche d'ouverture du post soit fermée
                 isDeployed: false,
                 liked: [],
             }
@@ -70,7 +68,7 @@ import axios from 'axios';
                 })
                 .then((response) => {
                     this.posts = response.data;
-                     console.log("Posts récupérés")
+                    console.log("Posts récupérés")
                 })
                 .catch((error) => { console.log(error)});
             },
@@ -88,7 +86,7 @@ import axios from 'axios';
                     .then(() => { 
                         window.location.reload();
                     })
-                    .catch( error => { console.log( error ), console.log('ici')});
+                    .catch( error => { console.log( error ), console.log('erreur suppression')});
                 } else {
                     console.log("Annuler la suppression");
                     return;
@@ -129,7 +127,9 @@ import axios from 'axios';
 </script>
 <template>
     <section class="UsersPosts">
+        <!-- Pour que les posts soient listés de façon antéchronologique -->
         <article v-for="post in posts.slice().reverse()" :key="post._id" class="post">
+            <!-- Récupérer l'utilisateur qui a créé de post avec son id -->
             <div class="post__user" v-for="user in users.filter((user) => {
                 return user._id == post.userId;
               })"
@@ -143,7 +143,7 @@ import axios from 'axios';
                         <p>{{ user.firstName }}</p>
                         <p>{{ user.lastName }}</p>
                     </div>
-                    <p class="post__user__profil__job"> 💼 {{ user.job }}</p>
+                    <p v-if="user.job != ''" class="post__user__profil__job"> 💼 {{ user.job }}</p>
                 </div>
             </div>
             <div class="post__elements">
@@ -181,7 +181,7 @@ import axios from 'axios';
             opacity: 0;
             transform: translateY(50px);
         }
-        50%{
+        50% {
             opacity: 1;
         }
         100% {
@@ -195,7 +195,7 @@ import axios from 'axios';
         flex-direction: column;
         margin: 0;
         background: $background-grey;
-        .post{
+        .post {
             width: 60%;
             min-height: 250px;
             margin: 60px auto 30px 20%;
@@ -205,7 +205,7 @@ import axios from 'axios';
             flex-direction: column;
             z-index: 2;
             animation: post 500ms ease-in-out forwards;
-            &__user{
+            &__user {
                 background: $couleur-secondaire;
                 border-radius: 40px 40px 0px 0px;
                 box-shadow: 0px 6px 10px -7px rgb(151, 150, 150);
@@ -213,7 +213,7 @@ import axios from 'axios';
                 z-index: 80;
                 position: relative;
                 display: flex;
-                &__figure{
+                &__figure {
                     width: 70px;
                     height: 70px;
                     border-radius: 100px;
@@ -221,30 +221,30 @@ import axios from 'axios';
                     display: flex;
                     overflow: hidden;
                 }
-                &__profil{
+                &__profil {
                     display: flex;
                     flex-direction: column;
                     padding: 25px 0 30px 10px;
-                    &__name{
-                    display: flex;
-                    font-size: 14pt;
-                    font-weight: bolder;
-                    p {
-                        margin: 0;
-                        padding-right: 10px;
+                    &__name {
+                        display: flex;
+                        font-size: 14pt;
+                        font-weight: bolder;
+                        p {
+                            margin: 0;
+                            padding-right: 10px;
+                        }
                     }
-                    }
-                    &__job{
+                    &__job {
                         padding-top: 5px;
                         font-weight: light;
                         margin: 0;
                     }
                 }
             }
-            &__elements{
+            &__elements {
                 padding: 40px 40px 0 40px;
                 background-color: white;
-                h2{
+                h2 {
                     margin: 0;
                     padding-bottom: 20px;
                 }
@@ -252,7 +252,7 @@ import axios from 'axios';
                     width: 100%;
                     margin: 0;
                     overflow: hidden;
-                    &__img{
+                    &__img {
                         width: 100%;
                     }
                 }
@@ -272,7 +272,7 @@ import axios from 'axios';
                 display: flex;
                 justify-content: space-around;
                 margin: 15px;
-                .picto{
+                .picto {
                     color: $couleur-tertiaire;
                     font-size: 25px;
                     cursor: pointer;
@@ -280,10 +280,10 @@ import axios from 'axios';
                         color: $couleur-primaire;
                     }
                 }
-                &__heart{
+                &__heart {
                     display: flex;
                 }
-                &__likes{
+                &__likes {
                    margin-top: auto;
                    margin-bottom: auto;
                    margin-left: 20px;
@@ -295,6 +295,7 @@ import axios from 'axios';
     .test {
         font-size: 20pt;
     }
+    
     @media screen and (max-width: 768px) /* Smartphone */
     {
         .UsersPosts {

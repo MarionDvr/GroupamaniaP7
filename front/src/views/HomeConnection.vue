@@ -1,6 +1,7 @@
 <script>
     import TheHeader from "@/components/TheHeader.vue";
     import TheFooter from "@/components/TheFooter.vue";
+
     export default {
         name: "HomeConnexion",
         props: {
@@ -44,7 +45,7 @@
             opacity: 1;
             transform: translateX(0%);
         }
-        100%{
+        100% {
             opacity: 1;
             transform: rotateY(180deg);
             transform-style: preserve-3d;
@@ -56,7 +57,7 @@
             opacity: 1;
             transform: translateX(0%);
         }
-        100%{
+        100% {
             opacity: 1;
             transform: translateX(-45%);
         }
@@ -67,7 +68,7 @@
             opacity: 1;
             transform: translateX(0%);
         }
-        100%{
+        100% {
             opacity: 1;
             transform: translateX(-40%);
         }
@@ -77,54 +78,55 @@
             opacity: 1;
             transform: translateX(0%);
         }
-        100%{
+        100% {
             opacity: 1;
             transform: translateX(-55%);
         }
     }
     @keyframes Textes {
-        0%{
+        0% {
             opacity: 0;
             transform: translateX(0%);
         }
-        45%{
+        45% {
             opacity: 0;
         }
-        100%{
+        100% {
             opacity: 1;
             transform: translateX(120%);
         }
     }
     @keyframes Textes_Tablette {
-        0%{
+        0% {
             opacity: 0;
             transform: translateX(0%);
         }
-        45%{
+        45% {
             opacity: 0;
         }
-        100%{
+        100% {
             opacity: 1;
             transform: translateX(170%);
         }
     }
     @keyframes Textes_Phone {
-        0%{
+        0% {
             opacity: 0;
             transform: translateX(0%);
         }
-        45%{
+        45% {
             opacity: 0;
         }
-        100%{
+        100% {
             opacity: 1;
             transform: translateX(280%);
         }
     }
-    /* main */
+    
     #main {
         background: none;
     }
+
     .connexionSection {
         background-image: url('../assets/images/HalfLogo.svg');
         background-repeat: no-repeat;
@@ -157,7 +159,6 @@
                 animation-delay: 1.95s;
             }
         }
-        
         .connexionSectionAfter {
             position:relative;
             z-index: 2;
@@ -238,17 +239,17 @@
                     margin-left: -150px;
                 }
             }
-            .connexionSectionAfter{
+            .connexionSectionAfter {
                 &__title {
                     max-width: 250px;
                     font-size: 10px;
                     margin-top: 5%;
                     padding-left: 20px;
-                    h1{
+                    h1 {
                         animation: Textes_Phone 500ms ease-in-out forwards;
                         animation-delay: 2.5s;
                     }
-                    h2{
+                    h2 {
                         animation: Textes_Phone 500ms ease-in-out forwards;
                         animation-delay: 3s;
                     }

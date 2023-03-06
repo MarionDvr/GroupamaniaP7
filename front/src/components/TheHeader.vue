@@ -62,7 +62,6 @@
         </nav>
     </header>
 </template>
-
 <style lang="scss">
     @import "../assets/sass/_variables.scss";
     /* Header déconnecté */
@@ -106,7 +105,6 @@
     }
 
     /* Header connecté */
-    
     .headerConnected {
         box-shadow: 0px 6px 10px -7px rgb(151, 150, 150);
         display: flex;
@@ -117,10 +115,10 @@
         margin: 0;
         padding: 0;
         height: 100px;
-        &__picto{
+        &__picto {
             color: $couleur-tertiaire;
             position: relative;
-            &:hover{
+            &:hover {
                 color: $couleur-primaire;
             }
         }
@@ -131,6 +129,7 @@
             display: none;
         }
     }
+
     //info-bulle menu
     .navToolTip{
         visibility: hidden;
@@ -140,6 +139,7 @@
         z-index: 55;
         padding: 10px;
     }
+
     .headerConnected__picto:hover .navToolTip {
         visibility: visible;
     }
@@ -150,13 +150,15 @@
         z-index: 99;
         position: relative;
     }
+
     #title {
         color: $couleur-tertiaire;
         display: flex;
+        &:hover {
+            color: $couleur-primaire;
+        }
     }
-    #title:hover {
-        color: $couleur-primaire;
-    }
+
     .title__p{
         margin: 5px;
     }
@@ -214,29 +216,27 @@
     
     @media screen and (max-width: 1000px) /* Petit écran - Tablette */
     {
-    //Menu utilisateur non connecté -- Tablette
+    //Header utilisateur non connecté -- Tablette
         .headerConnection {
             &__logo {
                 margin-left: 5%;
                 padding-left: 0;
             }
         }
-    //Menu utilisateur connecté -- Tablette
+    //Header utilisateur connecté -- Tablette
         .headerConnected {
-                &__img {
-                    display: block;
-                }
-                &__imgPhone {
-                    display: none;
-                }
+            &__img {
+                display: block;
+            }
+            &__imgPhone {
+                display: none;
+            }
         }
-        
-
     }
 
     @media screen and (max-width: 768px) /* Smartphone */
     {
-    //Menu utilisateur non connecté -- Smartphone
+    //Header utilisateur non connecté -- Smartphone
         .headerConnection {
             display: flex;
             align-items: center;
@@ -257,6 +257,7 @@
                 }
             }
         }
+
         .pictoConnection {
             margin-bottom: 10px;
             display: block;
@@ -265,7 +266,8 @@
             font-size: 100%;
         }
     }
-    //Menu utilisateur connecté -- Smartphone
+
+    //Header utilisateur connecté -- Smartphone
     .headerConnected {
         padding-left: 3%;
         padding-right: 3%;

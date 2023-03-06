@@ -2,6 +2,7 @@
     import TheHeader from "@/components/TheHeader.vue";
     import FormCreatePost from "@/components/FormCreatePost.vue";
     import TheFooter from "@/components/TheFooter.vue";
+    
     export default {
         name: "ConnectionLogin",
         props: {

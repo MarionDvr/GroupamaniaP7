@@ -4,7 +4,6 @@
         name: "FormCreatePost",
         data() {
             return {
-                IsConnected: true,
                 token: localStorage.getItem('token'),
                 userId: localStorage.getItem('userId'),
                 dataPost: {
@@ -16,70 +15,52 @@
             }
         },
         methods: {
+            //Ajouter un post     
             addPost() {
                 let date = new Date().toLocaleDateString("fr");
+                //Création FormData pour envoyer le fichier et les données
+                const formData = new FormData();
+                formData.append('userId', this.userId);
+                formData.append('date', date);
                 //Si il n'y a pas de titre
-                if(this.dataPost.title == ""){
+                if(this.dataPost.title == "") {
                     alert("Veuillez ajouter un titre");
+                } else {
+                    formData.append('title', this.dataPost.title);
                 }
                 //Si il n'y a pas de texte
-                if(this.dataPost.text == ""){
+                if(this.dataPost.text == "") {
                     alert("Veuillez ajouter un texte");
-                }
-                //Si il n'y a pas d'image
-                if(this.file == ""){
-                    const formData = new FormData();
-                    formData.append('userId', this.userId);
-                    formData.append('title', this.dataPost.title);
-                    formData.append('text', this.dataPost.text);
-                    formData.append('date', date);
-
-                    axios.post("http://localhost:3000/api/posts", formData, {
-                        headers: {
-                            "Authorization": "Bearer " + this.token,
-                            "Content-Type": "multipart/form-data",
-                        }
-                    })
-                    .then((response) => {
-                        console.log(response);
-                        console.log('Post ajouté');
-                        this.$router.push("/homeConnected");
-                    })
-                    .catch(function(erreur) {
-                        console.error('Une erreur est survenue' + erreur.response);
-                    });
                 } else {
-                    const formData = new FormData();
-                    formData.append('image', this.file);
-                    formData.append('userId', this.userId);
-                    formData.append('title', this.dataPost.title);
                     formData.append('text', this.dataPost.text);
-                    formData.append('date', date);
-
-                    axios.post("http://localhost:3000/api/posts", formData, {
-                        headers: {
-                            "Authorization": "Bearer " + this.token,
-                            "Content-Type": "multipart/form-data",
-                        }
-                    })
-                    .then((response) => {
-                        console.log(response);
-                        console.log('Post ajouté');
-                        this.$router.push({ path: 'homeConnected' });
-                    })
-                    .catch(function(erreur) {
-                        console.error('Une erreur est survenue' + erreur.response);
-                    });
                 }
+                //Si il y a une image
+                if(this.file != "") {
+                    formData.append('image', this.file);
+                }
+                axios.post("http://localhost:3000/api/posts", formData, {
+                    headers: {
+                        "Authorization": "Bearer " + this.token,
+                        "Content-Type": "multipart/form-data",
+                    }
+                })
+                .then((response) => {
+                    console.log(response);
+                    console.log('Post ajouté');
+                    this.$router.push("/homeConnected");
+                })
+                .catch(function(erreur) {
+                    console.error('Une erreur est survenue' + erreur.response);
+                });
             },
             selectImage() {
                 //Récupère le fichier grâce à ref
                 this.file = this.$refs.file.files[0];
+                //Création d'une url pour afficher l'image
                 this.imagePreview = URL.createObjectURL(this.file);
             },
         }
     }
-    
 </script>
 <template>
     <main>
@@ -109,10 +90,9 @@
         padding-top: 40px;
         margin-top: 0;
     }
+
     .form {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
+        margin: 50px auto auto auto;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -121,8 +101,6 @@
         padding: 50px;
         width: 50%;
         box-shadow: 5px 11px 10px 1px #CAC3C3;
-        position:relative;
-        z-index: 2;
         h2 {
             padding: 0;
             margin: 0;
@@ -131,7 +109,7 @@
             margin-top: 30px;
             margin-left: 10px;
         }
-        &__inputTitre{
+        &__inputTitre {
             height: 35px;
             border: none;
             margin-top: 10px;
@@ -140,7 +118,6 @@
             box-shadow: 2px 2px 7px 1px #D8D3D3 inset;
         }
         &__inputText{
-            min-height: 100px;
             border: none;
             width: 90%;
             margin-top: 10px;
@@ -148,23 +125,22 @@
             background: #FFFFFF;
             box-shadow: 2px 2px 7px 1px #D8D3D3 inset;
             overflow: scroll;
-            resize: none;
         }
+        input, textarea {
+            max-width: 90%;
+            height: 30px;
+            margin-top: 10px;
+            margin-left: 10px;
+            &:focus-visible { 
+                outline-color: $couleur-primaire;
+            }
+        }
+    }
 
-        
-    input, textarea {
-        max-width: 90%;
-        height: 30px;
-        margin-top: 10px;
-        margin-left: 10px;
-        &:focus-visible { 
-            outline-color: $couleur-primaire;
-        }
-    }
-    }
     button {
         margin-left: 10px;
     }
+
     @media screen and (max-width: 768px) /* Smartphone */
     { 
         button {
@@ -172,5 +148,4 @@
             max-width: 85%;
         }
     }
-
 </style>

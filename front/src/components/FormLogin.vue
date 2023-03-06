@@ -1,20 +1,3 @@
-<template>
-    <main>
-        <section class="LoginSection">
-            <figure class="LoginSection__logo">
-                <img src="../assets/images/logoConnexion.svg" alt="Logo Groupamania"/>
-            </figure>
-            <form class="LoginSection__form" @submit.prevent="UserConnect()" method="post">
-                <h2>Connexion</h2>
-                <label for="emailLogin" class="LoginSection__form__label">E-mail</label>
-                <input id="emailLogin" type="email" v-model="dataLogin.email" class="LoginSection__form__input" required>
-                <label for="passwordLogin" class="LoginSection__form__label">Mot de passe</label>
-                <input id="passwordLogin" type="password" v-model="dataLogin.password" class="LoginSection__form__input" required>
-                <button type="submit">Se connecter</button>
-            </form>
-        </section>
-    </main>
-</template>
 <script>
     import axios from "axios"
     export default {
@@ -48,6 +31,23 @@
         }
     }
 </script>
+<template>
+    <main>
+        <section class="LoginSection">
+            <figure class="LoginSection__logo">
+                <img src="../assets/images/logoConnexion.svg" alt="Logo Groupamania"/>
+            </figure>
+            <form class="LoginSection__form">
+                <h2>Connexion</h2>
+                <label for="emailLogin" class="LoginSection__form__label">E-mail</label>
+                <input id="emailLogin" type="email" v-model="dataLogin.email" class="LoginSection__form__input" required>
+                <label for="passwordLogin" class="LoginSection__form__label">Mot de passe</label>
+                <input id="passwordLogin" type="password" v-model="dataLogin.password" class="LoginSection__form__input" required>
+                <button type="button" @click="UserConnect()">Se connecter</button>
+            </form>
+        </section>
+    </main>
+</template>
 <style lang="scss">
     @import "../assets/sass/_variables.scss"; 
 
@@ -87,8 +87,10 @@
                 margin-bottom: 55px;
                 background: #FFFFFF;
                 box-shadow: 2px 2px 7px 1px #D8D3D3 inset;
+                &:focus-visible { 
+                    outline-color: $couleur-primaire;
+                }
             }
-        
         }
     }
 
@@ -107,18 +109,17 @@
     @media screen and (max-width: 768px) /* Smartphone */
     {
         .LoginSection {
-            padding:0;
+            padding: 0;
             &__logo {
                 display: none;
             }
             &__form {
                 width: 100%;
                 margin: 5%;
-                &__input{
+                &__input {
                     width: 90%;
                 }
             }
-
         }
     }
 </style>

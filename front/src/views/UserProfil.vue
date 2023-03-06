@@ -2,6 +2,7 @@
     import axios from "axios"
     import TheHeader from "@/components/TheHeader.vue";
     import TheFooter from "@/components/TheFooter.vue";
+
     export default {
         name: "UsersProfil",
         components: { TheHeader, TheFooter },
@@ -10,9 +11,7 @@
                 modify: false,
                 token: localStorage.getItem("token"),
                 userId: localStorage.getItem("userId"),
-                user: {
-                    id: this.userId,
-                },
+                user: {},
                 newUser: {
                     firstName: "",
                     lastName: "",
@@ -37,7 +36,7 @@
                     headers: {
                             'Authorization': 'Bearer ' + this.token,
                             'Content-Type': 'application/json'
-                        },
+                    },
                 })
                 .then((response) => {
                     this.user = response.data;
@@ -48,8 +47,10 @@
                 });
             },
             modifyUser() {
+                //Création FormData pour envoyer le fichier et les données
                 const formData = new FormData();
                 formData.append('id', this.userId);
+
                 //Si le prénom est modifié
                 if(this.newUser.firstName !== "") {
                     formData.append('firstName', this.newUser.firstName);
@@ -103,7 +104,7 @@
                 </figure>
                 <div class="User__container__nameJob">
                     <h3>{{ user.firstName }} {{ user.lastName }}</h3>
-                    <p> {{ user.job }}</p>
+                    <p>{{ user.job }}</p>
                 </div>
             </div>
             <button class="User__button" @click="modify = !modify">
@@ -115,11 +116,11 @@
             <form action="post" class="form">
                 <h1>Modifier votre profil</h1>
                 <label for="FirstName">Prénom</label>
-                <input type="text" name="FirstName" v-model="newUser.firstName"/>
+                <input type="text" id="FirstName" v-model="newUser.firstName"/>
                 <label for="LastName">Nom</label>
-                <input type="text" name="LastName" v-model="newUser.lastName"/>
+                <input type="text" id="LastName" v-model="newUser.lastName"/>
                 <label for="Job">Poste actuel</label>
-                <input type="text" name="Job" v-model="newUser.job"/>
+                <input type="text" id="Job" v-model="newUser.job"/>
                 <label for="file">Photo</label>
                 <input type="file" ref="file" name="file" id="file"  @change="selectImage()" aria-label="Selection de l'image"/>
                 <button @click="modifyUser()" type="button">Modifier le profil</button>
@@ -136,7 +137,6 @@
         padding-top: 50px;
         padding-bottom: 100px;
         .form {
-            display: block;
             margin-left: auto;
             margin-right: auto;
             display: flex;
@@ -206,12 +206,12 @@
                 }
             }
         }
-
         .UserModify {
             margin-top: 40px;
         }
     }
 
+    //input type file
     #file {
         box-shadow: none;
     }
@@ -220,15 +220,15 @@
     {
         .sectionUser {
             .User {
-                &__container{
+                &__container {
                     flex-direction: column;
                     &__imgUser {
                         margin-right: 0;
-                }
-                    &__img{
+                    }
+                    &__img {
                         max-height: 100%;
                     }
-                    &__nameJob{
+                    &__nameJob {
                         margin-left: 0;
                         p{
                             margin-left: 0;
@@ -239,15 +239,15 @@
                 &__button {
                     box-shadow: none;
                     background: none;
-                    &__modify{
+                    &__modify {
                         display: none;
                     }
                     &__picto {
                         display: block;
                         font-size: 14pt;
-                    }
-                    &:hover{
-                        color: $couleur-primaire;
+                        &:hover {
+                            color: $couleur-primaire;
+                        }
                     }
                 }
             }

@@ -1,23 +1,3 @@
-<template>
-    <main>
-        <section class="SigninSection">
-            <figure class="SigninSection__logo">
-                <img src="../assets/images/logoConnexion.svg" alt="Logo Groupamania"/>
-            </figure>
-            <form class="SigninSection__form">
-                <h2>Inscription</h2>
-                <label for="emailSignin" class="SigninSection__form__label">E-mail</label>
-                <input id="emailSignin" type="email" v-model="dataSignin.email" onfocus="this.value=''" class="SigninSection__form__input" required>
-                <label for="passwordSignin" class="SigninSection__form__label">Mot de passe</label>
-                <input id="passwordSignin" type="password" v-model="dataSignin.password" onfocus="this.value=''" class="SigninSection__form__input" required>
-                <div v-for="error in errors" :key="error">
-                    <p id="SigninErrorMsg" v-if="errors.length">{{ error }}</p>
-                </div>
-                <button type="button" @click= "addUser()">S'inscrire</button>
-            </form>
-        </section>
-    </main>
-</template>
 <script>
     import axios from "axios"
     export default {
@@ -70,7 +50,6 @@
                         localStorage.setItem("userId", response.data.userId);
                         this.$router.push({ path: 'homeConnected' });
                         console.log("Utilisateur créé");
-                        
                     })
                     .catch(function(erreur) {
                         console.error('Une erreur est survenue' + erreur);
@@ -80,6 +59,26 @@
         }
     }
 </script>
+<template>
+    <main>
+        <section class="SigninSection">
+            <figure class="SigninSection__logo">
+                <img src="../assets/images/logoConnexion.svg" alt="Logo Groupamania"/>
+            </figure>
+            <form class="SigninSection__form">
+                <h2>Inscription</h2>
+                <label for="emailSignin" class="SigninSection__form__label">E-mail</label>
+                <input id="emailSignin" type="email" v-model="dataSignin.email" class="SigninSection__form__input" required>
+                <label for="passwordSignin" class="SigninSection__form__label">Mot de passe</label>
+                <input id="passwordSignin" type="password" v-model="dataSignin.password" class="SigninSection__form__input" required>
+                <div v-for="error in errors" :key="error">
+                    <p id="SigninErrorMsg" v-if="errors.length">{{ error }}</p>
+                </div>
+                <button type="button" @click="addUser()">S'inscrire</button>
+            </form>
+        </section>
+    </main>
+</template>
 <style lang="scss">
    @import "../assets/sass/_variables.scss"; 
     
@@ -122,6 +121,7 @@
             }
         }
     }
+
     #SigninErrorMsg {
         color: $couleur-primaire;
     }
@@ -135,16 +135,16 @@
         width: 200px;
         box-shadow: 3px 2px 9px 1px #CAC3C3;
         cursor: pointer;
-    }
-    button:hover {
-        background: $couleur-primaire;
-        color: white;
+        &:hover {
+            background: $couleur-primaire;
+            color: white;
+        }
     }
 
     @media screen and (max-width: 768px) /* Smartphone */
     {
         .SigninSection {
-            padding:0;
+            padding: 0;
             &__logo {
                 display: none;
             }
